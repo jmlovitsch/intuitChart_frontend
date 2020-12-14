@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import Navigator from "../../components/Navigator";
 import { Container } from "react-bootstrap";
-import { Switch, Route, withRouter, Default } from "react-router-dom";
+import { Switch, withRouter } from "react-router-dom";
 import Summary from "../../components/tabs/MainTabs/Summary";
 import Assessment from "../../components/tabs/MainTabs/Assessment";
 import BrainPage from "../../components/BrainPage";
@@ -30,7 +30,6 @@ class CenterColumn extends Component {
   };
 
   render() {
-    console.log(this.props.url);
     //add more switch routes for the chart
     return <Container >{this.renderOptions()}</Container>;
   }

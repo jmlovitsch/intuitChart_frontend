@@ -2,43 +2,52 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Form, Button, Col, Row } from "react-bootstrap";
 
+
 class Vitals extends Component {
   render() {
     return (
       <div>
         <Form>
           <Form.Group controlId="exampleForm.ControlInput1">
+              <Form.Group>
+            <Form.Label>BP</Form.Label>
+            <Form.Label>Diastolic</Form.Label>
+            <Form.Label>Systolic</Form.Label>
+            <Form.Label>Site</Form.Label>
+            <Form.Label>Position</Form.Label>
+            <Form.Label>Type</Form.Label>
+                Manual, automatic, or doppler
+            </Form.Group>
+
+            <Form.Group>
+            <Form.Label>HR</Form.Label>
+            <Form.Label>HR</Form.Label>
+            <Form.Label>Quality</Form.Label>
+            regular or irregular
+            </Form.Group>
+
+            <Form.Group>
+            <Form.Label>Temperature</Form.Label>
+            <Form.Label>Temp</Form.Label>
+            C or F
+            <Form.Label>Local Site</Form.Label>
+            mouth, etc...
+            <Form.Label>Respiration Rate</Form.Label>
+            
+
+            <Form.Label>Position</Form.Label>
+            <Form.Label>Type</Form.Label>
+                Manual, automatic, or doppler
+            </Form.Group>
+
+
             <Form.Label>Email address</Form.Label>
-            <Form.Control type="email" placeholder="name@example.com" />
+            <Form.Label>Email address</Form.Label>
+v            <Form.Label>Email address</Form.Label>
+<Form.Label>Email address</Form.Label>
+
           </Form.Group>
-          <hr />
-          <Form.Group controlId="exampleForm.ControlSelect1">
-            <Form.Label>Example select</Form.Label>
-            <Form.Control as="select">
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
-            </Form.Control>
-          </Form.Group>
-          <hr />
-          <Form.Group controlId="exampleForm.ControlSelect2">
-            <Form.Label>Example multiple select</Form.Label>
-            <Form.Control as="select" multiple>
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
-            </Form.Control>
-          </Form.Group>
-          <hr />
-          <Form.Group controlId="exampleForm.ControlTextarea1">
-            <Form.Label>Example textarea</Form.Label>
-            <Form.Control as="textarea" rows={3} />
-          </Form.Group>
-        </Form>{" "}
+        </Form>
       </div>
     );
   }

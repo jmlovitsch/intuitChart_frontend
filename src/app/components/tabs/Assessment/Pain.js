@@ -12,6 +12,22 @@ class Pain extends Component {
     paseroSedation: [],
   };
 
+  oneToTenRange = () => {
+    return [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => {
+      return (
+        <Form.Check
+            inline
+          label={num}
+          name="scoringTool"
+          type="checkbox"
+          id={`inline-${num}-2`}
+          value={`1 to 10 Scale Tool: ${num} out of 10`}
+
+        />
+      );
+    });
+  };
+
   PainOrientationDropdown = () => {
     return (
       <Form.Group>
@@ -112,11 +128,10 @@ class Pain extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    console.log(event.target);
   };
 
   render() {
-
+    console.log(this.state);
     return (
       <div>
         <Form
@@ -144,24 +159,9 @@ class Pain extends Component {
               />
 
               <Form.Label>0-10 Scale</Form.Label>
-              <Form.Control
-                as="select"
-                type="checkbox"
-                label="0-10 Scale"
-                name="scoringTool"
-                id="0-10 Scale"
-              >
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-                <option>6</option>
-                <option>ddd7</option>
-                <option>8</option>
-                <option>9</option>
-                <option>10</option>
-              </Form.Control>
+              <Row style={{ border: "solid", borderWidth: "1px", marginLeft: "10px", justifyItems: "auto" }}>
+                {this.oneToTenRange()}
+              </Row>
 
               <Form.Check
                 type="checkbox"
@@ -193,7 +193,7 @@ class Pain extends Component {
             <Form.Label as="legend" column sm={2}>
               Orientation
             </Form.Label>
-            <Col sm={10}>{this.PainOrientationDropdown()}</Col>
+            <Col sm={10} style={{ alignItems: "center" }}>{this.PainOrientationDropdown()}</Col>
           </Form.Group>
           <hr />
           <Form.Group as={Row}>
