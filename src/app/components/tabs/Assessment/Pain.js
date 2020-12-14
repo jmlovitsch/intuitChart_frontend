@@ -4,31 +4,78 @@ import { Form, Button, Col, Row } from "react-bootstrap";
 
 class Pain extends Component {
   state = {
-    painOrientaton: false,
-    form: {},
+    employeeID: "",
+    scoringTool: [],
+    orientation: [],
+    location: [],
+    treatment: [],
+    paseroSedation: [],
   };
 
   PainOrientationDropdown = () => {
     return (
-      <Form.Control as="select" defaultValue="Choose...">
-        <option>Upper</option>
-        <option>Lower</option>
-        <option>Mid</option>
-        <option>Left</option>
-        <option>Right</option>
-        <option>Anterior</option>
-        <option>Posterior</option>
-        <option>Lower</option>
-        <option>Lower</option>
-        <option>Lower</option>
-        <option>Lower</option>
-        <option>Lower</option>
-        <option>Lower</option>
-        <option>Lower</option>
-        <option>Lower</option>
-        <option>Lower</option>
-        <option>Lower</option>
-      </Form.Control>
+      <Form.Group>
+        {["checkbox"].map((type) => (
+          <div key={`inline-${type}`} className="mb-3">
+            <Form.Check
+              inline
+              label="Upper"
+              name="orientation"
+              value="Upper"
+              type={type}
+              id={`inline-${type}-1`}
+            />
+            <Form.Check
+              inline
+              label="Lower"
+              name="orientation"
+              value="Lower"
+              type={type}
+              id={`inline-${type}-2`}
+            />
+            <Form.Check
+              inline
+              label="Mid"
+              name="orientation"
+              value="Mid"
+              type={type}
+              id={`inline-${type}-2`}
+            />
+            <Form.Check
+              inline
+              label="Left"
+              name="orientation"
+              value="Left"
+              type={type}
+              id={`inline-${type}-2`}
+            />
+            <Form.Check
+              inline
+              label="Right"
+              name="orientation"
+              value="Right"
+              type={type}
+              id={`inline-${type}-2`}
+            />
+            <Form.Check
+              inline
+              label="Anterior"
+              name="orientation"
+              value="Anterior"
+              type={type}
+              id={`inline-${type}-2`}
+            />
+            <Form.Check
+              inline
+              label="Posterior"
+              name="orientation"
+              value="Posterior"
+              type={type}
+              id={`inline-${type}-2`}
+            />
+          </div>
+        ))}
+      </Form.Group>
     );
   };
 
@@ -39,49 +86,85 @@ class Pain extends Component {
   };
 
   handleChange = (event) => {
-    const newState = {
-      ...this.state.form,
-      [event.target.name]: event.target.value,
-    };
-    this.setState({
-      ...this.state,
-      form: newState,
-    });
+    console.log(event);
+    if (event.target.checked) {
+      const newState = {
+        ...this.state,
+        [event.target.name]: this.state[event.target.name].concat(
+          event.target.value
+        ),
+      };
+      this.setState({
+        ...newState,
+      });
+    } else {
+      const newState = {
+        ...this.state,
+        [event.target.name]: this.state[event.target.name].filter(
+          (x) => x !== event.target.value
+        ),
+      };
+      this.setState({
+        ...newState,
+      });
+    }
+  };
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(event.target);
   };
 
   render() {
-    console.log(this.state);
+
     return (
       <div>
-        <Form onChange={(event) => this.handleChange(event)}>
+        <Form
+          onChange={(event) => this.handleChange(event)}
+          onSubmit={(event) => this.handleSubmit(event)}
+        >
           <Form.Group as={Row}>
             <Form.Label as="legend" column sm={2}>
               Scoring Tool
             </Form.Label>
             <Col sm={5}>
               <Form.Check
-                type="radio"
+                type="checkbox"
                 label="Assume Pain"
                 name="scoringTool"
                 id="Assume Pain"
                 value="Assume Pain"
               />
               <Form.Check
-                type="radio"
+                type="checkbox"
                 label="Asleep"
                 name="scoringTool"
                 id="Asleep"
                 value="Asleep"
               />
-              <Form.Check
-                type="radio"
+
+              <Form.Label>0-10 Scale</Form.Label>
+              <Form.Control
+                as="select"
+                type="checkbox"
                 label="0-10 Scale"
                 name="scoringTool"
                 id="0-10 Scale"
-                id="0-10 Scale"
-              />
+              >
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+                <option>ddd7</option>
+                <option>8</option>
+                <option>9</option>
+                <option>10</option>
+              </Form.Control>
+
               <Form.Check
-                type="radio"
+                type="checkbox"
                 label="CPOT (non:intupated)"
                 name="scoringTool"
                 id="CPOT (non:intupated)"
@@ -89,14 +172,14 @@ class Pain extends Component {
               />
 
               <Form.Check
-                type="radio"
+                type="checkbox"
                 label="Wong-Baker"
                 name="scoringTool"
                 id="Wong-Baker"
                 value="Wong-Baker"
               />
               <Form.Check
-                type="radio"
+                type="checkbox"
                 label="Faces"
                 name="scoringTool"
                 id="Faces"
@@ -110,27 +193,7 @@ class Pain extends Component {
             <Form.Label as="legend" column sm={2}>
               Orientation
             </Form.Label>
-            <Col sm={3}>
-              {this.PainOrientationDropdown()}
-              <Form.Check
-                type="checkbox"
-                label="Add Another"
-                name="Add Another"
-                id="Add Another"
-                onClick={(event) => {
-                  return event.target.value
-                    ? this.PainOrientationDropdown()
-                    : null
-                }}
-              />
-            </Col>
-            <Col sm={3}>
-              {this.state.painOrientaton
-                ? this.PainOrientationDropdown()
-                : null}
-            </Col>
-
-            <Col sm={2}>result of checked item goes here</Col>
+            <Col sm={10}>{this.PainOrientationDropdown()}</Col>
           </Form.Group>
           <hr />
           <Form.Group as={Row}>
@@ -146,33 +209,34 @@ class Pain extends Component {
             </Form.Label>
             <Col sm={5}>
               <Form.Check
-                type="radio"
+                type="checkbox"
                 label="Declines"
-                name="Declines"
+                name="treatment"
                 id="Declines"
+                value="Declines"
               />
               <Form.Check
-                type="radio"
+                type="checkbox"
                 label="Medication"
-                name="Medication"
+                name="treatment"
                 id="Medication"
+                value="Medication"
               />
               <Form.Check
-                type="radio"
+                type="checkbox"
                 label="Non-Pharm"
-                name="Non-Pharm"
+                name="treatment"
                 id="Non-Pharm"
+                value="Non-Pharm"
               />
             </Col>
           </Form.Group>
           <hr />
-          <Form.Group as={Row} >
+          <Form.Group as={Row}>
             <Form.Label column sm={2}>
               Pasero Sedation
             </Form.Label>
-            <Col sm={10}>
-              dstuff here
-            </Col>
+            <Col sm={10}>dstuff here</Col>
           </Form.Group>
           <fieldset></fieldset>
 
