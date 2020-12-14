@@ -15,7 +15,7 @@ class Assessment extends Component {
       <Container>
         <AssessmentNavigator  />
         <div className="patientInfoChild">
-          <Switch>
+          <Switch >
             <Vitals path="*/vitals" />
             <Pain exact path="*/pain" />
             <IV exact path="*/iv" />

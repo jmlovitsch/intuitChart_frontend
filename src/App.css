@@ -67,7 +67,7 @@
 
 .patientInfoChild {
     justify-self: center;
-
+    overflow: scroll;
     background-color: #aaaaaa;
     height: 93%;
     width: 97%;
@@ -78,3 +78,11 @@
     padding: 5px;
 
   }
+
+  .form-group {
+      padding: 10px;
+  }
+
+  .form-label {
+    margin-top: 10px;
+}
