@@ -32,7 +32,7 @@ class CenterColumn extends Component {
   render() {
     console.log(this.props.url);
     //add more switch routes for the chart
-    return <Container>{this.renderOptions()}</Container>;
+    return <Container >{this.renderOptions()}</Container>;
   }
 }
 

@@ -74,10 +74,6 @@ class Navigator extends Component {
         >
           Summary
         </NavLink>
-
-        {/* <li className="nav-item">
-          <div className="nav-link disabled">Disabled</div>
-        </li> */}
       </div>
     );
   }

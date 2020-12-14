@@ -5,6 +5,7 @@ import { Form, Button, Col, Row } from "react-bootstrap";
 class Pain extends Component {
   state = {
     painOrientaton: false,
+    form: {},
   };
 
   PainOrientationDropdown = () => {
@@ -37,10 +38,22 @@ class Pain extends Component {
     });
   };
 
+  handleChange = (event) => {
+    const newState = {
+      ...this.state.form,
+      [event.target.name]: event.target.value,
+    };
+    this.setState({
+      ...this.state,
+      form: newState,
+    });
+  };
+
   render() {
+    console.log(this.state);
     return (
       <div>
-        <Form>
+        <Form onChange={(event) => this.handleChange(event)}>
           <Form.Group as={Row}>
             <Form.Label as="legend" column sm={2}>
               Scoring Tool
@@ -49,51 +62,66 @@ class Pain extends Component {
               <Form.Check
                 type="radio"
                 label="Assume Pain"
-                name="Assume Pain"
+                name="scoringTool"
                 id="Assume Pain"
+                value="Assume Pain"
               />
               <Form.Check
                 type="radio"
                 label="Asleep"
-                name="Asleep"
+                name="scoringTool"
                 id="Asleep"
+                value="Asleep"
               />
               <Form.Check
                 type="radio"
                 label="0-10 Scale"
-                name="0-10 Scale"
+                name="scoringTool"
+                id="0-10 Scale"
                 id="0-10 Scale"
               />
               <Form.Check
                 type="radio"
                 label="CPOT (non:intupated)"
-                name="CPOT (non:intupated)"
+                name="scoringTool"
                 id="CPOT (non:intupated)"
+                value="CPOT (non:intupated)"
               />
 
               <Form.Check
                 type="radio"
                 label="Wong-Baker"
-                name="Wong-Baker"
+                name="scoringTool"
                 id="Wong-Baker"
+                value="Wong-Baker"
               />
-              <Form.Check type="radio" label="Faces" name="Faces" id="Faces" />
+              <Form.Check
+                type="radio"
+                label="Faces"
+                name="scoringTool"
+                id="Faces"
+                value="Faces"
+              />
             </Col>
             <Col sm={2}>result of checked item goes here</Col>
           </Form.Group>
-        <hr />
+          <hr />
           <Form.Group as={Row}>
             <Form.Label as="legend" column sm={2}>
-              Pain Orientation
+              Orientation
             </Form.Label>
             <Col sm={3}>
               {this.PainOrientationDropdown()}
               <Form.Check
                 type="checkbox"
-                label="Add Another?"
+                label="Add Another"
                 name="Add Another"
                 id="Add Another"
-                onClick={(event) => this.addPainOrientation(event)}
+                onClick={(event) => {
+                  return event.target.value
+                    ? this.PainOrientationDropdown()
+                    : null
+                }}
               />
             </Col>
             <Col sm={3}>
@@ -105,29 +133,48 @@ class Pain extends Component {
             <Col sm={2}>result of checked item goes here</Col>
           </Form.Group>
           <hr />
-          <Form.Group as={Row} controlId="  ">
-            <Form.Label column sm={2}>
-              Email
+          <Form.Group as={Row}>
+            <Form.Label as="legend" column sm={2}>
+              Location
             </Form.Label>
-            <Col sm={10}>
-              <Form.Control type="email" placeholder="Email" />
+            <Col sm={3}></Col>
+          </Form.Group>
+          <hr />
+          <Form.Group as={Row}>
+            <Form.Label as="legend" column sm={2}>
+              Treatment
+            </Form.Label>
+            <Col sm={5}>
+              <Form.Check
+                type="radio"
+                label="Declines"
+                name="Declines"
+                id="Declines"
+              />
+              <Form.Check
+                type="radio"
+                label="Medication"
+                name="Medication"
+                id="Medication"
+              />
+              <Form.Check
+                type="radio"
+                label="Non-Pharm"
+                name="Non-Pharm"
+                id="Non-Pharm"
+              />
             </Col>
           </Form.Group>
           <hr />
-          <Form.Group as={Row} controlId="formHorizontalPassword">
+          <Form.Group as={Row} >
             <Form.Label column sm={2}>
-              Password
+              Pasero Sedation
             </Form.Label>
             <Col sm={10}>
-              <Form.Control type="password" placeholder="Password" />
+              dstuff here
             </Col>
           </Form.Group>
           <fieldset></fieldset>
-          <Form.Group as={Row} controlId="formHorizontalCheck">
-            <Col sm={{ span: 10, offset: 2 }}>
-              <Form.Check label="Remember me" />
-            </Col>
-          </Form.Group>
 
           <Form.Group as={Row}>
             <Col sm={{ span: 10, offset: 2 }}>
