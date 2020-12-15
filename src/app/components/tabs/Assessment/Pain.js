@@ -133,7 +133,7 @@ class Pain extends Component {
   render() {
     console.log(this.state);
     return (
-      <div>
+      <div >
         <Form
           onChange={(event) => this.handleChange(event)}
           onSubmit={(event) => this.handleSubmit(event)}

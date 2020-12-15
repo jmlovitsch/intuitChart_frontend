@@ -9,20 +9,19 @@ import Pain from "../Assessment/Pain";
 import { Switch } from "react-router-dom";
 
 class Assessment extends Component {
-
   render() {
     return (
-      <Container>
-        <AssessmentNavigator  />
-        <div className="patientInfoChild">
-          <Switch >
+      <>
+        <AssessmentNavigator />
+        <div className="child">
+          <Switch>
             <Vitals path="*/vitals" />
             <Pain exact path="*/pain" />
             <IV exact path="*/iv" />
             <DailyCares exact path="*/dailycares" />
           </Switch>
         </div>
-      </Container>
+      </>
     );
   }
 }

@@ -7,7 +7,7 @@ class Navigator extends Component {
   render() {
 
     return (
-      <div className="nav nav-tabs" style={{ }} >
+      <div className="nav nav-tabs"  >
 
         <NavLink
           name="assessment"
@@ -31,11 +31,11 @@ class Navigator extends Component {
           Orders
         </NavLink>
         <NavLink
-          name="A.T.D."
+          name="ATD"
           className="nav-item nav-link"
           to="/employee/visits/atd"
         >
-          A.T.D.
+          ATD
         </NavLink>
         <NavLink
           name="education"

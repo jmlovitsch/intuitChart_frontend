@@ -5,7 +5,6 @@ import { InputGroup, Form, Button, Col, Row } from "react-bootstrap";
 class Vitals extends Component {
   generateOptions = (place, [...props]) => {
     return [...props].map((site) => {
-      console.log(site.toLocaleLowerCase().replaceAll(" ", "_"));
       return (
         <option
           inline
@@ -127,12 +126,10 @@ class Vitals extends Component {
 
           <hr />
 
-          <Form.Label >Oxygen</Form.Label>
+          <Form.Label>Oxygen</Form.Label>
           <Form.Row>
-
-              <Col>
+            <Col>
               <Form.Group>
-
                 <Form.Label>Saturation</Form.Label>
                 <InputGroup>
                   <Form.Control type="number" placeholder="O2" />
@@ -140,12 +137,10 @@ class Vitals extends Component {
                     <InputGroup.Text>sat%</InputGroup.Text>
                   </InputGroup.Append>
                 </InputGroup>
-                </Form.Group>
-              </Col>
-              <Col>
+              </Form.Group>
+            </Col>
+            <Col>
               <Form.Group>
-
-
                 <Form.Label>Source</Form.Label>
                 <Form.Control as="select" defaultValue="Choose...">
                   {this.generateOptions("source", [
@@ -154,17 +149,16 @@ class Vitals extends Component {
                     "Nasal Canula: Hi Flow",
                   ])}
                 </Form.Control>
-                </Form.Group>
-              </Col>
-              <Col>
+              </Form.Group>
+            </Col>
+            <Col>
               <Form.Group>
-              <Form.Label>Site</Form.Label>
+                <Form.Label>Site</Form.Label>
                 <Form.Control as="select" defaultValue="Choose...">
                   {this.generateOptions("site", ["????", "????"])}
                 </Form.Control>
-                </Form.Group>
-              </Col>
-
+              </Form.Group>
+            </Col>
           </Form.Row>
 
           <Form.Group as={Row}>
