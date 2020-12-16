@@ -5,6 +5,7 @@ class PatientDashboard extends Component {
     render() {
         return (
             <div>
+Patient
 
             </div>
         )

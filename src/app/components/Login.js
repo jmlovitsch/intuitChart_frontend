@@ -3,39 +3,28 @@ import { connect } from "react-redux";
 import { Form, Button } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
 import { Row, Col, Container } from "react-bootstrap";
+import { loginSuccess } from "../actions/auth";
 
 class Login extends Component {
   state = {
     username: "",
     password: "",
-    employee: false,
   };
 
   handleChange = (event) => {
-    if (event.target.checked) {
-      this.setState({
-        [event.target.name]: event.target.checked,
-      });
-    } else {
       this.setState({
         [event.target.name]: event.target.value,
       });
-    }
   };
 
-  handleSubmit = (event) => {
-    event.preventDefault();
+  handleSubmit = (e) => {
+    e.preventDefault();
     if (this.state.username && this.state.password) {
-      if (this.state.employee === true) {
-          return console.log("empl")
-        //send fetch to employee url
-      }
-      return console.log("patient")
-
-      // this.props.history.push("/admin");
+      this.props.loginSuccess(this.state);
+      this.props.history.push("/dashboard/:id");
+    } else {
+      alert("alert");
     }
-    //switch statement based on authoization status that returns.
-        //which pushes to a different Route
   };
 
   render() {
@@ -73,13 +62,6 @@ class Login extends Component {
                     name="password"
                   />
                 </Form.Group>
-                <Form.Group controlId="formBasicCheckbox">
-                  <Form.Check
-                    type="checkbox"
-                    label="Employee?"
-                    name="employee"
-                  />
-                </Form.Group>
                 <Button variant="primary" type="submit">
                   Submit
                 </Button>
@@ -96,4 +78,4 @@ const mapStateToProps = (state) => ({});
 
 const mapDispatchToProps = {};
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Login));
+export default connect(mapStateToProps, { loginSuccess })(withRouter(Login));

@@ -42,7 +42,11 @@ export class EmployeeDashboard extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => {
+    return {
+      username: state.username
+    }
+  }
 
 const mapDispatchToProps = {};
 

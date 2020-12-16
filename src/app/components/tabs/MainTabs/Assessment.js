@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import AssessmentNavigator from "../Assessment/AssessmentNavigator";
-import { Container } from "react-bootstrap";
 import Vitals from "../Assessment/Vitals";
 import DailyCares from "../Assessment/DailyCares";
 import IV from "../Assessment/IV";
