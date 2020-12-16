@@ -9,15 +9,19 @@ import { Switch } from "react-router-dom";
 
 class Assessment extends Component {
   render() {
+    const { id } = this.props;
     return (
       <>
         <AssessmentNavigator />
         <div className="child">
           <Switch>
-            <Vitals path="*/vitals" />
-            <Pain exact path="*/pain" />
-            <IV exact path="*/iv" />
-            <DailyCares exact path="*/dailycares" />
+            <Vitals path={`/dashboard/${id}/visits/visit_id/assessment/vitals`} />
+            <Pain exact path={`/dashboard/${id}/visits/visit_id/assessment/pain`} />
+            <IV exact path={`/dashboard/${id}/visits/visit_id/assessment/iv`} />
+            <DailyCares
+              exact
+              path={`/dashboard/${id}/visits/visit_id/assessment/dailycares`}
+            />
           </Switch>
         </div>
       </>
@@ -25,7 +29,9 @@ class Assessment extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+  id: state.user.id,
+});
 
 const mapDispatchToProps = {};
 

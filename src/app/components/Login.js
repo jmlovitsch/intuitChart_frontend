@@ -12,23 +12,21 @@ class Login extends Component {
   };
 
   handleChange = (event) => {
-      this.setState({
-        [event.target.name]: event.target.value,
-      });
+    this.setState({
+      [event.target.name]: event.target.value,
+    });
   };
 
   handleSubmit = (e) => {
     e.preventDefault();
     if (this.state.username && this.state.password) {
       this.props.loginSuccess(this.state);
-      this.props.history.push("/dashboard/:id");
     } else {
       alert("alert");
     }
   };
 
   render() {
-    console.log(this.state);
     return (
       <div className="login">
         <Container fluid>
@@ -74,8 +72,8 @@ class Login extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({});
-
-const mapDispatchToProps = {};
+const mapStateToProps = (state) => ({
+  id: state.user.id,
+});
 
 export default connect(mapStateToProps, { loginSuccess })(withRouter(Login));

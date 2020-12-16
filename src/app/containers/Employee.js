@@ -1,14 +1,18 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Row, Col, Container } from "react-bootstrap";
-import PersonalColumn from "./Columns/PersonalColumn";
-import CenterColumn from "./Columns/CenterColumn";
+import PersonalColumn from "./employee/PersonalColumn";
+import CenterColumn from "./employee/CenterColumn";
 import { Messenger } from "../components/Messenger";
+import {fetchWithToken} from "../actions/auth"
+import { withRouter } from "react-router-dom";
 
-export class EmployeeDashboard extends Component {
+export class Employee extends Component {
     state={
         patient: 1
     }
+
+
 
      handleClick = () =>{
         this.setState({
@@ -50,4 +54,4 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {};
 
-export default connect(mapStateToProps, mapDispatchToProps)(EmployeeDashboard);
+export default connect(mapStateToProps, {fetchWithToken})(withRouter(Employee));

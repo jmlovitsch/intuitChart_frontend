@@ -15,7 +15,6 @@ export const loginSuccess = (params) => {
         return response.json()
       })
       .then(data => {
-        localStorage.setItem("my_app_token", data.jwt)
         dispatch({ type: 'USER_LOGIN', data });
       })
     }
@@ -41,4 +40,20 @@ export const loginSuccess = (params) => {
     }
   }
 
-  
+  export const fetchWithToken = (params) => {
+    return (dispatch) => {
+      dispatch({ type: 'FETCH_USER_SUCCESS'})
+      fetch('http://localhost:3001/users/profile', {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${params}`
+        }
+      })
+      .then(response => {
+        return response.json()
+      })
+      .then(data => {
+        dispatch({ type: 'USER_LOGIN', data });
+      })
+    }
+  }

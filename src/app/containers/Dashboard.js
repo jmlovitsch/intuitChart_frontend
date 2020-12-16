@@ -1,27 +1,40 @@
+import Employee from "./Employee";
+import Patient from "./Patient";
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import  EmployeeDashboard  from "./EmployeeDashboard";
-import { currentUser } from "../actions/users";
-import PatientDashboard from "./PatientDashboard";
-import { withRouter, Route, Redirect } from "react-router-dom";
+import { withRouter } from "react-router-dom";
+import { fetchWithToken } from "../actions/auth";
 
-export const Dashboard = ({ id, patient }) => {
-  return (
-    <div className="App">
+class Dashboard extends Component {
 
-    <Redirect to={`/dashboard/${id}`} />
-        <Route path={`/dashboard/${id}`} component={patient ? PatientDashboard : EmployeeDashboard} />
+    // componentDidMount(){
+    //     return ((localStorage.my_app_token !== "undefined") ?
+    //     this.props.fetchWithToken(localStorage.my_app_token)
+
+    //     : this.props.history.push('/login'))
+    //  }
+
+    //  componentDidUpdate(){
+    //     return localStorage.my_app_token ?
+    //     this.props.fetchWithToken(localStorage.my_app_token)
+
+    //     : this.props.history.push('/login')
+    //  }
 
 
-    </div>
-  );
-};
+  render() {
+    return (
+      <div className="App">
+        {this.props.patient ? <Patient /> : <Employee />}
+      </div>
+    );
+  }
+}
 
 const mapStateToProps = (state) => {
   return {
-    id: 3,
-    patient: false
+    patient: state.user.patient
   };
 };
 
-export default connect(mapStateToProps, { currentUser })(withRouter(Dashboard));
+export default connect(mapStateToProps, {fetchWithToken})(withRouter(Dashboard));

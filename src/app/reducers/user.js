@@ -1,19 +1,29 @@
 export function user(
   state = {
-    employee_id: "",
-    requesting: false,
+    id: "",
   },
   action
 ) {
   console.log(action);
   switch (action.type) {
-    case "CURRENT_USER":
+    case "USER_LOGIN":
+      const user = { ...action.data.user };
+      if (action.data.jwt !== "undefined") {
+        localStorage.setItem("my_app_token", action.data.jwt);
+      }
       return {
-        ...state,
-        employee_id: action.employee_id,
+        loading: false,
+        ...user,
       };
+      
+    // case "CURRENT_USER":
+    //   return {
+    //     ...state
+    //   };
     case "LOGOUT_USER":
-      return null;
+      return {
+        id: "",
+      };
     default:
       return state;
   }

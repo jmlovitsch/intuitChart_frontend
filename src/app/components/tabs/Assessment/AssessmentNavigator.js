@@ -4,20 +4,20 @@ import { NavLink, withRouter } from "react-router-dom";
 
 class AssessmentNavigator extends Component {
   render() {
-      const {match} = this.props
+    const { id } = this.props;
     return (
       <div className="nav nav-tabs">
         <NavLink
           name="vitals"
           className="nav-item nav-link"
-          to="/employee/visits/assessment/vitals"
+          to={`/dashboard/${id}/visits/visit_id/assessment/vitals`}
         >
           Vitals
         </NavLink>
         <NavLink
           name="pain"
           className="nav-item nav-link"
-          to="/employee/visits/assessment/pain"
+          to={`/dashboard/${id}/visits/visit_id/assessment/pain`}
         >
           Pain
         </NavLink>
@@ -25,14 +25,14 @@ class AssessmentNavigator extends Component {
           type="input"
           name="iv"
           className="nav-item nav-link"
-          to="/employee/visits/assessment/iv"
+          to={`/dashboard/${id}/visits/visit_id/assessment/iv`}
         >
           IV
         </NavLink>
         <NavLink
           name="dailyCares"
-          className="nav-item nav-link"
-          to="/employee/visits/assessment/dailycares"
+          className="nav-item nav-link "
+          to={`/dashboard/${id}/visits/visit_id/assessment/dailycares`}
         >
           Daily Cares
         </NavLink>
@@ -44,11 +44,8 @@ class AssessmentNavigator extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+  id: state.user.id,
+});
 
-const mapDispatchToProps = {};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withRouter(AssessmentNavigator));
+export default connect(mapStateToProps)(withRouter(AssessmentNavigator));

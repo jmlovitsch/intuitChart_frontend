@@ -1,7 +1,5 @@
 export function assessment(
   state = {
-    users: [],
-    requesting: false,
   },
   action
 ) {

@@ -27,15 +27,15 @@ class CenterColumn extends Component {
           <Navigator />
           <div className="parent">
             <Switch>
-              <Assessment path="/employee/visits/assessment*" />
-              <Summary path="/employee/visits/summary" />
-              <CarePlan path="/employee/visits/careplan" />
-              <ATD path="/employee/visits/atd" />
-              <Education path="/employee/visits/education" />
-              <MAR path="/employee/visits/mar" />
-              <Orders path="/employee/visits/orders" />
-              <ShiftAssessment path="/employee/visits/shiftassessment" />
-              <ShiftNotes path="/employee/visits/shiftnotes" />
+              <Assessment path="*/visits/:visit_id/assessment" />
+              <Summary path="*/visits/:visit_id/summary" />
+              <CarePlan path="*/visits/:visit_id/careplan" />
+              <ATD path="*/visits/:visit_id/atd" />
+              <Education path="*/visits/:visit_id/education" />
+              <MAR path="*/visits/:visit_id/mar" />
+              <Orders path="*/visits/:visit_id/orders" />
+              <ShiftAssessment path="*/visits/:visit_id/shiftassessment" />
+              <ShiftNotes path="*/visits/:visit_id/shiftnotes" />
             </Switch>
           </div>
         </>

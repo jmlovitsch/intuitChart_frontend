@@ -1,24 +1,52 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import React from "react";
-import { connect } from "react-redux";
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import Login from "./app/components/Login";
-import { Dashboard } from "./app/containers/Dashboard";
+import Dashboard from "./app/containers/Dashboard";
 
-const App = () => {
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { fetchWithToken } from "./app/actions/auth";
 
-  return (
-    <Router>
-      <div  className="App">
-          {localStorage.my_app_token ? <Redirect to='/dashboard' from='/' /> :
-          <Redirect to='/login' from='/' /> }
-        <Route path="/login" component={Login} />
-        <Route path="/dashboard" component={Dashboard} />
-      </div>
-    </Router>
-  );
-};
+export class App extends Component {
 
-export default connect(null)(App);
+  componentDidMount() {
+      
+    return (localStorage.my_app_token && (localStorage.my_app_token !== "undefined"))
+      ? this.props.fetchWithToken(localStorage.my_app_token)
+      : null;
+  }
+
+//   componentDidUpdate() {
+//     return (localStorage.my_app_token === "undefined")
+//       ? alert("nope")
+//       : null
+//   }
+
+  render() {
+      console.log(localStorage.my_app_token)
+    const { id } = this.props;
+
+    return (
+      <Router>
+        <div className="App">
+          {(localStorage.my_app_token) ? (
+            <Redirect to={`/dashboard/${id}`} from="/" />
+          ) : (
+            <Redirect to="/login" from="*" />
+          )}
+
+          <Route path="/login" component={Login} />
+          <Route path={`/dashboard/:id`} component={Dashboard} />
+        </div>
+      </Router>
+    );
+  }
+}
+
+const mapStateToProps = (state) => ({
+  id: state.user.id,
+});
+
+export default connect(mapStateToProps, { fetchWithToken })(App);
