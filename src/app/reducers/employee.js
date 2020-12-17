@@ -10,6 +10,10 @@ export function employee(
       return {
         employeeList: action.data,
       };
+      case "REMOVE_DELETED_EMPLOYEE_FROM_LIST":
+          return {
+              employeeList: state.employeeList.map(em=> em.id !== action.data.id)
+          }
     default:
       return state;
   }

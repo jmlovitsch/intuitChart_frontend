@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { Row, Col, Container, Button } from "react-bootstrap";
 import CreateUser from "../components/forms/CreateUser";
 import EditUser from "../components/forms/EditUser";
-import DeleteUser from "../components/forms/deleteUser";
 import { SignOutIcon } from "@primer/octicons-react";
 import { logoutUser } from "../actions/users";
 import { fetchWithToken } from "../actions/auth";

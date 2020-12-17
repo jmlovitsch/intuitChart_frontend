@@ -1,17 +1,35 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import { connect } from "react-redux";
 import { Row, Col, Container, Button, Form, Table } from "react-bootstrap";
 import CreateUser from "../components/forms/CreateUser";
 import EditUser from "../components/forms/EditUser";
-import DeleteUser from "../components/forms/deleteUser";
 import { SignOutIcon } from "@primer/octicons-react";
 import { fetchAllEmployees, logoutUser } from "../actions/users";
 import { fetchWithToken } from "../actions/auth";
+import Example from "./Example";
 
 class HospitalAdmin extends Component {
   state = {
     task: "",
+    itemED: "",
   };
+
+  componentDidMount() {
+    const token = localStorage.getItem("my_app_token");
+    if (token === "undefined") {
+      localStorage.removeItem("my_app_token");
+      return this.props.history.push("/");
+    }
+    if (!token) {
+      localStorage.removeItem("my_app_token");
+      return this.props.history.push("/");
+    } else {
+      return this.props.fetchAllEmployees(
+        localStorage.my_app_token,
+        this.props.id
+      );
+    }
+  }
 
   admin = ["username", "password", "authorization"];
 
@@ -57,19 +75,17 @@ class HospitalAdmin extends Component {
     this.employee
   );
 
-  componentDidMount() {
-    this.props.fetchAllEmployees(localStorage.my_app_token, this.props.id);
-  }
-
   handleClick = (e) => {
     this.setState({
       task: e.target.name,
+      itemED: e.target.id,
     });
   };
 
   handleBack = () => {
     this.setState({
       task: "",
+      itemED: "",
     });
   };
   handleLogout = () => {
@@ -84,10 +100,13 @@ class HospitalAdmin extends Component {
           <CreateUser handleBack={this.handleBack} arrayKeys={this.admin} />
         );
       case "deleteUser":
-        return <DeleteUser handleBack={this.handleBack} />;
+        return (
+          <Example handleBack={this.handleBack} itemED={this.state.itemED} />
+        );
       case "editUser":
         return (
           <EditUser
+            itemED={this.state.itemED}
             handleBack={this.handleBack}
             arrayKeys={this.allCategories}
           />
@@ -115,18 +134,45 @@ class HospitalAdmin extends Component {
   };
 
   renderEmployees = () => {
-    return this.props.employees.map((e) => {
+    return this.props.employees.map((u) => {
       return (
-        <tr>
-          <td>{e.id}</td> <td>{e.username}</td> <td>{e.first_name}</td>{" "}
-          <td>{e.last_name}</td> <td>{e.employee_id}</td>{" "}
-          <td>{e.authorization}</td> <td>{e.medical_group}</td>
+        <tr key={u.id}>
+          <td>{u.id}</td>
+          <td>{u.username}</td>
+          <td>{u.first_name}</td>
+          <td>{u.last_name}</td>
+          <td>{u.employee_id}</td>
+          <td>{u.authorization}</td>
+          <td>{u.medical_group}</td>
+          <td>
+            <Button
+              id={u.id}
+              name="editUser"
+              onClick={(e) => {
+                this.handleClick(e);
+              }}
+            >
+              Update
+            </Button>
+          </td>
+          <td>
+            <Button
+              id={u.id}
+              name="deleteUser"
+              onClick={(e) => {
+                this.handleClick(e);
+              }}
+            >
+              Delete
+            </Button>
+          </td>
         </tr>
       );
     });
   };
 
   render() {
+    console.log(this.state.itemED);
     return (
       <Container fluid>
         <Row className="mainRow">
@@ -140,26 +186,6 @@ class HospitalAdmin extends Component {
                 }}
               >
                 Create User
-              </Button>
-            </Row>
-            <Row>
-              <Button
-                name="editUser"
-                onClick={(e) => {
-                  this.handleClick(e);
-                }}
-              >
-                Edit User
-              </Button>
-            </Row>
-            <Row>
-              <Button
-                name="deleteUser"
-                onClick={(e) => {
-                  this.handleClick(e);
-                }}
-              >
-                Delete User
               </Button>
             </Row>
             <Row>

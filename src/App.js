@@ -12,16 +12,14 @@ import Switch from "react-bootstrap/esm/Switch";
 
 export class App extends Component {
 
-    componentDidUpdate(){
-        if (localStorage.my_app_token === "undefined") {
-            localStorage.removeItem("my_app_token")
-        }
-    }
+    // componentDidUpdate(){
+    //     if (localStorage.my_app_token === "undefined") {
+    //         localStorage.removeItem("my_app_token")
+    //     }
+    // }
 
   render() {
       const token = localStorage.my_app_token
-      console.log(token)
-      console.log(localStorage.getItem('my_app_token'))
     return (
       <div className="App">
         {(token) ? (

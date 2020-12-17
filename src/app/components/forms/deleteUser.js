@@ -1,57 +1,46 @@
-import React, { Component } from "react";
-import { Button, Col, Form } from "react-bootstrap";
-import { connect } from "react-redux";
-import { fetchAllUsers } from "../../actions/users";
+import { Button, Modal } from 'react-bootstrap';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
-class DeleteUser extends Component {
-  componentDidMount() {
-      
-    this.props.fetchAllUsers(localStorage.my_app_token);
-  }
+export const DeleteUser = () => {
+    const [show, setShow] = useState(true);
 
-  state = {
-      user: ""
-  };
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
-
-  handleChange = (event) => {
-    this.setState({
-      user: event.target.value,
-    });
-  };
-
-
-  handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(this.state);
-    this.props.createUserSuccess(this.state);
-  };
-
-  render() {
-    console.log(this.state, this.props.users);
     return (
-      <div>
-        <Form onChange={(e) => this.handleChange(e)}>
-        <Form.Group as={Col}>
-            <Form.Label>Delete User</Form.Label>
-            <Form.Control type="select" value={this.state.user} placeholder={this.state.user} >
+        <div>
+      <>
+        {/* <Button variant="primary" onClick={handleShow}>
+          Launch demo modal
+        </Button> */}
 
-            </Form.Control>
-          </Form.Group>
-          <Button variant="primary" type="submit">
-            Delete
-          </Button>{" "}
-          <Button variant="light" onClick={this.props.handleBack}>
-            Back
-          </Button>
-        </Form>
-      </div>
-    );
-  }
+        <Modal show={show} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Modal heading</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Close
+            </Button>
+            <Button variant="primary" onClick={handleClose}>
+              Save Changes
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </>
+
+        </div>
+    )
 }
 
 const mapStateToProps = (state) => ({
-  ...state.users,
-});
 
-export default connect(mapStateToProps, { fetchAllUsers })(DeleteUser);
+})
+
+const mapDispatchToProps = {
+
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(DeleteUser)

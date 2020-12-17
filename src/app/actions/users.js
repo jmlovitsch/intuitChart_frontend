@@ -47,3 +47,21 @@ export const currentUser= ({user}) => {
       })
       }
   }
+
+  export const deleteEmployee = (token, id) => {
+    return (dispatch) => {
+      dispatch({ type: 'FETCH_USER_SUCCESS'})
+      fetch(`http://localhost:3001/users/${id}`, {
+        method: "DELETE",
+        headers: {
+            Authorization: `Bearer ${token}`
+      }})
+      .then(response => {
+        return response.json()
+      })
+      .then(data => {
+          console.log(data)
+        dispatch({ type: 'REMOVE_DELETED_EMPLOYEE_FROM_LIST', data });
+      })
+      }
+  }
