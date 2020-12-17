@@ -1,7 +1,7 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import { Redirect, withRouter } from "react-router-dom";
+import { Redirect, Route, withRouter } from "react-router-dom";
 import Login from "./app/components/Login";
 import Dashboard from "./app/containers/Dashboard";
 
@@ -11,34 +11,27 @@ import { fetchWithToken } from "./app/actions/auth";
 import Switch from "react-bootstrap/esm/Switch";
 
 export class App extends Component {
-//   componentDidMount() {
-//     const token = localStorage.getItem("my_app_token");
-//     if (token === "undefined" || !token) {
-//       console.log("no token in login");
-//       return this.props.history.push("/login");
-//     }
-//     console.log("token in login");
-//     this.props.fetchWithToken(token);
-//   }
 
-  // componentDidMount(){
-  //     const token = localStorage.getItem('my_app_token')
-
-  //     if (!token) {
-  //       this.props.history.push('/login')
-  //     } else {
-
-  //         this.props.fetchWithToken(token)
-
-  //     }
-  //   }
+    componentDidUpdate(){
+        if (localStorage.my_app_token === "undefined") {
+            localStorage.removeItem("my_app_token")
+        }
+    }
 
   render() {
+      const token = localStorage.my_app_token
+      console.log(token)
+      console.log(localStorage.getItem('my_app_token'))
     return (
       <div className="App">
+        {(token) ? (
+          <Redirect to={`/dashboard/${this.props.id}`} component={Dashboard} />
+        ) : (
+          <Redirect to="/login" from="*" />
+        )}
         <Switch>
-          <Login exact path="/login" />
-          <Dashboard path={`/dashboard/${this.props.id}`} />
+          <Route path={`/dashboard/${this.props.id}`} component={Dashboard} />
+          <Route exact path="/login" component={Login} />
         </Switch>
       </div>
     );

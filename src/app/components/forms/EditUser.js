@@ -39,27 +39,34 @@ class EditUser extends Component {
     this.props.createUserSuccess(this.state)
 }
 
+generateForm=()=>{
+    return <Form onChange={(e) => this.handleChange(e)}>
+    {this.printForms(this.props.arrayKeys)}
+    <Button variant="primary" type="submit">
+      Submit
+    </Button>{" "}
+    <Button variant="light" onClick={this.props.handleBack}>
+        Back
+      </Button>
+  </Form>
+
+}
+
+handleChoice=(event)=>{
+    console.log(event.target)
+}
+
   render() {
-    console.log(this.state);
     return (
       <div>
-        <Form onChange={(e) => this.handleChange(e)}>
-          {this.printForms(this.props.arrayKeys)}
-          <Button variant="primary" type="submit">
-            Submit
-          </Button>{" "}
-          <Button variant="light" onClick={this.props.handleBack}>
-              Back
-            </Button>
-
-        </Form>
+          {this.generateForm()}
       </div>
     );
   }
 }
 
 const mapStateToProps = (state) => ({
-  ...state.user,
+  ...state.employee,
 });
 
 const mapDispatchToProps = {};

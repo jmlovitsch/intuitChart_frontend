@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Row, Col, Container, Button } from "react-bootstrap";
+import { Row, Col, Container, Button, Form, Table } from "react-bootstrap";
 import CreateUser from "../components/forms/CreateUser";
 import EditUser from "../components/forms/EditUser";
 import DeleteUser from "../components/forms/deleteUser";
 import { SignOutIcon } from "@primer/octicons-react";
-import { logoutUser } from "../actions/users";
+import { fetchAllEmployees, logoutUser } from "../actions/users";
 import { fetchWithToken } from "../actions/auth";
 
 class HospitalAdmin extends Component {
@@ -57,6 +57,10 @@ class HospitalAdmin extends Component {
     this.employee
   );
 
+  componentDidMount() {
+    this.props.fetchAllEmployees(localStorage.my_app_token, this.props.id);
+  }
+
   handleClick = (e) => {
     this.setState({
       task: e.target.name,
@@ -88,41 +92,76 @@ class HospitalAdmin extends Component {
             arrayKeys={this.allCategories}
           />
         );
-
       default:
-        return null;
+        return (
+          <Container>
+            <Table striped bordered hover>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Username</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Employee ID</th>
+                  <th>Authorization</th>
+                  <th>Medical Group</th>
+                </tr>
+              </thead>
+              <tbody>{this.renderEmployees()}</tbody>
+            </Table>
+          </Container>
+        );
     }
   };
+
+  renderEmployees = () => {
+    return this.props.employees.map((e) => {
+      return (
+        <tr>
+          <td>{e.id}</td> <td>{e.username}</td> <td>{e.first_name}</td>{" "}
+          <td>{e.last_name}</td> <td>{e.employee_id}</td>{" "}
+          <td>{e.authorization}</td> <td>{e.medical_group}</td>
+        </tr>
+      );
+    });
+  };
+
   render() {
     return (
       <Container fluid>
         <Row className="mainRow">
           <Col className="columnRight">
-            Welcome, Admin.
-            <Button
-              name="createUser"
-              onClick={(e) => {
-                this.handleClick(e);
-              }}
-            >
-              Create User
-            </Button>
-            <Button
-              name="editUser"
-              onClick={(e) => {
-                this.handleClick(e);
-              }}
-            >
-              Edit User
-            </Button>
-            <Button
-              name="deleteUser"
-              onClick={(e) => {
-                this.handleClick(e);
-              }}
-            >
-              Delete User
-            </Button>
+            <Row>Welcome, Hospital Administrator</Row>
+            <Row>
+              <Button
+                name="createUser"
+                onClick={(e) => {
+                  this.handleClick(e);
+                }}
+              >
+                Create User
+              </Button>
+            </Row>
+            <Row>
+              <Button
+                name="editUser"
+                onClick={(e) => {
+                  this.handleClick(e);
+                }}
+              >
+                Edit User
+              </Button>
+            </Row>
+            <Row>
+              <Button
+                name="deleteUser"
+                onClick={(e) => {
+                  this.handleClick(e);
+                }}
+              >
+                Delete User
+              </Button>
+            </Row>
             <Row>
               <div onClick={() => this.handleLogout()}>
                 <SignOutIcon type="button" size={35} />
@@ -139,7 +178,13 @@ class HospitalAdmin extends Component {
 }
 
 const mapStateToProps = (state) => ({
-
+  id: state.user.id,
+  medical_group: state.user.medical_group,
+  employees: state.employee.employeeList,
 });
 
-export default connect(mapStateToProps, {logoutUser, fetchWithToken})(HospitalAdmin);
+export default connect(mapStateToProps, {
+  logoutUser,
+  fetchWithToken,
+  fetchAllEmployees,
+})(HospitalAdmin);

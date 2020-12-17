@@ -24,9 +24,26 @@ export const currentUser= ({user}) => {
       .then(response => {
         return response.json()
       })
-      .then(console.log)
-    //   .then(data => {
-    //     dispatch({ type: 'USER_LOGIN', data });
-    //   })
+      .then(data => {
+          console.log(data)
+        dispatch({ type: 'EMPLOYEES_LIST', data });
+      })
+      }
+  }
+  export const fetchAllEmployees = (token, id) => {
+    return (dispatch) => {
+      dispatch({ type: 'FETCH_USER_SUCCESS'})
+      fetch(`http://localhost:3001/users/${id}/medical_group`, {
+        method: "GET",
+        headers: {
+            Authorization: `Bearer ${token}`
+      }})
+      .then(response => {
+        return response.json()
+      })
+      .then(data => {
+          console.log(data)
+        dispatch({ type: 'EMPLOYEES_LIST', data });
+      })
       }
   }

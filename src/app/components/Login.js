@@ -14,7 +14,7 @@ class Login extends Component {
 
 componentDidMount(){
     const token = localStorage.getItem("my_app_token");
-    if ((token === "undefined") || !token) {
+    if (!token) {
         console.log("no token in login")
       return this.props.history.push("/login");
     }
@@ -23,6 +23,12 @@ componentDidMount(){
     this.props.history.push(`/dashboard/${this.props.id}`);
     this.props.fetchWithToken(token);
 }
+// componentDidUpdate(){
+//     if (localStorage.my_app_token === "undefined") {
+//         localStorage.removeItem("my_app_token")
+//     }
+// }
+
 
 
   handleChange = (event) => {
@@ -34,10 +40,13 @@ componentDidMount(){
   handleSubmit = (e) => {
     e.preventDefault();
     if (this.state.username && this.state.password) {
-      this.props.loginSuccess(this.state).then()
-      this.props.history.push(`/dashboard/${this.props.id}`)
+      this.props.loginSuccess(this.state)
+      if(this.props.message){
+          return alert(this.props.message)
+      } else {
+         return this.props.history.push('/')}
     } else {
-      alert("alert");
+     return alert("alert");
     }
   };
 
@@ -89,6 +98,7 @@ componentDidMount(){
 
 const mapStateToProps = (state) => ({
   id: state.user.id,
+  message: state.user.message
 });
 
 export default connect(mapStateToProps, { loginSuccess,fetchWithToken })(withRouter(Login));

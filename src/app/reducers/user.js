@@ -7,17 +7,24 @@ export function user(
   console.log(action);
   switch (action.type) {
     case "USER_LOGIN":
-      const user = { ...action.data.user };
-        localStorage.setItem("my_app_token", action.data.jwt)
+        if(action.data === "Invalid username or password"){
+            return{
+                message: "Invalid username or password"
+            }
+        } else {
+            const user = { ...action.data.user };
+            if(action.data.jwt !== "undefined"){
+              localStorage.setItem("my_app_token", action.data.jwt)}
+            return {
+              loading: false,
+              ...user,
+            };
+        }
+    case "USER_CREATED":
       return {
-        loading: false,
-        ...user,
+        ...state,
+        createdUser: action.data.user
       };
-
-    // case "CURRENT_USER":
-    //   return {
-    //     ...state
-    //   };
     case "LOGOUT_USER":
       return {
         id: "",

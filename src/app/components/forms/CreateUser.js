@@ -5,7 +5,7 @@ import { createUserSuccess } from '../../actions/auth';
 
 class CreateUser extends Component {
     state = {
-
+        password: ""
     };
 
     componentDidMount() {
@@ -34,10 +34,12 @@ class CreateUser extends Component {
       });
     };
 
+    password = ""
+
     handleSubmit = (e)=>{
         e.preventDefault();
-        console.log(this.state)
         this.props.createUserSuccess(this.state)
+        this.password = this.state.password
     }
 
     render() {
@@ -57,6 +59,14 @@ class CreateUser extends Component {
             </Button>
 
           </Form>
+
+          <Container>
+              {this.props.createdUser
+?              <><Row>{this.props.createdUser.username}</Row>
+              <Row>{this.password}</Row>
+              <Row>{this.props.createdUser.authorization}</Row></>
+              : null }
+          </Container>
           </Container>
         </div>
       );
@@ -64,7 +74,7 @@ class CreateUser extends Component {
   }
 
 const mapStateToProps = (state) => ({
-
+    createdUser: state.user.createdUser
 })
 
 export default connect(mapStateToProps, { createUserSuccess })(CreateUser)
