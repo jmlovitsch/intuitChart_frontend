@@ -12,10 +12,7 @@ import { fetchWithToken } from "./app/actions/auth";
 export class App extends Component {
 
   componentDidMount() {
-      
-    return (localStorage.my_app_token && (localStorage.my_app_token !== "undefined"))
-      ? this.props.fetchWithToken(localStorage.my_app_token)
-      : null;
+    return localStorage.my_app_token ? this.props.fetchWithToken(localStorage.my_app_token) : null;
   }
 
 //   componentDidUpdate() {
@@ -25,9 +22,7 @@ export class App extends Component {
 //   }
 
   render() {
-      console.log(localStorage.my_app_token)
     const { id } = this.props;
-
     return (
       <Router>
         <div className="App">

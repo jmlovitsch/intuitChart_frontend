@@ -34,9 +34,10 @@ export const loginSuccess = (params) => {
       .then(response => {
         return response.json()
       })
-      .then(data => {
-        dispatch({ type: 'USER_LOGIN', data });
-      })
+      .then(console.log)
+    //   .then(data => {
+    //     dispatch({ type: 'USER_LOGIN', data });
+    //   })
     }
   }
 

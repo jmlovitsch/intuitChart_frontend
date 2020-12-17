@@ -10,7 +10,7 @@ class EditUser extends Component {
   componentDidMount() {
     return this.props.arrayKeys.map((key) => {
       return this.setState({
-         [key]: 1
+         [key]: this.props.key
       });
     });
   }
@@ -33,6 +33,12 @@ class EditUser extends Component {
     });
   };
 
+  handleSubmit = (e)=>{
+    e.preventDefault();
+    console.log(this.state)
+    this.props.createUserSuccess(this.state)
+}
+
   render() {
     console.log(this.state);
     return (
@@ -41,7 +47,11 @@ class EditUser extends Component {
           {this.printForms(this.props.arrayKeys)}
           <Button variant="primary" type="submit">
             Submit
-          </Button>
+          </Button>{" "}
+          <Button variant="light" onClick={this.props.handleBack}>
+              Back
+            </Button>
+
         </Form>
       </div>
     );

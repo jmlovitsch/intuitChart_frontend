@@ -10,10 +10,6 @@ class PersonalColumn extends Component {
 //     return localStorage.my_app_token ? null : this.props.history.push("/login");
 //   }
 
-  handleLogout = () => {
-    localStorage.removeItem("my_app_token");
-    this.props.logoutUser();
-  };
 
 
 
