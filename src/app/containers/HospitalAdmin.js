@@ -8,7 +8,7 @@ import { SignOutIcon } from "@primer/octicons-react";
 import { logoutUser } from "../actions/users";
 import { fetchWithToken } from "../actions/auth";
 
-class Admin extends Component {
+class HospitalAdmin extends Component {
   state = {
     task: "",
   };
@@ -142,4 +142,4 @@ const mapStateToProps = (state) => ({
 
 });
 
-export default connect(mapStateToProps, {logoutUser, fetchWithToken})(Admin);
+export default connect(mapStateToProps, {logoutUser, fetchWithToken})(HospitalAdmin);

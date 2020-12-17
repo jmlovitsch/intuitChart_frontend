@@ -1,15 +1,29 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Form, Button } from "react-bootstrap";
-import { withRouter } from "react-router-dom";
+import { Route, withRouter } from "react-router-dom";
 import { Row, Col, Container } from "react-bootstrap";
-import { loginSuccess } from "../actions/auth";
+import { fetchWithToken, loginSuccess } from "../actions/auth";
+import Dashboard from "../containers/Dashboard";
 
 class Login extends Component {
   state = {
     username: "",
     password: "",
   };
+
+componentDidMount(){
+    const token = localStorage.getItem("my_app_token");
+    if ((token === "undefined") || !token) {
+        console.log("no token in login")
+      return this.props.history.push("/login");
+    }
+    console.log("token in login")
+    console.log(this.props.history)
+    this.props.history.push(`/dashboard/${this.props.id}`);
+    this.props.fetchWithToken(token);
+}
+
 
   handleChange = (event) => {
     this.setState({
@@ -20,7 +34,8 @@ class Login extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     if (this.state.username && this.state.password) {
-      this.props.loginSuccess(this.state);
+      this.props.loginSuccess(this.state).then()
+      this.props.history.push(`/dashboard/${this.props.id}`)
     } else {
       alert("alert");
     }
@@ -76,4 +91,4 @@ const mapStateToProps = (state) => ({
   id: state.user.id,
 });
 
-export default connect(mapStateToProps, { loginSuccess })(withRouter(Login));
+export default connect(mapStateToProps, { loginSuccess,fetchWithToken })(withRouter(Login));

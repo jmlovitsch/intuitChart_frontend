@@ -5,28 +5,16 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { fetchWithToken } from "../actions/auth";
 import Admin from "./Admin";
+import HospitalAdmin from "./HospitalAdmin";
 
 class Dashboard extends Component {
-  componentDidMount(){
-      return localStorage.my_app_token ?
-      this.props.fetchWithToken(localStorage.my_app_token)
-
-      : this.props.history.push('/login')
-   }
-
-  //  componentDidUpdate(){
-  //     return localStorage.my_app_token ?
-  //     this.props.fetchWithToken(localStorage.my_app_token)
-
-  //     : this.props.history.push('/login')
-  //  }
 
   Switching = () => {
     switch (this.props.authorization) {
       case "admin":
         return <Admin />;
       case "hospital":
-        return null;
+        return <HospitalAdmin />;
       case "employee":
         return <Employee />;
       case "patient":

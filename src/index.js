@@ -5,16 +5,19 @@ import App from "./App";
 // import store from "./app/store";
 import { Provider } from "react-redux";
 // import * as serviceWorker from "./serviceWorker";
-import thunk from 'redux-thunk'
-import combineReducers from './app/reducers/index'
+import thunk from "redux-thunk";
+import combineReducers from "./app/reducers/index";
 import { createStore, applyMiddleware } from "@reduxjs/toolkit";
+import { BrowserRouter } from "react-router-dom";
 
 const store = createStore(combineReducers, applyMiddleware(thunk));
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-        <App to='/' />
+      <BrowserRouter>
+        <App exact path='/' />
+      </BrowserRouter>
     </Provider>
   </React.StrictMode>,
   document.getElementById("root")
