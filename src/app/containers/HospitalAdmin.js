@@ -1,6 +1,14 @@
 import React, { Component, useState } from "react";
 import { connect } from "react-redux";
-import { Row, Col, Container, Button, Form, Table } from "react-bootstrap";
+import {
+  Row,
+  Col,
+  Container,
+  Button,
+  Form,
+  Table,
+  Card,
+} from "react-bootstrap";
 import CreateUser from "../components/forms/CreateUser";
 import EditUser from "../components/forms/EditUser";
 import { SignOutIcon } from "@primer/octicons-react";
@@ -172,11 +180,11 @@ class HospitalAdmin extends Component {
   };
 
   render() {
-    console.log(this.state.itemED);
     return (
       <Container fluid>
         <Row className="mainRow">
           <Col className="columnRight">
+            
             <Row>Welcome, Hospital Administrator</Row>
             <Row>
               <Button
@@ -189,13 +197,13 @@ class HospitalAdmin extends Component {
               </Button>
             </Row>
             <Row>
-              <div onClick={() => this.handleLogout()}>
+              <div onClick={() => this.handleLogout()} style={{ position: "absolute", bottom: "20px", left: "-20px" }}>
                 <SignOutIcon type="button" size={35} />
               </div>
             </Row>
-          </Col>
+          </Col>{" "}
           <Col lg={10} className="centerColumn">
-            {this.renderTask()}
+            <Card>{this.renderTask()}</Card>
           </Col>
         </Row>
       </Container>

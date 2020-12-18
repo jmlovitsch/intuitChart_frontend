@@ -1,16 +1,20 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Row, Col, Container, Button } from "react-bootstrap";
+import { Row, Col, Container, Button, Table } from "react-bootstrap";
 import CreateUser from "../components/forms/CreateUser";
 import EditUser from "../components/forms/EditUser";
 import { SignOutIcon } from "@primer/octicons-react";
 import { logoutUser } from "../actions/users";
-import { fetchWithToken } from "../actions/auth";
+import { fetchAllUsers } from "../actions/users";
 
 class Admin extends Component {
   state = {
     task: "",
   };
+
+  componentDidMount() {
+    this.props.fetchAllUsers();
+  }
 
   admin = ["username", "password", "authorization"];
 
@@ -56,12 +60,18 @@ class Admin extends Component {
     this.employee
   );
 
+  //   handleClick = (e) => {
+  //     this.setState({
+  //       task: e.target.name,
+  //     });
+  //   };
+
   handleClick = (e) => {
     this.setState({
       task: e.target.name,
+      itemED: e.target.id,
     });
   };
-
   handleBack = () => {
     this.setState({
       task: "",
@@ -79,7 +89,7 @@ class Admin extends Component {
           <CreateUser handleBack={this.handleBack} arrayKeys={this.admin} />
         );
       case "deleteUser":
-        return <DeleteUser handleBack={this.handleBack} />;
+        return null;
       case "editUser":
         return (
           <EditUser
@@ -89,16 +99,74 @@ class Admin extends Component {
         );
 
       default:
-        return null;
+        return (
+          <Container className="child" >
+            <Table striped bordered hover>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Username</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Employee ID</th>
+                  <th>Authorization</th>
+                  <th>Medical Group</th>
+                </tr>
+              </thead>
+              <tbody>{this.renderEmployees()}</tbody>
+            </Table>
+          </Container>
+        );
     }
   };
+
+  renderEmployees = () => {
+    return this.props.users.map((u) => {
+      return (
+        <tr key={u.id}>
+          <td>{u.id}</td>
+          <td>{u.username}</td>
+          <td>{u.first_name}</td>
+          <td>{u.last_name}</td>
+          <td>{u.employee_id}</td>
+          <td>{u.authorization}</td>
+          <td>{u.medical_group}</td>
+          <td>
+            <Button
+              id={u.id}
+              name="editUser"
+              onClick={(e) => {
+                this.handleClick(e);
+              }}
+            >
+              Update
+            </Button>
+          </td>
+          <td>
+            <Button
+              id={u.id}
+              name="deleteUser"
+              onClick={(e) => {
+                this.handleClick(e);
+              }}
+            >
+              Delete
+            </Button>
+          </td>
+        </tr>
+      );
+    });
+  };
+
   render() {
+    console.log(this.props);
     return (
-      <Container fluid>
+      <Container fluid className="parent">
         <Row className="mainRow">
           <Col className="columnRight">
-            Welcome, Admin.
+            <Row>Welcome, Admin.</Row>
             <Button
+              as={Row}
               name="createUser"
               onClick={(e) => {
                 this.handleClick(e);
@@ -106,7 +174,7 @@ class Admin extends Component {
             >
               Create User
             </Button>
-            <Button
+            {/* <Button
               name="editUser"
               onClick={(e) => {
                 this.handleClick(e);
@@ -121,15 +189,20 @@ class Admin extends Component {
               }}
             >
               Delete User
-            </Button>
+            </Button> */}
             <Row>
-              <div onClick={() => this.handleLogout()}>
+              <div
+                onClick={() => this.handleLogout()}
+                style={{ position: "absolute", bottom: "110px", left: "20px" }}
+              >
                 <SignOutIcon type="button" size={35} />
               </div>
             </Row>
           </Col>
-          <Col lg={10} className="centerColumn">
+          <Col lg={10} >
+
             {this.renderTask()}
+
           </Col>
         </Row>
       </Container>
@@ -138,7 +211,7 @@ class Admin extends Component {
 }
 
 const mapStateToProps = (state) => ({
-
+  users: state.employee.employeeList,
 });
 
-export default connect(mapStateToProps, {logoutUser, fetchWithToken})(Admin);
+export default connect(mapStateToProps, { logoutUser, fetchAllUsers })(Admin);

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Card } from "react-bootstrap";
 import { Route, withRouter } from "react-router-dom";
 import { Row, Col, Container } from "react-bootstrap";
 import { fetchWithToken, loginSuccess } from "../actions/auth";
@@ -15,16 +15,15 @@ class Login extends Component {
 componentDidMount(){
     const token = localStorage.getItem("my_app_token");
     if (!token) {
-        console.log("no token in login")
-      return this.props.history.push("/login");
+      return null;
+    }  else {
+        this.props.fetchWithToken(token);
+        // this.props.history.push(`/dashboard/${this.props.id}`);
     }
-    console.log("token in login")
-    console.log(this.props.history)
-    this.props.history.push(`/dashboard/${this.props.id}`);
-    this.props.fetchWithToken(token);
 }
+
 // componentDidUpdate(){
-//     if (localStorage.my_app_token === "undefined") {
+//     if (localStorage.getItem("my_app_token") === "undefined") {
 //         localStorage.removeItem("my_app_token")
 //     }
 // }
@@ -41,19 +40,16 @@ componentDidMount(){
     e.preventDefault();
     if (this.state.username && this.state.password) {
       this.props.loginSuccess(this.state)
-      if(this.props.message){
-          return alert(this.props.message)
-      } else {
-         return this.props.history.push('/')}
-    } else {
-     return alert("alert");
+        this.props.history.push(`/dashboard/${this.props.id}`)
     }
   };
 
   render() {
     return (
       <div className="login">
-        <Container fluid>
+        <Container fluid >
+            <Col md={{ span: 6, offset: 3 }} >
+            <Card className="login-card">
           <Row>
             <Col md={{ span: 4, offset: 4 }}>IntuitChart</Col>
           </Row>
@@ -90,6 +86,8 @@ componentDidMount(){
               </Form>
             </Col>
           </Row>
+          </Card>
+          </Col>
         </Container>
       </div>
     );
@@ -101,4 +99,4 @@ const mapStateToProps = (state) => ({
   message: state.user.message
 });
 
-export default connect(mapStateToProps, { loginSuccess,fetchWithToken })(withRouter(Login));
+export default connect(mapStateToProps, { loginSuccess, fetchWithToken })(withRouter(Login));

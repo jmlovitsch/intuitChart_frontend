@@ -1,6 +1,6 @@
 export function auth(
   state = {
-      
+
   },
   action
 ) {
@@ -8,7 +8,7 @@ export function auth(
   switch (action.type) {
     case "CREATE_USER":
       return {
-
+        ...state
       };
     case "FETCH_USER_SUCCESS":
       return {

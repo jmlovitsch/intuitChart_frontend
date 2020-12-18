@@ -42,7 +42,7 @@ export const loginSuccess = (params) => {
 
   export const fetchWithToken = (params) => {
     return (dispatch) => {
-      dispatch({ type: 'FETCH_USER_SUCCESS'})
+      dispatch({ type: 'FETCH_USER_TOKEN'})
       fetch('http://localhost:3001/users/profile', {
         method: 'POST',
         headers: {

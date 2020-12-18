@@ -12,8 +12,13 @@ export function employee(
       };
       case "REMOVE_DELETED_EMPLOYEE_FROM_LIST":
           return {
-              employeeList: state.employeeList.map(em=> em.id !== action.data.id)
-          }
+              employeeList: state.employeeList.map(em=> em.id !== action.id)
+          };
+          case 'EMPLOYEE_UPDATED':
+              const updatedEmployee = action.data
+              return{
+                employeeList: state.employeeList.map(em => (em.id !== updatedEmployee.id) ? em : updatedEmployee)
+              }
     default:
       return state;
   }

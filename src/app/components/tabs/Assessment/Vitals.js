@@ -1,6 +1,17 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { InputGroup, Form, Button, Col, Row } from "react-bootstrap";
+import {
+  Tooltip,
+  InputGroup,
+  Form,
+  Button,
+  Col,
+  Row,
+  Card,
+  Overlay,
+  OverlayTrigger,
+} from "react-bootstrap";
+import { render } from "@testing-library/react";
 
 class Vitals extends Component {
   generateOptions = (place, [...props]) => {
@@ -17,33 +28,72 @@ class Vitals extends Component {
       );
     });
   };
-  render() {
+
+  myFunction = () => {
+    var popup = document.getElementById("myPopup");
+    popup.classList.toggle("show");
+  };
+
+  formLabel = (props) => {
     return (
-      <div>
+      <OverlayTrigger
+        placement="right"
+        delay={{ show: 250, hide: 400 }}
+        overlay={this.renderTooltip(props)}
+      >
+        <Form.Label as={Row} value={props} />
+      </OverlayTrigger>
+    );
+  };
+
+  render() {
+    const renderTooltip = (props) => (
+      <Tooltip id="button-tooltip" {...props}>
+        {props}
+      </Tooltip>
+    );
+
+    const formLabel = (props) => {
+      return (
+        <OverlayTrigger
+          placement="left"
+          delay={{ show: 250, hide: 400 }}
+          overlay={renderTooltip(props)}
+        >
+          <Form.Label as={Row} className="justify-content-center">
+            {props}
+          </Form.Label>
+        </OverlayTrigger>
+      );
+    };
+
+    return (
+      <div >
         <Form>
           <Form.Row>
             <Form.Group>
               <Col>
-                <Form.Label as={Row}>Blood Pressure </Form.Label>
-
-                <Form.Label>Diastolic</Form.Label>
+                {formLabel("Blood Pressure")}
+                {formLabel("Systolic")}
                 <InputGroup>
                   <Form.Control type="number" placeholder="Diastolic" />
                   <InputGroup.Append>
-                    <InputGroup.Text>mm/Hg</InputGroup.Text>
+                    <InputGroup.Text className="mb-3">mm/Hg</InputGroup.Text>
                   </InputGroup.Append>
                 </InputGroup>
-
-                <Form.Label>Systolic</Form.Label>
+                {formLabel("Diastolic")}
                 <InputGroup>
                   <Form.Control type="number" placeholder="Systolic" />
                   <InputGroup.Append>
-                    <InputGroup.Text>mm/Hg</InputGroup.Text>
+                    <InputGroup.Text className="mb-3">mm/Hg</InputGroup.Text>
                   </InputGroup.Append>
                 </InputGroup>
-
-                <Form.Label>Site</Form.Label>
-                <Form.Control as="select" defaultValue="Choose...">
+                {formLabel("Site")}
+                <Form.Control
+                  as="select"
+                  defaultValue="Choose..."
+                  className="mb-3"
+                >
                   {this.generateOptions("bpSite", [
                     "Upper Right Arm",
                     "Lower Right Arm",
@@ -51,11 +101,18 @@ class Vitals extends Component {
                     "Lower Left Arm",
                   ])}
                 </Form.Control>
-
-                <Form.Label>Position</Form.Label>
-                <Form.Control type="text" placeholder="Position" />
-                <Form.Label>Type</Form.Label>
-                <Form.Control as="select" defaultValue="Choose...">
+                {formLabel("Position")}
+                <Form.Control
+                  type="text"
+                  placeholder="Position"
+                  className="mb-3"
+                />
+                {formLabel("Type")}{" "}
+                <Form.Control
+                  as="select"
+                  defaultValue="Choose..."
+                  className="mb-3"
+                >
                   {this.generateOptions("type", [
                     "Manual",
                     "Automatic",
@@ -66,23 +123,28 @@ class Vitals extends Component {
             </Form.Group>
             <Form.Group>
               <Col>
-                <Form.Label as={Row}>Heart Rate</Form.Label>
-
-                <Form.Label>HR</Form.Label>
-
-                <Form.Control as="select" defaultValue="Choose...">
+                {formLabel("Heart Rate")}
+                {formLabel("HR")}
+                <Form.Control
+                  as="select"
+                  defaultValue="Choose..."
+                  className="mb-3"
+                >
                   {this.generateOptions("hr", ["Monitor", "Manual"])}
                 </Form.Control>
-
-                <Form.Label>HR</Form.Label>
+                {formLabel("HR")}{" "}
                 <InputGroup>
                   <Form.Control type="number" placeholder="HR" />
                   <InputGroup.Append>
-                    <InputGroup.Text>bpm</InputGroup.Text>
+                    <InputGroup.Text className="mb-3">bpm</InputGroup.Text>
                   </InputGroup.Append>
                 </InputGroup>
-                <Form.Label>Quality</Form.Label>
-                <Form.Control as="select" defaultValue="Choose...">
+                {formLabel("Quality")}{" "}
+                <Form.Control
+                  as="select"
+                  defaultValue="Choose..."
+                  className="mb-3"
+                >
                   {this.generateOptions("quality", ["Regular", "Irregular"])}
                 </Form.Control>
               </Col>
@@ -90,18 +152,26 @@ class Vitals extends Component {
 
             <Col>
               <Form.Group>
-                <Form.Label as={Row}>Temperature</Form.Label>
-
-                <Form.Label>Local Site</Form.Label>
-                <Form.Control as="select" defaultValue="Choose...">
+                {formLabel("Temperature")} {formLabel("Local Site")}{" "}
+                <Form.Control
+                  as="select"
+                  defaultValue="Choose..."
+                  className="mb-3"
+                >
                   {this.generateOptions("localSite", ["Under Arm", "Mouth"])}
                 </Form.Control>
-                <Form.Label>Temp</Form.Label>
-                <Form.Control type="number" placeholder="C/F" />
-                <Form.Label as={Row}>Respiration Rate</Form.Label>
-
-                <Form.Label>HR</Form.Label>
-                <Form.Control as="select" defaultValue="Choose...">
+                {formLabel("Temp")}{" "}
+                <Form.Control
+                  type="number"
+                  placeholder="C/F"
+                  className="mb-3"
+                />
+                {formLabel("Respiration Rate")} {formLabel("HR")}{" "}
+                <Form.Control
+                  as="select"
+                  defaultValue="Choose..."
+                  className="mb-3"
+                >
                   {this.generateOptions("quality", [
                     "Regular",
                     "Labored",
@@ -109,14 +179,18 @@ class Vitals extends Component {
                     "Irregular",
                   ])}
                 </Form.Control>
-                <Form.Label>RR/min</Form.Label>
+                {formLabel("RR/min")}{" "}
                 <InputGroup>
-                  <Form.Control type="number" placeholder="number" />
+                  <Form.Control
+                    type="number"
+                    placeholder="number"
+                    className="mb-3"
+                  />
                   <InputGroup.Append>
-                    <InputGroup.Text>RR/min</InputGroup.Text>
+                    <InputGroup.Text className="mb-3">RR/min</InputGroup.Text>
                   </InputGroup.Append>
                 </InputGroup>
-                <Form.Label>Quality</Form.Label>
+                {formLabel("Quality")}{" "}
                 <Form.Control as="select" defaultValue="Choose...">
                   {this.generateOptions("quality", ["regular", "irregular"])}
                 </Form.Control>
@@ -126,12 +200,11 @@ class Vitals extends Component {
 
           <hr />
 
-          <Form.Label>Oxygen</Form.Label>
+          {formLabel("Oxygen")}
           <Form.Row>
             <Col>
               <Form.Group>
-                <Form.Label>Saturation</Form.Label>
-                <InputGroup>
+              {formLabel("Saturation")}                <InputGroup>
                   <Form.Control type="number" placeholder="O2" />
                   <InputGroup.Append>
                     <InputGroup.Text>sat%</InputGroup.Text>
@@ -141,7 +214,7 @@ class Vitals extends Component {
             </Col>
             <Col>
               <Form.Group>
-                <Form.Label>Source</Form.Label>
+              {formLabel("Source")}
                 <Form.Control as="select" defaultValue="Choose...">
                   {this.generateOptions("source", [
                     "None (Room Air)",
@@ -153,7 +226,7 @@ class Vitals extends Component {
             </Col>
             <Col>
               <Form.Group>
-                <Form.Label>Site</Form.Label>
+              {formLabel("Site")}
                 <Form.Control as="select" defaultValue="Choose...">
                   {this.generateOptions("site", ["????", "????"])}
                 </Form.Control>

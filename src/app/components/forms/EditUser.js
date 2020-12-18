@@ -1,16 +1,22 @@
 import React, { Component } from "react";
-import { Button, Col, Form, Row } from "react-bootstrap";
+import { Button, Col, Form } from "react-bootstrap";
 import { connect } from "react-redux";
+import { editUserSuccess } from "../../actions/users";
 
 class EditUser extends Component {
-  state = {
-
-  };
+  state = {};
 
   componentDidMount() {
-    return this.props.arrayKeys.map((key) => {
-      return this.setState({
-         [key]: this.props.key
+    const employeeEdit = this.props.employeeList.filter(
+      (employee) => employee.id.toString() === this.props.itemED
+    );
+
+    this.setState({
+        id: employeeEdit[0].id
+    })
+    this.props.arrayKeys.map((key) => {
+      this.setState({
+        [key]: employeeEdit[0][key]
       });
     });
   }
@@ -25,43 +31,39 @@ class EditUser extends Component {
     return keys.map((k) => {
       const uppercased = k.replace(k[0], k[0].toUpperCase());
       return (
-        <Form.Group as={Col} controlId={k}>
+        <Form.Group controlId={k}>
           <Form.Label>{uppercased}</Form.Label>
-          <Form.Control type="text" name={k} value={this.state.k} placeholder={this.state.k} />
+          <Form.Control name={k} type="text" value={this.state[k]} onChange={(e) => this.handleChange(e)}/>
         </Form.Group>
       );
     });
   };
 
-  handleSubmit = (e)=>{
+  handleSubmit = (e) => {
     e.preventDefault();
-    console.log(this.state)
-    this.props.createUserSuccess(this.state)
-}
+    const token = localStorage.getItem("my_app_token")
+    this.props.editUserSuccess(this.state, token);
+  };
 
-generateForm=()=>{
-    return <Form onChange={(e) => this.handleChange(e)}>
-    {this.printForms(this.props.arrayKeys)}
-    <Button variant="primary" type="submit">
-      Submit
-    </Button>{" "}
-    <Button variant="light" onClick={this.props.handleBack}>
-        Back
-      </Button>
-  </Form>
+  generateForm = () => {
+    return (
+      <Form  onSubmit={(e)=>this.handleSubmit(e) }>
+          <Col md={{ span: 6, offset: 3 }} >
+        {this.printForms(this.props.arrayKeys)}
 
-}
-
-handleChoice=(event)=>{
-    console.log(event.target)
-}
+        <Button variant="primary" type="submit">
+          Submit
+        </Button>{" "}
+        <Button variant="light" onClick={this.props.handleBack}>
+          Back
+        </Button>
+        </Col>
+      </Form>
+    );
+  };
 
   render() {
-    return (
-      <div>
-          {this.generateForm()}
-      </div>
-    );
+    return <div>{this.generateForm()}</div>;
   }
 }
 
@@ -69,6 +71,6 @@ const mapStateToProps = (state) => ({
   ...state.employee,
 });
 
-const mapDispatchToProps = {};
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditUser);
+
+export default connect(mapStateToProps, {editUserSuccess})(EditUser);

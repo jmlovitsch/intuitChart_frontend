@@ -13,8 +13,7 @@ export function user(
             }
         } else {
             const user = { ...action.data.user };
-            if(action.data.jwt !== "undefined"){
-              localStorage.setItem("my_app_token", action.data.jwt)}
+              localStorage.setItem("my_app_token", action.data.jwt)
             return {
               loading: false,
               ...user,

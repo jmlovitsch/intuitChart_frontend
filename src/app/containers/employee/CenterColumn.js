@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Navigator from "../../components/Navigator";
-import { Container } from "react-bootstrap";
+import { Card, Container } from "react-bootstrap";
 import { Switch, withRouter } from "react-router-dom";
 import Summary from "../../components/tabs/MainTabs/Summary";
 import Assessment from "../../components/tabs/MainTabs/Assessment";
@@ -24,8 +24,12 @@ class CenterColumn extends Component {
     if (this.props.patient) {
       return (
         <>
+        <Card className="parent">
+        <Card.Header>
           <Navigator />
-          <div className="parent">
+          </Card.Header>
+          <Card.Body >
+          {/* <div className="parent"> */}
             <Switch>
               <Assessment path="*/visits/:visit_id/assessment" />
               <Summary path="*/visits/:visit_id/summary" />
@@ -37,7 +41,9 @@ class CenterColumn extends Component {
               <ShiftAssessment path="*/visits/:visit_id/shiftassessment" />
               <ShiftNotes path="*/visits/:visit_id/shiftnotes" />
             </Switch>
-          </div>
+          {/* </div> */}
+          </Card.Body>
+          </Card>
         </>
       );
     }
