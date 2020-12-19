@@ -11,6 +11,7 @@ class EditUser extends Component {
       (employee) => employee.id.toString() === this.props.itemED
     );
 
+
     this.setState({
         id: employeeEdit[0].id
     })
@@ -43,6 +44,7 @@ class EditUser extends Component {
     e.preventDefault();
     const token = localStorage.getItem("my_app_token")
     this.props.editUserSuccess(this.state, token);
+    this.props.handleBack()
   };
 
   generateForm = () => {

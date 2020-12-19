@@ -6,6 +6,7 @@ import { withRouter } from "react-router-dom";
 import { fetchWithToken } from "../actions/auth";
 import Admin from "./Admin";
 import HospitalAdmin from "./HospitalAdmin";
+import Login from "../components/Login";
 
 class Dashboard extends Component {
 
@@ -35,11 +36,12 @@ class Dashboard extends Component {
       case "patient":
         return <Patient />;
       default:
-        return null;
+        return <Login />;
     }
   };
+
   render() {
-    return <div className="App">{this.Switching()}</div>;
+    return <>{this.Switching()}</>;
   }
 }
 

@@ -45,9 +45,9 @@ class CreateUser extends Component {
     render() {
       console.log(this.state);
       return (
-        <div>
-            <Container>
-            <Row>Create User</Row>
+
+            <Container className="scroll-page">
+            <Row >Create User</Row>
           <Form onChange={(e) => this.handleChange(e)} onSubmit={(e)=>this.handleSubmit(e)}>
 
             {this.printForms(this.props.arrayKeys)}
@@ -68,7 +68,7 @@ class CreateUser extends Component {
               : null }
           </Container>
           </Container>
-        </div>
+
       );
     }
   }

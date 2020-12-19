@@ -9,6 +9,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchWithToken } from "./app/actions/auth";
 import Switch from "react-bootstrap/esm/Switch";
+import { Container } from "react-bootstrap";
 
 export class App extends Component {
 
@@ -25,7 +26,7 @@ export class App extends Component {
   render() {
       const token = localStorage.my_app_token
     return (
-      <div className="App">
+      <Container fluid className="App" >
         {(token) ? (
           <Redirect to={`/dashboard/${this.props.id}`} component={Dashboard} />
         ) : (
@@ -35,7 +36,7 @@ export class App extends Component {
           <Route path={`/dashboard/${this.props.id}`} component={Dashboard} />
           <Route exact path="/login" component={Login} />
         </Switch>
-      </div>
+      </Container>
     );
   }
 }

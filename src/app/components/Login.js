@@ -5,6 +5,7 @@ import { Route, withRouter } from "react-router-dom";
 import { Row, Col, Container } from "react-bootstrap";
 import { fetchWithToken, loginSuccess } from "../actions/auth";
 import Dashboard from "../containers/Dashboard";
+import LogoLarge from "../../LogoLarge.png";
 
 class Login extends Component {
   state = {
@@ -47,14 +48,22 @@ componentDidMount(){
   render() {
     return (
       <div className="login">
+
         <Container fluid >
             <Col md={{ span: 6, offset: 3 }} >
+                <Card.Img
+              variant="top"
+              src={LogoLarge}
+              className="mb-2"
+              // style={{ padding: "1em" }}
+            />
+            <Col md={{ span: 8, offset: 2 }}>
             <Card className="login-card">
+          {/* <Row>
+            <Col md={{ span: 4, offset: 4 }}>intuitChart</Col>
+          </Row> */}
           <Row>
-            <Col md={{ span: 4, offset: 4 }}>IntuitChart</Col>
-          </Row>
-          <Row>
-            <Col md={{ span: 4, offset: 4 }}>
+            <Col md={{ span: 6, offset: 3 }}>
               <Form
                 onSubmit={(event) => this.handleSubmit(event)}
                 onChange={(e) => this.handleChange(e)}
@@ -63,12 +72,12 @@ componentDidMount(){
                   <Form.Label>Username</Form.Label>
                   <Form.Control
                     type="username"
-                    placeholder="Enter username"
+                    placeholder="enter username"
                     name="username"
                   />
                   <Form.Text className="text-muted">
                     Please enter your appropriate username for patient or
-                    employee
+                    employee.
                   </Form.Text>
                 </Form.Group>
 
@@ -76,17 +85,20 @@ componentDidMount(){
                   <Form.Label>Password</Form.Label>
                   <Form.Control
                     type="password"
-                    placeholder="Password"
+                    placeholder="enter password"
                     name="password"
                   />
                 </Form.Group>
-                <Button variant="primary" type="submit">
+                <Row className="justify-content-end" >
+                <Button style={{justifySelf: "end", backgroundColor: "transparent", border: "none", color: "#1761a0"}} className="btn" type="submit">
                   Submit
                 </Button>
+                </Row>
               </Form>
             </Col>
           </Row>
           </Card>
+          </Col>
           </Col>
         </Container>
       </div>
