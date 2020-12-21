@@ -16,23 +16,30 @@
 
 
 .App {
-  /* background-color: #aaaaaa; */
+  background-color: #238a917c;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 
 }
 
-.btn {
-    background-color: black;
-}
 @viewport {
   height: 100vh;
   width: 100%; /*Sets the width of the actual viewport to the device width*/
 }
+
 .main {
     box-sizing: border-box;
     width: 100%;
     padding: 10px
+
 }
+
+my-btn {
+    background-color: powderblue;
+    transition: background-color .5s;}
+
+    my-btn:hover {
+        background-color: gold;
+      }
 
 .all-empl-page {
     padding: 3px;

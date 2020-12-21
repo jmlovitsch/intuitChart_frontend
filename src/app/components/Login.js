@@ -90,7 +90,7 @@ componentDidMount(){
                   />
                 </Form.Group>
                 <Row className="justify-content-end" >
-                <Button style={{justifySelf: "end", backgroundColor: "transparent", border: "none", color: "#1761a0"}} className="btn" type="submit">
+                <Button style={{backgroundColor: "transparent", border: "none", color: "#1761a0"}} type="submit">
                   Submit
                 </Button>
                 </Row>

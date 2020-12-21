@@ -24,7 +24,7 @@ class Navigator extends Component {
         <NavLink
           name="orders"
           className="nav-item nav-link"
-          to={`/dashboard/${id}/visits/visit_id/orers`}
+          to={`/dashboard/${id}/visits/visit_id/orders`}
         >
           Orders
         </NavLink>

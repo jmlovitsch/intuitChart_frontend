@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import Drug from '../../Drug'
 
 const Orders = () => {
     return (
         <div>
             Orders
+            <Drug />
         </div>
     )
 }

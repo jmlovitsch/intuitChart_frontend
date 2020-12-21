@@ -160,7 +160,7 @@ class Admin extends Component {
               name="editUser"
               onClick={(e) => {
                 this.handleClick(e);
-              }}
+              }}style={{backgroundColor: "transparent", border: "none", color: "#1761a0"}}
             >
               Update
             </Button>
@@ -171,7 +171,7 @@ class Admin extends Component {
               name="deleteUser"
               onClick={(e) => {
                 this.handleClick(e);
-              }}
+              }}style={{backgroundColor: "transparent", border: "none", color: "#1761a0"}}
             >
               Delete
             </Button>
@@ -201,6 +201,7 @@ class Admin extends Component {
                 this.handleClick(e);
               }}
               className="m-3"
+              style={{backgroundColor: "transparent", border: "none", color: "#1761a0"}}
             >
               Create User
             </Button>
