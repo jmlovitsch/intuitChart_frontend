@@ -13,9 +13,8 @@ import CreateUser from "../components/forms/CreateUser";
 import EditUser from "../components/forms/EditUser";
 import { SignOutIcon } from "@primer/octicons-react";
 import { fetchAllEmployees, logoutUser } from "../actions/users";
-import { fetchWithToken } from "../actions/auth";
-import Example from "./Example";
 import { admin, allCategories } from "../categories/UserCategories";
+import DeletePopUp from "../components/hooks/DeletePopUp";
 
 class HospitalAdmin extends Component {
   state = {
@@ -56,7 +55,7 @@ class HospitalAdmin extends Component {
         );
       case "deleteUser":
         return (
-          <Example handleBack={this.handleBack} itemED={this.state.itemED} />
+          <DeletePopUp handleBack={this.handleBack} itemED={this.state.itemED} />
         );
       case "editUser":
         return (
@@ -166,6 +165,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   logoutUser,
-  fetchWithToken,
   fetchAllEmployees,
 })(HospitalAdmin);

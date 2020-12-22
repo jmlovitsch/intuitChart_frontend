@@ -7,7 +7,7 @@ import Dashboard from "./app/containers/Dashboard";
 
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { fetchWithToken } from "./app/actions/auth";
+import { currentUser } from "./app/actions/auth";
 import Switch from "react-bootstrap/esm/Switch";
 import { Container } from "react-bootstrap";
 
@@ -16,23 +16,26 @@ export class App extends Component {
   componentDidMount() {
     const token = localStorage.getItem("my_app_token");
     if (!token) {
-        localStorage.removeItem("my_app_token")
       this.props.history.push("/login");
     } else {
-      this.props.fetchWithToken(token);
-      this.props.history.push(`/dashboard/${this.props.id}`);
+      fetch("http://localhost:3001/current_user", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+        .then(resp => resp.json())
+        .then(data => { console.log(data)
+        //   localStorage.setItem("my_app_token", data.jwt);
+          this.props.currentUser(data);
+        });
+        this.props.history.push(`/dashboard/${this.props.id}`);
     }
   }
 
-//   componentDidUpdate(prevProps) {
-//     // Typical usage (don't forget to compare props):
-//     if (this.props.id === prevProps.id) {
-//       this.props.history.push('/login');
-//     }
-//   }
+
 
   render() {
-      console.log(this.props.id)
     return (
       <Container fluid className="App">
         <Switch>
@@ -45,7 +48,7 @@ export class App extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  id: state.user.id
+  id: state.user.id,
 });
 
-export default connect(mapStateToProps, { fetchWithToken })(withRouter(App));
+export default connect(mapStateToProps, { currentUser })(withRouter(App));

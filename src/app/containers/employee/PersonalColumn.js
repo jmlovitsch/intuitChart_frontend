@@ -13,18 +13,17 @@ class PersonalColumn extends Component {
 
   state={
       patient1: "",
-      patient1: "",
-      patient1: "",
-      patient1: "",
+
+
   }
 
   handleLogout = () => {
     localStorage.removeItem("my_app_token");
+    this.props.history.push('/')
     this.props.logoutUser();
   };
 
   render() {
-    console.log(this.props.user);
     const {
       username,
       first_name,

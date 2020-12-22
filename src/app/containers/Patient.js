@@ -5,7 +5,6 @@ import { SignOutIcon } from "@primer/octicons-react";
 import { logoutUser } from "../actions/users";
 import EditUser from "../components/forms/EditUser";
 import { withRouter } from "react-router-dom";
-import { fetchWithToken } from "../actions/auth";
 
 class Patient extends Component {
 
@@ -122,6 +121,6 @@ const mapStateToProps = (state) => ({
   ...state.user,
 });
 
-export default connect(mapStateToProps, { logoutUser, fetchWithToken })(
+export default connect(mapStateToProps, { logoutUser })(
   withRouter(Patient)
 );

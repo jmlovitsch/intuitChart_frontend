@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Form, Button, Card } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
 import { Row, Col, Container } from "react-bootstrap";
-import { fetchWithToken, loginSuccess } from "../actions/auth";
+import { loginSuccess } from "../actions/auth";
 import LogoLarge from "../../LogoLarge.png";
 
 class Login extends Component {
@@ -12,9 +12,9 @@ class Login extends Component {
     password: "",
   };
 
-  //   componentDidMount(){
-  //       localStorage.removeItem("my_app_token")
-  //   }
+    componentDidMount(){
+        localStorage.removeItem("my_app_token")
+    }
 
   handleChange = (event) => {
     this.setState({
@@ -116,9 +116,8 @@ class Login extends Component {
 
 const mapStateToProps = (state) => ({
   id: state.user.id,
-  loading: state.user.loading,
 });
 
-export default connect(mapStateToProps, { loginSuccess, fetchWithToken })(
+export default connect(mapStateToProps, { loginSuccess })(
   withRouter(Login)
 );

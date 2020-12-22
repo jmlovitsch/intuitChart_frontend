@@ -5,6 +5,13 @@ export const loginSuccess = (data) => {
     }
   }
 
+  export const currentUser = (data) => {
+    return {
+      type: 'CURRENT_USER',
+      data
+    }
+  }
+
 // export const loginSuccess = (params ) => {
 //   return (dispatch) => {
 //     dispatch({ type: "USER_LOGIN_LOADING" });
@@ -47,21 +54,21 @@ export const createUserSuccess = (params) => {
   };
 };
 
-export const fetchWithToken = (params) => {
-  return (dispatch) => {
-    dispatch({ type: "CURRENT_USER_LOADING" });
-    fetch("http://localhost:3001/current_user", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${params}`,
-      },
-    })
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        localStorage.setItem("my_app_token", data.jwt);
-        dispatch({ type: "CURRENT_USER", data });
-      });
-  };
-};
+// export const fetchWithToken = (params) => {
+//   return (dispatch) => {
+//     dispatch({ type: "CURRENT_USER_LOADING" });
+//     fetch("http://localhost:3001/current_user", {
+//       method: "POST",
+//       headers: {
+//         Authorization: `Bearer ${params}`,
+//       },
+//     })
+//       .then((response) => {
+//         return response.json();
+//       })
+//       .then((data) => {
+//         localStorage.setItem("my_app_token", data.jwt);
+//         dispatch({ type: "CURRENT_USER", data });
+//       });
+//   };
+// };

@@ -4,7 +4,6 @@ import { Row, Col, Container } from "react-bootstrap";
 import PersonalColumn from "./employee/PersonalColumn";
 import CenterColumn from "./employee/CenterColumn";
 import { Messenger } from "../components/Messenger";
-import {fetchWithToken} from "../actions/auth"
 import { withRouter } from "react-router-dom";
 
 export class Employee extends Component {
@@ -20,19 +19,19 @@ export class Employee extends Component {
         })
     }
 
-    
+
 
   render() {
     return (
       <Container fluid>
         <Row className="mainRow">
-          <Col className="columnRight">
+          {/* <Col className="columnRight">
             <PersonalColumn handleClick={()=>this.handleClick()}/>
-          </Col>
-          <Col lg={8} className="centerColumn">
+          </Col> */}
+          <Col >
             <CenterColumn patient={this.state.patient}  />
           </Col>
-          <Col className="columnLeft">
+          {/* <Col className="columnLeft">
 
             <Row style={{height: "65vh", borderBottom: "solid", borderWidth: "1px"}}>
                 Alert Section
@@ -41,7 +40,7 @@ export class Employee extends Component {
               <Messenger />
             </Row>
 
-          </Col>
+          </Col> */}
         </Row>
       </Container>
     );
@@ -56,4 +55,4 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {};
 
-export default connect(mapStateToProps, {fetchWithToken})(withRouter(Employee));
+export default connect(mapStateToProps)(withRouter(Employee));

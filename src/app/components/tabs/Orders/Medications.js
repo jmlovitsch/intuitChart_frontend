@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { Form, Button, Container, Row, Card } from "react-bootstrap";
 import { connect } from "react-redux";
-import { fetchAllDrugs } from "../actions/drugs";
+import { fetchAllDrugs } from "../../../actions/drugs";
 
-class Drug extends Component {
+class Medication extends Component {
   state = {
     search: "",
     results: [],
@@ -16,8 +16,6 @@ class Drug extends Component {
       drugs: this.props.drugs,
     });
   }
-
-  componentDidUpdate() {}
 
   handleChange = (event) => {
     this.setState({
@@ -83,4 +81,4 @@ const mapStateToProps = (state) => ({
   drugs: state.drug.drugs,
 });
 
-export default connect(mapStateToProps, { fetchAllDrugs })(Drug);
+export default connect(mapStateToProps, { fetchAllDrugs })(Medication);

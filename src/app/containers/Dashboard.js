@@ -3,7 +3,7 @@ import Patient from "./Patient";
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { fetchWithToken } from "../actions/auth";
+// import { fetchWithToken } from "../actions/auth";
 import Admin from "./Admin";
 import HospitalAdmin from "./HospitalAdmin";
 import Login from "../components/Login";
@@ -36,6 +36,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { fetchWithToken })(
+export default connect(mapStateToProps, null)(
   withRouter(Dashboard)
 );

@@ -1,10 +1,9 @@
 import { Button, Modal } from "react-bootstrap";
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { deleteEmployee } from "../actions/users";
-import { withRouter } from "react-router-dom";
+import { deleteEmployee } from "../../actions/users";
 
-const Example = (props) => {
+const DeletePopUp = (props) => {
   const [show, setShow] = useState(true);
 
   const handleClose = () => setShow(false);
@@ -39,4 +38,4 @@ const mapStateToProps = (state) => ({
     id: state.user.id,
   });
 
-export default connect(mapStateToProps, { deleteEmployee })(Example);
+export default connect(mapStateToProps, { deleteEmployee })(DeletePopUp);
