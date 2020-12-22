@@ -7,6 +7,8 @@ import { SignOutIcon } from "@primer/octicons-react";
 import { logoutUser } from "../actions/users";
 import { fetchAllUsers } from "../actions/users";
 import Logo from "../../Logo.png";
+import { admin, allCategories } from "../categories/UserCategories";
+
 class Admin extends Component {
   state = {
     task: "",
@@ -27,50 +29,6 @@ class Admin extends Component {
         return null;
     }
   };
-
-  admin = ["username", "password", "authorization"];
-
-  employee = ["employee_id", "employee_type"];
-
-  billingInfo = [
-    "billing_address",
-    "billing_address_2",
-    "billing_city",
-    "billing_state",
-    "billing_zip",
-  ];
-
-  personalInfo = [
-    "first_name",
-    "last_name",
-    "street_address",
-    "street_address_2",
-    "city",
-    "state",
-    "zip",
-    "home_phone",
-    "cell_phone",
-    "email",
-  ];
-
-  healthInsInfo = [
-    "health_insurance_provider",
-    "health_insurance_policy_number",
-    "health_insurance_id",
-  ];
-
-  emergencyCont = [
-    "emergency_contact_name",
-    "emergency_contact_relationship",
-    "emergency_contact_phone",
-  ];
-
-  allCategories = this.emergencyCont.concat(
-    this.healthInsInfo,
-    this.personalInfo,
-    this.billingInfo,
-    this.employee
-  );
 
   handleClick = (e) => {
     this.setState({
@@ -95,7 +53,7 @@ class Admin extends Component {
     switch (this.state.task) {
       case "createUser":
         return (
-          <CreateUser handleBack={this.handleBack} arrayKeys={this.admin} />
+          <CreateUser handleBack={this.handleBack} arrayKeys={admin} />
         );
       case "deleteUser":
         return null;
@@ -103,7 +61,7 @@ class Admin extends Component {
         return (
           <EditUser
             handleBack={this.handleBack}
-            arrayKeys={this.allCategories}
+            arrayKeys={allCategories}
             itemED={this.state.itemED}
           />
         );

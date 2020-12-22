@@ -48,6 +48,14 @@ my-btn {
     overflow: scroll;
 }
 
+.all-drugs-scroll-page {
+    padding: 3px;
+    box-shadow: 10px 5px 5px rgb(150, 137, 137);
+    max-height: 60vh;
+    overflow: scroll;
+}
+
+
 .scroll-page {
     box-shadow: 10px 5px 5px rgb(150, 137, 137) , inset 0 0 50px  rgb(231, 231, 231);;
     margin-bottom: 2em;

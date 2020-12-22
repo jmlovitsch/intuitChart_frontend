@@ -12,6 +12,6 @@ export default combineReducers({
   auth,
   assessment,
   employee,
-  drug
-
+  drug,
+  
 })

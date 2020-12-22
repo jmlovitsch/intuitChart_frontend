@@ -1,28 +1,35 @@
-export function user(
-  state = {
-    id: "",
-  },
-  action
-) {
+export function user(state = {
+    loading: false
+}, action) {
   console.log(action);
   switch (action.type) {
+    case "USER_LOGIN_LOADING":
+      return {
+        ...state,
+        loading: true,
+      };
     case "USER_LOGIN":
-        if(action.data === "Invalid username or password"){
-            return{
-                message: "Invalid username or password"
-            }
-        } else {
-            const user = { ...action.data.user };
-              localStorage.setItem("my_app_token", action.data.jwt)
-            return {
-              loading: false,
-              ...user,
-            };
-        }
+      const user = {...action.data.user}
+      console.log(user)
+      return {
+          ...state,
+        loading: false,
+        ...user,
+      };
     case "USER_CREATED":
       return {
         ...state,
-        createdUser: action.data.user
+        createdUser: action.data.user,
+      };
+    case "CURRENT_USER_LOADING":
+        return {
+            ...state,
+            loading: true
+        }
+    case "CURRENT_USER":
+      return {
+        ...action.data.user,
+        loading: false
       };
     case "LOGOUT_USER":
       return {

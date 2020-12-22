@@ -10,21 +10,6 @@ import Login from "../components/Login";
 
 class Dashboard extends Component {
 
-//   componentDidMount() {
-//     const token = localStorage.getItem("my_app_token");
-//     if (token === "undefined") {
-//       localStorage.removeItem("my_app_token");
-//       return this.props.history.push("/");
-//     }
-//     if (!token) {
-//       localStorage.removeItem("my_app_token");
-//       return this.props.history.push("/");
-//     } else {
-
-//       return this.props.fetchWithToken(token);
-//     }
-//   }
-
   Switching = () => {
     switch (this.props.authorization) {
       case "admin":

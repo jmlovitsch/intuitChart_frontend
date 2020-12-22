@@ -1,20 +1,11 @@
-export function auth(
-  state = {
-
-  },
-  action
-) {
-  console.log(action);
+export function auth(state = {}, action) {
   switch (action.type) {
     case "CREATE_USER":
       return {
-        ...state
-      };
-    case "FETCH_USER_SUCCESS":
-      return {
         ...state,
-        loading: true,
       };
+    case "CREATE_USER_LOADING":
+      return { ...state, loading: true };
     default:
       return state;
   }

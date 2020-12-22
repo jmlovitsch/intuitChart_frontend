@@ -1,8 +1,8 @@
-admin = ["username", "password", "authorization"];
+export const admin = ["username", "password", "authorization"];
 
-employee = ["employee_id", "employee_type"];
+export const employee = ["employee_id", "employee_type"];
 
-billingInfo = [
+export const billingInfo = [
   "billing_address",
   "billing_address_2",
   "billing_city",
@@ -10,7 +10,7 @@ billingInfo = [
   "billing_zip",
 ];
 
-personalInfo = [
+export const personalInfo = [
   "first_name",
   "last_name",
   "street_address",
@@ -23,21 +23,21 @@ personalInfo = [
   "email",
 ];
 
-healthInsInfo = [
+export const healthInsInfo = [
   "health_insurance_provider",
   "health_insurance_policy_number",
   "health_insurance_id",
 ];
 
-emergencyCont = [
+export const emergencyCont = [
   "emergency_contact_name",
   "emergency_contact_relationship",
   "emergency_contact_phone",
 ];
 
-allCategories = this.emergencyCont.concat(
-  this.healthInsInfo,
-  this.personalInfo,
-  this.billingInfo,
-  this.employee
+export const allCategories = emergencyCont.concat(
+  healthInsInfo,
+  personalInfo,
+  billingInfo,
+  employee
 );

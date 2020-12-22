@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Row, Col, Card, Container, ListGroup } from "react-bootstrap";
 import { SignOutIcon, KeyIcon } from "@primer/octicons-react";
 import { withRouter } from "react-router-dom";
-import { currentUser, logoutUser } from "../../actions/users";
+import { logoutUser } from "../../actions/users";
 import { Button } from "react-bootstrap";
 
 class PersonalColumn extends Component {
@@ -95,6 +95,6 @@ const mapStateToProps = (state) => ({
   user: state.user,
 });
 
-export default connect(mapStateToProps, { currentUser, logoutUser })(
+export default connect(mapStateToProps, { logoutUser })(
   withRouter(PersonalColumn)
 );

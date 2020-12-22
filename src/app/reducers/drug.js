@@ -9,14 +9,14 @@ export function drug(
     case "FETCHING_DRUGS":
       return {
         ...state,
-        requesting: true,
+        loading: true,
       };
 
     case "ADD_DRUGS":
       return {
         ...state,
         drugs: action.drugs,
-        requesting: false,
+        loading: false,
       };
     default:
       return state;

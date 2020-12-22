@@ -1,7 +1,7 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import { Redirect, Route, withRouter } from "react-router-dom";
+import { Route, withRouter } from "react-router-dom";
 import Login from "./app/components/Login";
 import Dashboard from "./app/containers/Dashboard";
 
@@ -13,25 +13,28 @@ import { Container } from "react-bootstrap";
 
 export class App extends Component {
 
-    // componentDidMount(){
-    //     this.props.history.push('/login')
-    // }
-
-    componentDidUpdate(){
-        if (localStorage.getItem("my_app_token") === "undefined") {
-            localStorage.removeItem("my_app_token")
-        }
+  componentDidMount() {
+    const token = localStorage.getItem("my_app_token");
+    if (!token) {
+        localStorage.removeItem("my_app_token")
+      this.props.history.push("/login");
+    } else {
+      this.props.fetchWithToken(token);
+      this.props.history.push(`/dashboard/${this.props.id}`);
     }
+  }
+
+//   componentDidUpdate(prevProps) {
+//     // Typical usage (don't forget to compare props):
+//     if (this.props.id === prevProps.id) {
+//       this.props.history.push('/login');
+//     }
+//   }
 
   render() {
-      const token = localStorage.my_app_token
+      console.log(this.props.id)
     return (
-      <Container fluid className="App" >
-        {(token) ? (
-          <Redirect to={`/dashboard/${this.props.id}`} component={Dashboard} />
-        ) : (
-          <Redirect to="/login" from="*" />
-        )}
+      <Container fluid className="App">
         <Switch>
           <Route path={`/dashboard/${this.props.id}`} component={Dashboard} />
           <Route exact path="/login" component={Login} />
@@ -42,7 +45,7 @@ export class App extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  id: state.user.id,
+  id: state.user.id
 });
 
 export default connect(mapStateToProps, { fetchWithToken })(withRouter(App));

@@ -6,14 +6,14 @@ export function vitals(
   action
 ) {
   switch (action.type) {
-    case "START_ADDING_USERS_REQUEST":
+    case "ADD_VITALS_LOADING":
       return {
         ...state,
         users: [...state.users],
         requesting: true,
       };
 
-    case "ADD_USERS":
+    case "ADD_VITALS":
       return {
         ...state,
         users: action.users,

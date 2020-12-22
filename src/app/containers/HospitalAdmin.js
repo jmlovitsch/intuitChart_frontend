@@ -15,6 +15,7 @@ import { SignOutIcon } from "@primer/octicons-react";
 import { fetchAllEmployees, logoutUser } from "../actions/users";
 import { fetchWithToken } from "../actions/auth";
 import Example from "./Example";
+import { admin, allCategories } from "../categories/UserCategories";
 
 class HospitalAdmin extends Component {
   state = {
@@ -23,65 +24,11 @@ class HospitalAdmin extends Component {
   };
 
   componentDidMount() {
-    const token = localStorage.getItem("my_app_token");
-    if (token === "undefined") {
-      localStorage.removeItem("my_app_token");
-      return this.props.history.push("/");
-    }
-    if (!token) {
-      localStorage.removeItem("my_app_token");
-      return this.props.history.push("/");
-    } else {
-      return this.props.fetchAllEmployees(
+        this.props.fetchAllEmployees(
         localStorage.my_app_token,
         this.props.id
       );
-    }
   }
-
-  admin = ["username", "password", "authorization"];
-
-  employee = ["employee_id", "employee_type"];
-
-  billingInfo = [
-    "billing_address",
-    "billing_address_2",
-    "billing_city",
-    "billing_state",
-    "billing_zip",
-  ];
-
-  personalInfo = [
-    "first_name",
-    "last_name",
-    "street_address",
-    "street_address_2",
-    "city",
-    "state",
-    "zip",
-    "home_phone",
-    "cell_phone",
-    "email",
-  ];
-
-  healthInsInfo = [
-    "health_insurance_provider",
-    "health_insurance_policy_number",
-    "health_insurance_id",
-  ];
-
-  emergencyCont = [
-    "emergency_contact_name",
-    "emergency_contact_relationship",
-    "emergency_contact_phone",
-  ];
-
-  allCategories = this.emergencyCont.concat(
-    this.healthInsInfo,
-    this.personalInfo,
-    this.billingInfo,
-    this.employee
-  );
 
   handleClick = (e) => {
     this.setState({
@@ -105,7 +52,7 @@ class HospitalAdmin extends Component {
     switch (this.state.task) {
       case "createUser":
         return (
-          <CreateUser handleBack={this.handleBack} arrayKeys={this.admin} />
+          <CreateUser handleBack={this.handleBack} arrayKeys={admin} />
         );
       case "deleteUser":
         return (
@@ -116,7 +63,7 @@ class HospitalAdmin extends Component {
           <EditUser
             itemED={this.state.itemED}
             handleBack={this.handleBack}
-            arrayKeys={this.allCategories}
+            arrayKeys={allCategories}
           />
         );
       default:
@@ -184,7 +131,7 @@ class HospitalAdmin extends Component {
       <Container fluid>
         <Row className="mainRow">
           <Col className="columnRight">
-            
+
             <Row>Welcome, Hospital Administrator</Row>
             <Row>
               <Button
