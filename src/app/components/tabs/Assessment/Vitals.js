@@ -71,8 +71,7 @@ class Vitals extends Component {
       <div>
         <Form>
           <Row>
-
-              <Col>
+            <Col>
               <Form.Group>
                 {formLabel("Blood Pressure")}
                 {formLabel("Systolic")}
@@ -120,11 +119,10 @@ class Vitals extends Component {
                     "Doppler",
                   ])}
                 </Form.Control>
-                </Form.Group>
-              </Col>
+              </Form.Group>
+            </Col>
 
-
-              <Col>
+            <Col>
               <Form.Group>
                 {formLabel("Heart Rate")}
                 {formLabel("HR")}
@@ -150,9 +148,8 @@ class Vitals extends Component {
                 >
                   {this.generateOptions("quality", ["Regular", "Irregular"])}
                 </Form.Control>
-                </Form.Group>
-              </Col>
-
+              </Form.Group>
+            </Col>
 
             <Col>
               <Form.Group>
@@ -202,9 +199,8 @@ class Vitals extends Component {
             </Col>
 
             <Col>
-            <Form.Group>
-              {formLabel("Oxygen")}
-
+              <Form.Group>
+                {formLabel("Oxygen")}
                 {formLabel("Saturation")}{" "}
                 <InputGroup>
                   <Form.Control type="number" placeholder="O2" />
@@ -212,9 +208,6 @@ class Vitals extends Component {
                     <InputGroup.Text>sat%</InputGroup.Text>
                   </InputGroup.Append>
                 </InputGroup>
-
-
-
                 {formLabel("Source")}
                 <Form.Control as="select" defaultValue="Choose...">
                   {this.generateOptions("source", [
@@ -222,9 +215,7 @@ class Vitals extends Component {
                     "Nasal Canula",
                     "Nasal Canula: Hi Flow",
                   ])}
-
-
-
+                </Form.Control>
                 {formLabel("Site")}
                 <Form.Control as="select" defaultValue="Choose...">
                   {this.generateOptions("site", ["????", "????"])}

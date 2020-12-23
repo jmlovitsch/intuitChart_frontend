@@ -1,23 +1,9 @@
-export function drug(
-  state = {
-    drugs: [],
-    requesting: false,
-  },
-  action
-) {
+export function drugs(state = {}, action) {
   switch (action.type) {
     case "FETCHING_DRUGS":
-      return {
-        ...state,
-        loading: true,
-      };
-
+      return {loading: true};
     case "ADD_DRUGS":
-      return {
-        ...state,
-        drugs: action.drugs,
-        loading: false,
-      };
+      return action.drugs;
     default:
       return state;
   }

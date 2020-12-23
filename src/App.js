@@ -10,6 +10,7 @@ import { connect } from "react-redux";
 import { currentUser } from "./app/actions/auth";
 import Switch from "react-bootstrap/esm/Switch";
 import { Container } from "react-bootstrap";
+import { fetchAllDrugs } from "./app/actions/drugs";
 
 export class App extends Component {
 
@@ -19,14 +20,13 @@ export class App extends Component {
       this.props.history.push("/login");
     } else {
       fetch("http://localhost:3001/current_user", {
-        method: "POST",
+        method: "GET",
         headers: {
           Authorization: `Bearer ${token}`
         }
       })
         .then(resp => resp.json())
-        .then(data => { console.log(data)
-        //   localStorage.setItem("my_app_token", data.jwt);
+        .then(data => {
           this.props.currentUser(data);
         });
         this.props.history.push(`/dashboard/${this.props.id}`);
@@ -51,4 +51,4 @@ const mapStateToProps = (state) => ({
   id: state.user.id,
 });
 
-export default connect(mapStateToProps, { currentUser })(withRouter(App));
+export default connect(mapStateToProps, { currentUser, fetchAllDrugs })(withRouter(App));

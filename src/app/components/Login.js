@@ -70,7 +70,7 @@ class Login extends Component {
                       onChange={(e) => this.handleChange(e)}
                     >
                       <Form.Group controlId="formBasicUsername">
-                        <Form.Label>Username</Form.Label>
+                        <Form.Label>Username adcc0e40</Form.Label>
                         <Form.Control
                           type="username"
                           placeholder="enter username"

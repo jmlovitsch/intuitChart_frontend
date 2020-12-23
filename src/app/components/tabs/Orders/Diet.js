@@ -6,9 +6,17 @@ import DateTime from "../../hooks/DateTime";
 class Diet extends Component {
   state = {
     eligible_room_service: "yes",
-    eligible_accuchecks: "yes",
-    type: "Notify RN",
+    accuchecks: "no",
+    type: "",
     time_start: "",
+    notify_rn: "no",
+    primary_diet: "General",
+    consistency: "Regular",
+    one_to_one_feed: "no",
+    liquid: "N/A",
+    straw: "yes",
+    comment: "",
+    submitted_at: "",
   };
 
   componentDidMount() {
@@ -32,6 +40,12 @@ class Diet extends Component {
     });
   };
 
+  setSubmitTime = () => {
+      this.setState({
+          submitted_at: new Date()
+      })
+  }
+
   handleChange = (event) => {
     console.log(event.target.value);
     this.setState({
@@ -50,8 +64,6 @@ class Diet extends Component {
     });
   };
 
-  const;
-
   render() {
     return (
       <div>
@@ -65,7 +77,7 @@ class Diet extends Component {
                 <Form.Label>Room Service Eligible?</Form.Label>
                 <Form.Control
                   as="select"
-                  defaultValue="Choose..."
+                  defaultValue="yes"
                   className="mb-3"
                   name="eligible_room_service"
                 >
@@ -78,11 +90,11 @@ class Diet extends Component {
                 <Form.Label>Accuchecks</Form.Label>
                 <Form.Control
                   as="select"
-                  defaultValue="Choose..."
+                  defaultValue="no"
                   className="mb-3"
-                  name="eligible_accuchecks"
+                  name="accuchecks"
                 >
-                  {this.generateOptions("eligible_accuchecks", ["yes", "no"])}
+                  {this.generateOptions("accuchecks", ["yes", "no"])}
                 </Form.Control>
               </Form.Group>
             </Col>
@@ -102,7 +114,7 @@ class Diet extends Component {
                 <Form.Label>Notify RN?</Form.Label>
                 <Form.Control
                   as="select"
-                  defaultValue="Choose..."
+                  defaultValue={this.state.notify_rn}
                   className="mb-3"
                   name="notify_rn"
                 >
@@ -118,7 +130,7 @@ class Diet extends Component {
                 <Form.Label>Primary Diet</Form.Label>
                 <Form.Control
                   as="select"
-                  defaultValue="Choose..."
+                  defaultValue={this.state.primary_diet}
                   className="mb-3"
                   name="primary_diet"
                 >
@@ -135,7 +147,7 @@ class Diet extends Component {
                 <Form.Label>Consistency</Form.Label>
                 <Form.Control
                   as="select"
-                  defaultValue="Choose..."
+                  defaultValue={this.state.consistency}
                   className="mb-3"
                   name="consistency"
                 >
@@ -155,11 +167,11 @@ class Diet extends Component {
                 <Form.Label>1:1 Feed</Form.Label>
                 <Form.Control
                   as="select"
-                  defaultValue="Choose..."
+                  defaultValue={this.state.one_to_one_feed}
                   className="mb-3"
-                  name="1to1_feed"
+                  name="one_to_one_feed"
                 >
-                  {this.generateOptions("1to1_feed", ["yes", "no"])}
+                  {this.generateOptions("one_to_one_feed", ["yes", "no"])}
                 </Form.Control>
               </Form.Group>
             </Col>
@@ -171,14 +183,15 @@ class Diet extends Component {
                 <Form.Label>Liquid Diet</Form.Label>
                 <Form.Control
                   as="select"
-                  defaultValue="Choose..."
+                  defaultValue={this.state.liquid}
                   className="mb-3"
-                  name="type"
+                  name="liquid"
                 >
-                  {this.generateOptions("roomService", [
+                  {this.generateOptions("liquid", [
                     "Thin-Liquid",
                     "Nectar-Thick",
                     "Honey-Thick",
+                    "N/A",
                   ])}
                 </Form.Control>
               </Form.Group>
@@ -188,7 +201,7 @@ class Diet extends Component {
                 <Form.Label>Straw</Form.Label>
                 <Form.Control
                   as="select"
-                  defaultValue="Choose..."
+                  defaultValue={this.state.straw}
                   className="mb-3"
                   name="straw"
                 >
@@ -198,42 +211,41 @@ class Diet extends Component {
             </Col>
           </Row>
           <hr />
-          <Row >
-          <Col md={{ span: 1 }}>
+          <Row>
+            <Col md={{ span: 1 }}>
               <Form.Group>
                 <Form.Label>Comment</Form.Label>
               </Form.Group>
             </Col>
 
-          <Col md={{ offset: 1, span: 7 }}>
+            <Col md={{ offset: 1, span: 7 }}>
               <Form.Group>
                 <Form.Control
                   as="textarea"
                   placeholder="Enter Any Notes..."
                   className="mb-3"
-                  name="notes"
+                  name="comment"
                 ></Form.Control>
               </Form.Group>
             </Col>
             <Col md={{ offset: 1, span: 2 }} className="justify-content-end">
-                <br/>
-                <Row>
-          <Form.Group >
-              <Button
-                type="submit"
-                className="rounded"
-                style={{
-                  backgroundColor: "transparent",
-                  border: "solid",
-                  color: "#1761a0",
-                }}
-              >
-                Submit Diet
-              </Button>
-
-          </Form.Group>
-          </Row>
-          </Col>
+              <br />
+              <Row>
+                <Form.Group>
+                  <Button
+                  onClick={this.setSubmitTime}
+                    type="submit"
+                    style={{
+                      backgroundColor: "transparent",
+                      border: "solid",
+                      color: "#1761a0",
+                    }}
+                  >
+                    Submit Order
+                  </Button>
+                </Form.Group>
+              </Row>
+            </Col>
           </Row>
         </Form>
       </div>

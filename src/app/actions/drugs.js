@@ -13,3 +13,22 @@ export const fetchAllDrugs = (params) => {
         });
     };
   };
+
+  export const createPrescription = (token, bodyObj) => {
+    return (dispatch) => {
+      dispatch({ type: "FETCHING_CREATE_PRESCRIPTION" });
+      fetch("http://localhost:3001/rxes", {
+        method: "POST",
+        headers: {
+            Authoization: `Bearer ${token}`,
+            'Content-type': 'application/json',
+            Accept: 'application/json'
+        },
+        body: JSON.stringify(bodyObj)
+      })
+        .then((response) => {
+          return response.json();
+        })
+        .then(prescription => console.log(prescription));
+    };
+  };

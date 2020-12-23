@@ -4,7 +4,7 @@ import {auth} from './auth'
 import {user} from './user'
 import {vitals} from './vitals'
 import {employee} from './employee'
-import { drug } from './drug'
+import { drugs } from './drug'
 
 export default combineReducers({
   user,
@@ -12,6 +12,6 @@ export default combineReducers({
   auth,
   assessment,
   employee,
-  drug,
-  
+  drugs,
+
 })
