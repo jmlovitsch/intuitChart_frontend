@@ -5,12 +5,15 @@ import "react-datepicker/dist/react-datepicker.css";
 
 const DateTime = ({ date, handleDateChange }) => {
   const [startDate, setStartDate] = useState(new Date());
+
+
   return (
     <DatePicker
       selected={date}
       onChange={handleDateChange}
       showTimeSelect
       dateFormat="Pp"
+      className="form-control"
     />
   );
 };

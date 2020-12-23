@@ -68,11 +68,12 @@ class Vitals extends Component {
     };
 
     return (
-      <div >
+      <div>
         <Form>
-          <Form.Row>
-            <Form.Group>
+          <Row>
+
               <Col>
+              <Form.Group>
                 {formLabel("Blood Pressure")}
                 {formLabel("Systolic")}
                 <InputGroup>
@@ -119,10 +120,12 @@ class Vitals extends Component {
                     "Doppler",
                   ])}
                 </Form.Control>
+                </Form.Group>
               </Col>
-            </Form.Group>
-            <Form.Group>
+
+
               <Col>
+              <Form.Group>
                 {formLabel("Heart Rate")}
                 {formLabel("HR")}
                 <Form.Control
@@ -147,8 +150,9 @@ class Vitals extends Component {
                 >
                   {this.generateOptions("quality", ["Regular", "Irregular"])}
                 </Form.Control>
+                </Form.Group>
               </Col>
-            </Form.Group>
+
 
             <Col>
               <Form.Group>
@@ -196,43 +200,40 @@ class Vitals extends Component {
                 </Form.Control>
               </Form.Group>
             </Col>
-          </Form.Row>
 
-          <hr />
-
-          {formLabel("Oxygen")}
-          <Form.Row>
             <Col>
-              <Form.Group>
-              {formLabel("Saturation")}                <InputGroup>
+            <Form.Group>
+              {formLabel("Oxygen")}
+
+                {formLabel("Saturation")}{" "}
+                <InputGroup>
                   <Form.Control type="number" placeholder="O2" />
                   <InputGroup.Append>
                     <InputGroup.Text>sat%</InputGroup.Text>
                   </InputGroup.Append>
                 </InputGroup>
-              </Form.Group>
-            </Col>
-            <Col>
-              <Form.Group>
-              {formLabel("Source")}
+
+
+
+                {formLabel("Source")}
                 <Form.Control as="select" defaultValue="Choose...">
                   {this.generateOptions("source", [
                     "None (Room Air)",
                     "Nasal Canula",
                     "Nasal Canula: Hi Flow",
                   ])}
-                </Form.Control>
-              </Form.Group>
-            </Col>
-            <Col>
-              <Form.Group>
-              {formLabel("Site")}
+
+
+
+                {formLabel("Site")}
                 <Form.Control as="select" defaultValue="Choose...">
                   {this.generateOptions("site", ["????", "????"])}
                 </Form.Control>
               </Form.Group>
             </Col>
-          </Form.Row>
+          </Row>
+
+          <hr />
 
           <Form.Group as={Row}>
             <Col>
