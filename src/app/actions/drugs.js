@@ -15,9 +15,11 @@ export const fetchAllDrugs = (params) => {
   };
 
   export const createPrescription = (token, bodyObj) => {
+      console.log(token)
+      console.log(bodyObj)
     return (dispatch) => {
       dispatch({ type: "FETCHING_CREATE_PRESCRIPTION" });
-      fetch("http://localhost:3001/rxes", {
+      fetch("http://localhost:3001/orders", {
         method: "POST",
         headers: {
             Authoization: `Bearer ${token}`,

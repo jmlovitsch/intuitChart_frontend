@@ -5,6 +5,7 @@ import PersonalColumn from "./employee/PersonalColumn";
 import CenterColumn from "./employee/CenterColumn";
 import { Messenger } from "../components/Messenger";
 import { withRouter } from "react-router-dom";
+import Header from "../components/Header";
 
 export class Employee extends Component {
     state={
@@ -23,14 +24,17 @@ export class Employee extends Component {
 
   render() {
     return (
-      <Container fluid>
-        <Row className="mainRow">
+      <div className="main">
+
+
+
+
           {/* <Col className="columnRight">
             <PersonalColumn handleClick={()=>this.handleClick()}/>
           </Col> */}
-          <Col >
+          {/* <Col > */}
             <CenterColumn patient={this.state.patient}  />
-          </Col>
+          {/* </Col> */}
           {/* <Col className="columnLeft">
 
             <Row style={{height: "65vh", borderBottom: "solid", borderWidth: "1px"}}>
@@ -41,8 +45,8 @@ export class Employee extends Component {
             </Row>
 
           </Col> */}
-        </Row>
-      </Container>
+
+      </div>
     );
   }
 }

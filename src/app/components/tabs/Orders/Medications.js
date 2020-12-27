@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Form, Button, Container, Row, Card, Table } from "react-bootstrap";
 import { connect } from "react-redux";
-import { fetchAllDrugs } from "../../../actions/drugs";
+import { createPrescription, fetchAllDrugs } from "../../../actions/drugs";
 import LoadingCard from "../../hooks/LoadingCard";
 import PrescribeRx from "../../hooks/PrescripeRx";
 
@@ -12,17 +12,51 @@ class Medication extends Component {
     drugs: [],
     prescribe: false,
     rxToPrescribe: "",
-    rx: {
-      route: "Choose",
-      iv_rate: "",
-      source_location: "",
-      dose: "",
-      time_due: "",
-      frequency: "",
-      if_prn_reason: "",
-      duration: "",
-    },
+
+      provider: this.props.user.id,
+      admission_id: 1,
+      written_requested_by: this.props.user.id,
+
+        route: "",
+        iv_rate: "",
+        source_location: "",
+        dose: "",
+        time_due: "",
+        frequency: "",
+        if_prn_reason: "",
+        duration: "",
+
+
   };
+
+  createPrescription = () => {
+    const bodyObj = {
+        order: {
+            provider: this.state.provider,
+            admission_id: this.state.admission_id,
+            written_requested_by: this.state.written_requested_by,
+
+                  medication: this.state.rxToPrescribe,
+                  route: this.state.route,
+                  iv_rate: this.state.iv_rate,
+                  source_location: this.state.source_location,
+                  dose: this.state.dose,
+                  time_due: this.state.time_due,
+                  frequency: this.state.frequency,
+                  if_prn_reason: this.state.if_prn_reason,
+                  duration: this.state.duration,
+
+
+
+        }
+    }
+    const token = localStorage.getItem("my_app_token");
+
+    this.props.createPrescription(token, bodyObj)
+
+
+  }
+
 
   componentDidMount() {
     //   if (this.props.user.employee_type === ('doctor' || 'nurse')){
@@ -50,6 +84,8 @@ class Medication extends Component {
     // });
   };
 
+
+
   handleSubmit = (event) => {
     event.preventDefault();
     const newState = this.state.drugs.filter((drug) => {
@@ -64,7 +100,7 @@ class Medication extends Component {
   };
 
   handleClick = (event) => {
-    const rxToPrescribe = this.state.drugs.find(
+    const rxToPrescribe = this.state.results.find(
       (result) => parseInt(event.target.id, 10) === result.id
     );
     console.log(rxToPrescribe);
@@ -128,12 +164,12 @@ class Medication extends Component {
   };
 
   generateRx = (event) => {
-    console.log(event);
-  };
-  render() {
-    console.log(this.state.rxToPrescribe);
-    const { results } = this.state;
+this.setState({
+    [event.target.name]: event.target.value
+})  };
 
+  render() {
+    const { results } = this.state;
     return (
       <div className="scroll-page">
         {this.state.prescribe ? (
@@ -141,9 +177,11 @@ class Medication extends Component {
             {" "}
             <PrescribeRx
               handleBack={this.handleBack}
-              rx={this.state.rx}
+              rx={this.state}
               generateRx={this.generateRx}
               rxToPrescribe={this.state.rxToPrescribe}
+              bodyObj={this.bodyObj}
+              createPrescription={this.createPrescription}
             />
           </>
         ) : (
@@ -162,18 +200,17 @@ class Medication extends Component {
                   </Form.Group>
 
                   <Form.Group className="justify-content-end">
-                        <Button
-                        onClick={this.setSubmitTime}
-                        type="submit"
-                        style={{
-                          backgroundColor: "transparent",
-                          border: "solid",
-                          color: "#1761a0",
-                        }}
-                      >
-                        Search
-                      </Button>
-
+                    <Button
+                      onClick={this.setSubmitTime}
+                      type="submit"
+                      style={{
+                        backgroundColor: "transparent",
+                        border: "solid",
+                        color: "#1761a0",
+                      }}
+                    >
+                      Search
+                    </Button>
                   </Form.Group>
                 </Form>
               )}
@@ -196,6 +233,7 @@ class Medication extends Component {
 const mapStateToProps = (state) => ({
   loading: state.drugs.loading,
   drugs: state.drugs,
+  user: state.user,
 });
 
-export default connect(mapStateToProps, { fetchAllDrugs })(Medication);
+export default connect(mapStateToProps, { fetchAllDrugs, createPrescription })(Medication);

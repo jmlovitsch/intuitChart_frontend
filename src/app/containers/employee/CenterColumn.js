@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Navigator from "../../components/Navigator";
-import { Card, Container } from "react-bootstrap";
+import { Card, Col, Container, Row } from "react-bootstrap";
 import { Switch, withRouter } from "react-router-dom";
 import Summary from "../../components/tabs/MainTabs/Summary";
 import Assessment from "../../components/tabs/MainTabs/Assessment";
@@ -23,14 +23,17 @@ class CenterColumn extends Component {
     }
     if (this.props.patient) {
       return (
-        <>
-        <Card className="parent">
+          <Row>
+          <Col md={2}>
+        1
+          </Col >
+        <Col >
+        <Card className="parent" >
         <Card.Header>
           <Navigator />
           </Card.Header>
-          <Card.Body >
-          {/* <div className="parent"> */}
-            <Switch>
+          <Card.Body style={{ padding: "5px"}} >
+            <Switch >
               <Assessment path="*/visits/:visit_id/assessment" />
               <Summary path="*/visits/:visit_id/summary" />
               <CarePlan path="*/visits/:visit_id/careplan" />
@@ -41,17 +44,17 @@ class CenterColumn extends Component {
               <ShiftAssessment path="*/visits/:visit_id/shiftassessment" />
               <ShiftNotes path="*/visits/:visit_id/shiftnotes" />
             </Switch>
-          {/* </div> */}
           </Card.Body>
           </Card>
-        </>
+        </Col>
+        </Row>
       );
     }
   };
 
   render() {
     //add more switch routes for the chart
-    return <Container>{this.renderOptions()}</Container>;
+    return <>{this.renderOptions()}</>;
   }
 }
 

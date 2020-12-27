@@ -11,18 +11,23 @@ import { currentUser } from "./app/actions/auth";
 import Switch from "react-bootstrap/esm/Switch";
 import { Container } from "react-bootstrap";
 import { fetchAllDrugs } from "./app/actions/drugs";
+import Header from "./app/components/Header";
 
 export class App extends Component {
 
   componentDidMount() {
-    const token = localStorage.getItem("my_app_token");
+    const token = localStorage.getItem("my_app_token")
+
     if (!token) {
       this.props.history.push("/login");
     } else {
       fetch("http://localhost:3001/current_user", {
         method: "GET",
         headers: {
-          Authorization: `Bearer ${token}`
+          Authorization: `Bearer ${token}`,
+          'Content-type': 'application/json',
+          Accept: 'application/json'
+
         }
       })
         .then(resp => resp.json())
@@ -37,12 +42,13 @@ export class App extends Component {
 
   render() {
     return (
-      <Container fluid className="App">
+      <div fluid className="site-container">
+          <Header />
         <Switch>
           <Route path={`/dashboard/${this.props.id}`} component={Dashboard} />
           <Route exact path="/login" component={Login} />
         </Switch>
-      </Container>
+      </div>
     );
   }
 }

@@ -1,14 +1,12 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Button, Col, Form, Modal, Row } from "react-bootstrap";
-import { createPrescription } from "../../actions/drugs";
 
 const PrescribeRx = (props) => {
   const [show, setShow] = useState(true);
 
   const handleClose = () => setShow(false);
-  //   const handleShow = () => setShow(true);
-  const token = localStorage.getItem("my_app_token");
+
   return (
     <>
       <Modal
@@ -26,16 +24,16 @@ const PrescribeRx = (props) => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form onChange={props.generateRx()}>
+          <Form onChange={props.generateRx} >
               <Row>
             <Form.Group as={Col}>
               <Form.Label>Route</Form.Label>
-              <Form.Control type="select" name="route" value={props.rx.route} />
+              <Form.Control type="text" name="route" value={props.rx.route} />
             </Form.Group>
             <Form.Group as={Col}>
               <Form.Label>IV Rate</Form.Label>
               <Form.Control
-                type="select"
+                type="text"
                 name="iv_rate"
                 value={props.rx.iv_rate}
               />
@@ -43,19 +41,19 @@ const PrescribeRx = (props) => {
             <Form.Group as={Col}>
               <Form.Label>Source Location</Form.Label>
               <Form.Control
-                type="select"
+                type="text"
                 name="source_location"
                 value={props.rx.source_location}
               />
             </Form.Group>
             <Form.Group as={Col}>
               <Form.Label>Dose</Form.Label>
-              <Form.Control type="select" name="dose" value={props.rx.dose} />
+              <Form.Control type="text" name="dose" value={props.rx.dose} />
             </Form.Group>
             <Form.Group as={Col}>
               <Form.Label>Time Due</Form.Label>
               <Form.Control
-                type="select"
+                type="text"
                 name="time_due"
                 value={props.rx.time_due}
               />
@@ -66,7 +64,7 @@ const PrescribeRx = (props) => {
             <Form.Group as={Col}>
               <Form.Label>Frequency</Form.Label>
               <Form.Control
-                type="select"
+                type="text"
                 name="frequency"
                 value={props.rx.frequency}
               />
@@ -74,7 +72,7 @@ const PrescribeRx = (props) => {
             <Form.Group as={Col}>
               <Form.Label>PRN Reason</Form.Label>
               <Form.Control
-                type="select"
+                type="text"
                 name="if_prn_reason"
                 value={props.rx.if_prn_reason}
               />
@@ -82,7 +80,7 @@ const PrescribeRx = (props) => {
             <Form.Group as={Col}>
               <Form.Label>Duration</Form.Label>
               <Form.Control
-                type="select"
+                type="text"
                 name="duration"
                 value={props.rx.duration}
               />
@@ -93,7 +91,7 @@ const PrescribeRx = (props) => {
         <Modal.Footer>
           <Button
             variant="secondary"
-            onClick={(handleClose, () => props.createPrescription(token))}
+            onClick={handleClose, props.createPrescription}
           >
             Prescribe
           </Button>
@@ -110,4 +108,4 @@ const mapStateToProps = (state) => ({});
 
 const mapDispatchToProps = {};
 
-export default connect(mapStateToProps, { createPrescription })(PrescribeRx);
+export default connect(mapStateToProps, )(PrescribeRx);

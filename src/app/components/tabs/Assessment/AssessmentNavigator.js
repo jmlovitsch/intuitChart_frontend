@@ -36,9 +36,14 @@ class AssessmentNavigator extends Component {
         >
           Daily Cares
         </NavLink>
-        <li className="nav-item">
-          <div className="nav-link disabled">Disabled</div>
-        </li>
+        <NavLink
+          name="io"
+          className="nav-item nav-link"
+          to={`/dashboard/${id}/visits/visit_id/assessment/io`}
+        >
+          I/O
+        </NavLink>
+
       </div>
     );
   }

@@ -14,8 +14,41 @@ import {
 import { render } from "@testing-library/react";
 
 class Vitals extends Component {
+  state = {
+    bp_systolic: "",
+    bp_diastolic: "",
+    bp_site: "",
+    bp_position: "",
+    bp_type: "",
+    hr_type: "",
+    hr_bpm: "",
+    hr_quality: "",
+    temp_site: "",
+    temp_degree: "",
+    rr_hr: "",
+    rr_rrmin: "",
+    rr_quality: "",
+    o2_saturation: "",
+    o2_source: "",
+    o2_site: "",
+    admissions_id: "",
+    author: this.props.user.username
+  };
+
+  handleChange = (event) => {
+    console.log(event.target.name);
+    this.setState({
+      [event.target.name]: event.target.value,
+    });
+  };
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(this.state)
+  };
+
   generateOptions = (place, [...props]) => {
-    return [...props].map((site) => {
+    return [...props, ""].map((site) => {
       return (
         <option
           inline
@@ -34,17 +67,6 @@ class Vitals extends Component {
     popup.classList.toggle("show");
   };
 
-  formLabel = (props) => {
-    return (
-      <OverlayTrigger
-        placement="right"
-        delay={{ show: 250, hide: 400 }}
-        overlay={this.renderTooltip(props)}
-      >
-        <Form.Label as={Row} value={props} />
-      </OverlayTrigger>
-    );
-  };
 
   render() {
     const renderTooltip = (props) => (
@@ -69,51 +91,67 @@ class Vitals extends Component {
 
     return (
       <div>
-        <Form>
+        <Form onChange={this.handleChange} onSubmit={this.handleSubmit}>
           <Row>
             <Col>
               <Form.Group>
                 {formLabel("Blood Pressure")}
                 {formLabel("Systolic")}
                 <InputGroup>
-                  <Form.Control type="number" placeholder="Diastolic" />
+                  <Form.Control type="number" value={this.state.systolic} />
                   <InputGroup.Append>
                     <InputGroup.Text className="mb-3">mm/Hg</InputGroup.Text>
                   </InputGroup.Append>
                 </InputGroup>
                 {formLabel("Diastolic")}
                 <InputGroup>
-                  <Form.Control type="number" placeholder="Systolic" />
+                  <Form.Control type="number" value={this.state.diastolic} />
                   <InputGroup.Append>
                     <InputGroup.Text className="mb-3">mm/Hg</InputGroup.Text>
                   </InputGroup.Append>
                 </InputGroup>
-                {formLabel("Site")}
+
+
+                {formLabel("BP Site")}
                 <Form.Control
                   as="select"
-                  defaultValue="Choose..."
+                  value={this.state.bp_site}
                   className="mb-3"
+                  name="bp_site"
                 >
-                  {this.generateOptions("bpSite", [
+                  {this.generateOptions("bp_site", [
                     "Upper Right Arm",
                     "Lower Right Arm",
                     "Upper Left Arm",
                     "Lower Left Arm",
                   ])}
                 </Form.Control>
-                {formLabel("Position")}
-                <Form.Control
-                  type="text"
-                  placeholder="Position"
-                  className="mb-3"
-                />
-                {formLabel("Type")}{" "}
+
+
+                {formLabel("BP Position")}
                 <Form.Control
                   as="select"
-                  defaultValue="Choose..."
+                  value={this.state.bp_position}
                   className="mb-3"
+                  name="bp_position"
+                  >
+                  {this.generateOptions("bp_position", [
+                    "Laying Down",
+                    "Sitting Up",
+                    "Standing Up",
+
+                  ])}
+                </Form.Control>
+
+
+                {formLabel("BP type")}{" "}
+                <Form.Control
+                  as="select"
+                  value={this.state.bp_type}
+                  className="mb-3"
+                  name="bp_type"
                 >
-                  {this.generateOptions("type", [
+                  {this.generateOptions("bp_type", [
                     "Manual",
                     "Automatic",
                     "Doppler",
@@ -125,75 +163,93 @@ class Vitals extends Component {
             <Col>
               <Form.Group>
                 {formLabel("Heart Rate")}
-                {formLabel("HR")}
+                {formLabel("HR Type")}
                 <Form.Control
                   as="select"
-                  defaultValue="Choose..."
+                  value={this.state.hr_type}
                   className="mb-3"
+                  name="hr_type"
                 >
-                  {this.generateOptions("hr", ["Monitor", "Manual"])}
+                  {this.generateOptions("hr_type", ["Monitor", "Manual"])}
                 </Form.Control>
-                {formLabel("HR")}{" "}
+
+                {formLabel("HR BPM")}{" "}
                 <InputGroup>
                   <Form.Control type="number" placeholder="HR" />
                   <InputGroup.Append>
                     <InputGroup.Text className="mb-3">bpm</InputGroup.Text>
                   </InputGroup.Append>
                 </InputGroup>
-                {formLabel("Quality")}{" "}
+
+                {formLabel("HR Quality")}
                 <Form.Control
                   as="select"
-                  defaultValue="Choose..."
+                  value={this.state.hr_quality}
                   className="mb-3"
+                  name="hr_quality"
                 >
-                  {this.generateOptions("quality", ["Regular", "Irregular"])}
+                  {this.generateOptions("hr_quality", ["Regular", "Irregular"])}
                 </Form.Control>
               </Form.Group>
             </Col>
 
             <Col>
               <Form.Group>
-                {formLabel("Temperature")} {formLabel("Local Site")}{" "}
+                {formLabel("Temperature")}
+                {formLabel("Temp. Site")}{" "}
                 <Form.Control
                   as="select"
-                  defaultValue="Choose..."
+                  value={this.state.temp_site}
                   className="mb-3"
+                  name="temp_site"
                 >
-                  {this.generateOptions("localSite", ["Under Arm", "Mouth"])}
+                  {this.generateOptions("temp_site", ["Under Arm", "Mouth"])}
                 </Form.Control>
-                {formLabel("Temp")}{" "}
+
+
+                {formLabel("Temperature Degrees")}
                 <Form.Control
                   type="number"
-                  placeholder="C/F"
+                  value={this.state.temp_degree}
                   className="mb-3"
+                  name="temp_degree"
                 />
-                {formLabel("Respiration Rate")} {formLabel("HR")}{" "}
+
+
+                {formLabel("Respiration Rate")}
+                {formLabel("RR-HR")}{" "}
                 <Form.Control
                   as="select"
-                  defaultValue="Choose..."
+                  value={this.state.rr_hr}
                   className="mb-3"
+                  name="rr_hr"
                 >
-                  {this.generateOptions("quality", [
+                  {this.generateOptions("rr_hr", [
                     "Regular",
                     "Labored",
                     "Shallow",
                     "Irregular",
                   ])}
                 </Form.Control>
+
+
                 {formLabel("RR/min")}{" "}
                 <InputGroup>
                   <Form.Control
                     type="number"
-                    placeholder="number"
+                    value={this.state.rr_rrmin}
                     className="mb-3"
+                    name="rr_rrmin"
                   />
                   <InputGroup.Append>
                     <InputGroup.Text className="mb-3">RR/min</InputGroup.Text>
                   </InputGroup.Append>
                 </InputGroup>
-                {formLabel("Quality")}{" "}
-                <Form.Control as="select" defaultValue="Choose...">
-                  {this.generateOptions("quality", ["regular", "irregular"])}
+
+
+                {formLabel("RR Quality")}{" "}
+                <Form.Control as="select" value={this.state.rr_quality} name="rr_quality">
+                  {this.generateOptions("rr_quality", ["Regular", "Irregular"])}
                 </Form.Control>
               </Form.Group>
             </Col>
@@ -201,24 +257,27 @@ class Vitals extends Component {
             <Col>
               <Form.Group>
                 {formLabel("Oxygen")}
-                {formLabel("Saturation")}{" "}
+                {formLabel("O2 Saturation")}
                 <InputGroup>
-                  <Form.Control type="number" placeholder="O2" />
+                  <Form.Control type="number" value={this.state.o2_saturation} name="o2_saturation" />
                   <InputGroup.Append>
                     <InputGroup.Text>sat%</InputGroup.Text>
                   </InputGroup.Append>
                 </InputGroup>
-                {formLabel("Source")}
-                <Form.Control as="select" defaultValue="Choose...">
-                  {this.generateOptions("source", [
+
+                {formLabel("O2 Source")}
+                <Form.Control as="select" value={this.state.o2_source} name="o2_source">
+                  {this.generateOptions("o2_source", [
                     "None (Room Air)",
                     "Nasal Canula",
                     "Nasal Canula: Hi Flow",
                   ])}
                 </Form.Control>
-                {formLabel("Site")}
-                <Form.Control as="select" defaultValue="Choose...">
-                  {this.generateOptions("site", ["????", "????"])}
+
+
+                {formLabel("O2 Site")}
+                <Form.Control as="select" value={this.state.o2_site} name="o2_site" >
+                  {this.generateOptions("o2_site", ["????", "????"])}
                 </Form.Control>
               </Form.Group>
             </Col>
@@ -237,7 +296,9 @@ class Vitals extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+    user: state.user
+});
 
 const mapDispatchToProps = {};
 

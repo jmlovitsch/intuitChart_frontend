@@ -1,104 +1,27 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Form, Button, Col, Row } from "react-bootstrap";
+import {
+  Form,
+  Button,
+  Col,
+  Row,
+  OverlayTrigger,
+  InputGroup,
+  Tooltip,
+} from "react-bootstrap";
 
 class Pain extends Component {
   state = {
-    employeeID: "",
-    scoringTool: [],
-    orientation: [],
-    location: [],
-    treatment: [],
-    paseroSedation: [],
-  };
-
-  oneToTenRange = () => {
-    return [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => {
-      return (
-        <Form.Check
-            inline
-          label={num}
-          name="scoringTool"
-          type="checkbox"
-          id={`inline-${num}-2`}
-          value={`1 to 10 Scale Tool: ${num} out of 10`}
-
-        />
-      );
-    });
-  };
-
-  PainOrientationDropdown = () => {
-    return (
-      <Form.Group>
-        {["checkbox"].map((type) => (
-          <div key={`inline-${type}`} className="mb-3">
-            <Form.Check
-              inline
-              label="Upper"
-              name="orientation"
-              value="Upper"
-              type={type}
-              id={`inline-${type}-1`}
-            />
-            <Form.Check
-              inline
-              label="Lower"
-              name="orientation"
-              value="Lower"
-              type={type}
-              id={`inline-${type}-2`}
-            />
-            <Form.Check
-              inline
-              label="Mid"
-              name="orientation"
-              value="Mid"
-              type={type}
-              id={`inline-${type}-2`}
-            />
-            <Form.Check
-              inline
-              label="Left"
-              name="orientation"
-              value="Left"
-              type={type}
-              id={`inline-${type}-2`}
-            />
-            <Form.Check
-              inline
-              label="Right"
-              name="orientation"
-              value="Right"
-              type={type}
-              id={`inline-${type}-2`}
-            />
-            <Form.Check
-              inline
-              label="Anterior"
-              name="orientation"
-              value="Anterior"
-              type={type}
-              id={`inline-${type}-2`}
-            />
-            <Form.Check
-              inline
-              label="Posterior"
-              name="orientation"
-              value="Posterior"
-              type={type}
-              id={`inline-${type}-2`}
-            />
-          </div>
-        ))}
-      </Form.Group>
-    );
-  };
-
-  addPainOrientation = (event) => {
-    this.setState({
-      painOrientaton: !this.state.painOrientaton,
-    });
+    author: this.props.user.username,
+    admission_id: "",
+    assume_pain: "",
+    asleep: "",
+    scale_type: "",
+    scale_value: "",
+    orientation: "",
+    location: "",
+    treatment: "",
+    pasero_sedation: "",
   };
 
   handleChange = (event) => {
@@ -129,118 +52,197 @@ class Pain extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
   };
+  formLabel = (props) => {
+    return (
+      <OverlayTrigger
+        placement="right"
+        delay={{ show: 250, hide: 400 }}
+        overlay={this.renderTooltip(props)}
+      >
+        <Form.Label as={Row} value={props} />
+      </OverlayTrigger>
+    );
+  };
+
+  generateOptions = (place, [...props]) => {
+    return [...props, ""].map((site) => {
+      return (
+        <option
+          inline
+        //   type="checkbox"
+          label={site}
+          name={place}
+          id={`inline-${site}-2`}
+          value={site}
+        />
+      );
+    });
+  };
+
+  handleChange = (event) => {
+    console.log(event.target.name);
+    this.setState({
+      [event.target.name]: event.target.value,
+    });
+  };
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(this.state);
+  };
 
   render() {
-    return (
-      <div >
-        <Form
-          onChange={(event) => this.handleChange(event)}
-          onSubmit={(event) => this.handleSubmit(event)}
+    const renderTooltip = (props) => (
+      <Tooltip id="button-tooltip" {...props}>
+        {props}
+      </Tooltip>
+    );
+
+    const formLabel = (props) => {
+      return (
+        <OverlayTrigger
+          placement="left"
+          delay={{ show: 250, hide: 400 }}
+          overlay={renderTooltip(props)}
         >
-          <Form.Group as={Row}>
-            <Form.Label as="legend" column sm={2}>
-              Scoring Tool
-            </Form.Label>
-            <Col sm={5}>
-              <Form.Check
-                type="checkbox"
-                label="Assume Pain"
-                name="scoringTool"
-                id="Assume Pain"
-                value="Assume Pain"
-              />
-              <Form.Check
-                type="checkbox"
-                label="Asleep"
-                name="scoringTool"
-                id="Asleep"
-                value="Asleep"
-              />
+          <Form.Label as={Row} className="justify-content-center">
+            {props}
+          </Form.Label>
+        </OverlayTrigger>
+      );
+    };
 
-              <Form.Label>0-10 Scale</Form.Label>
-              <Row style={{ border: "solid", borderWidth: "1px", marginLeft: "10px", justifyItems: "auto" }}>
-                {this.oneToTenRange()}
-              </Row>
+    return (
+      <div>
+        <Form onChange={this.handleChange} onSubmit={this.handleSubmit}>
+          <Row>
+            <Col>
+              <Form.Group>
+                {formLabel("Scoring Tool")}
+                {formLabel("Assume Pain")}
+                <Form.Control
+                  as="select"
+                  value={this.state.assume_pain}
+                  className="mb-3"
+                  name="assume_pain"
+                >
+                  {this.generateOptions("assume_pain", ["yes", "no"])}
+                </Form.Control>
 
-              <Form.Check
-                type="checkbox"
-                label="CPOT (non:intupated)"
-                name="scoringTool"
-                id="CPOT (non:intupated)"
-                value="CPOT (non:intupated)"
-              />
+                {formLabel("Asleep")}
+                <Form.Control
+                  as="select"
+                  value={this.state.asleep}
+                  className="mb-3"
+                  name="asleep"
+                >
+                  {this.generateOptions("asleep", ["yes", "no"])}
+                </Form.Control>
 
-              <Form.Check
-                type="checkbox"
-                label="Wong-Baker"
-                name="scoringTool"
-                id="Wong-Baker"
-                value="Wong-Baker"
-              />
-              <Form.Check
-                type="checkbox"
-                label="Faces"
-                name="scoringTool"
-                id="Faces"
-                value="Faces"
-              />
+                {formLabel("Scale Type")}
+                <Form.Control
+                  as="select"
+                  value={this.state.scale_type}
+                  className="mb-3"
+                  name="scale_type"
+                >
+                  {this.generateOptions("scale_type", [
+                    "0-10",
+                    "CPOT",
+                    "Wong-Baker",
+                    "Faces",
+                  ])}
+                </Form.Control>
+
+                {formLabel("Scale Value")}
+                <Form.Control
+                  as="select"
+                  className="mb-3"
+                  name="scale_value"
+                  value={this.state.scale_value}
+                >
+                  {this.generateOptions("scale_value", [
+                    "0",
+                    "1",
+                    "2",
+                    "3",
+                    "CPOT",
+                    "Wong-Baker",
+                    "Faces",
+                  ])}
+                </Form.Control>
+              </Form.Group>
             </Col>
-            <Col sm={2}>result of checked item goes here</Col>
-          </Form.Group>
-          <hr />
-          <Form.Group as={Row}>
-            <Form.Label as="legend" column sm={2}>
-              Orientation
-            </Form.Label>
-            <Col sm={10} style={{ alignItems: "center" }}>{this.PainOrientationDropdown()}</Col>
-          </Form.Group>
-          <hr />
-          <Form.Group as={Row}>
-            <Form.Label as="legend" column sm={2}>
-              Location
-            </Form.Label>
-            <Col sm={3}></Col>
-          </Form.Group>
-          <hr />
-          <Form.Group as={Row}>
-            <Form.Label as="legend" column sm={2}>
-              Treatment
-            </Form.Label>
-            <Col sm={5}>
-              <Form.Check
-                type="checkbox"
-                label="Declines"
-                name="treatment"
-                id="Declines"
-                value="Declines"
-              />
-              <Form.Check
-                type="checkbox"
-                label="Medication"
-                name="treatment"
-                id="Medication"
-                value="Medication"
-              />
-              <Form.Check
-                type="checkbox"
-                label="Non-Pharm"
-                name="treatment"
-                id="Non-Pharm"
-                value="Non-Pharm"
-              />
-            </Col>
-          </Form.Group>
-          <hr />
-          <Form.Group as={Row}>
-            <Form.Label column sm={2}>
-              Pasero Sedation
-            </Form.Label>
-            <Col sm={10}>dstuff here</Col>
-          </Form.Group>
-          <fieldset></fieldset>
 
-          <Form.Group as={Row}>
-            <Col sm={{ span: 10, offset: 2 }}>
+            <Col>
+              <Form.Group>
+                {formLabel("Orientation")}
+                <Form.Control
+                  as="select"
+                  className="mb-3"
+                  name="orientation"
+                  value={this.state.orientation}
+                >
+                  {this.generateOptions("orientation", [
+                    "Upper",
+                    "Lower",
+                    "Mid",
+                    "Left",
+                    "Right",
+                    "Anterior",
+                    "Posterior",
+                  ])}
+                </Form.Control>
+
+                {formLabel("Location")}
+                <Form.Control
+                  as="select"
+                  className="mb-3"
+                  name="location"
+                  value={this.state.location}
+                >
+                  {this.generateOptions("location", [
+                    "locaiton1",
+                    "locaiton3",
+                    "locaiton1",
+                  ])}
+                </Form.Control>
+              </Form.Group>
+            </Col>
+
+            <Col>
+              <Form.Group>
+                {formLabel("Treatment")}
+                {formLabel("Type")}
+                <Form.Control
+                  as="select"
+                  value={this.state.treatment}
+                  className="mb-3"
+                  name="treatment"
+                >
+                  {this.generateOptions("treatment", [
+                    "Declines",
+                    "Medication",
+                    "Non-Pharm",
+                  ])}
+                </Form.Control>
+                {formLabel("Pasero Sedation")}{" "}
+                <Form.Control
+                  as="select"
+                  value={this.state.pasero_sedation}
+                  className="mb-3"
+                  name="pasero_sedation"
+                >
+                  {this.generateOptions("pasero_sedation", ["1", "2"])}
+                </Form.Control>
+              </Form.Group>
+            </Col>
+          </Row>
+
+          <hr />
+
+          <Form.Group>
+            <Col>
               <Button type="submit">Submit</Button>
             </Col>
           </Form.Group>
@@ -250,7 +252,9 @@ class Pain extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+  user: state.user,
+});
 
 const mapDispatchToProps = {};
 
