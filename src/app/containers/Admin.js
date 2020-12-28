@@ -7,6 +7,7 @@ import { logoutUser } from "../actions/users";
 import { fetchAllUsers } from "../actions/users";
 import { allCategories } from "../categories/UserCategories";
 import DeletePopUp from "../components/hooks/DeletePopUp";
+import { clearEmployeeMessages } from "../actions/employees";
 
 class Admin extends Component {
   state = {
@@ -16,7 +17,9 @@ class Admin extends Component {
   };
 
   componentDidMount(){
+      if(this.props.employees.length === 0){
         this.props.fetchAllUsers()
+      }
   }
 
     sortArray = (type) => {
@@ -42,6 +45,7 @@ class Admin extends Component {
       task: "",
       itemED: "",
     });
+    this.props.clearEmployeeMessages()
   };
 
   handleLogout = () => {
@@ -53,7 +57,7 @@ class Admin extends Component {
     switch (this.state.task) {
       case "createUser":
         return (
-          <div className="login">
+          <div >
             <CreateUser
               handleBack={this.handleBack}
               arrayKeys={allCategories}
@@ -204,4 +208,4 @@ const mapStateToProps = (state) =>{
    employees: state.employee.employeeList
    }
 }
-export default connect(mapStateToProps, { logoutUser, fetchAllUsers })(Admin);
+export default connect(mapStateToProps, { logoutUser, clearEmployeeMessages, fetchAllUsers })(Admin);

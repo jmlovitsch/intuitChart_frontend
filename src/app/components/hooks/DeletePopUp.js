@@ -17,18 +17,30 @@ const DeletePopUp = (props) => {
         backdrop="static"
         keyboard={false}
       >
-        <Modal.Header closeButton>
-          <Modal.Title>Modal title</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Delete User? This is permanent.</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={(handleClose, ()=>props.deleteEmployee(token, props.itemED) )}>
+          {props.message ?
+          <><Modal.Body>{props.message}</Modal.Body>
+          <Modal.Footer>
+          <Button variant="primary" onClick={(handleClose, props.handleBack)}>
+            Go Back
+          </Button>
+        </Modal.Footer></>
+
+        :
+        <><Modal.Header closeButton>
+        <Modal.Title>Modal title</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>Delete User? This is permanent.</Modal.Body>
+      <Modal.Footer>
+          <Button variant="secondary" onClick={(handleClose,  ()=>props.deleteEmployee(token, props.itemED))}>
             Delete
           </Button>
           <Button variant="primary" onClick={(handleClose, props.handleBack)}>
             Go Back
           </Button>
         </Modal.Footer>
+
+</>
+        }
       </Modal>
     </>
   );
@@ -36,6 +48,7 @@ const DeletePopUp = (props) => {
 
 const mapStateToProps = (state) => ({
     id: state.user.id,
+    message: state.employee.message
   });
 
 export default connect(mapStateToProps, { deleteEmployee })(DeletePopUp);

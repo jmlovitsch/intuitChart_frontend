@@ -60,7 +60,7 @@ export const deleteEmployee = (token, id) => {
       },
     })
       .then(response => response.json())
-      .then(data =>  dispatch({ type: "REMOVE_DELETED_EMPLOYEE_FROM_LIST", id }))
+      .then(data => dispatch({ type: "REMOVE_DELETED_EMPLOYEE_FROM_LIST", data, id }))
 
   }
 };
