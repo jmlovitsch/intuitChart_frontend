@@ -3,7 +3,7 @@ import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { connect } from "react-redux";
 import { createUserSuccess } from "../../actions/auth";
 
-class CreateUser extends Component {
+class CreateEmployee extends Component {
   state = {
     authorization: "",
     username: "",
@@ -34,7 +34,7 @@ class CreateUser extends Component {
   };
 
   values = {
-    authorization: ["", "admin", "hospital_admin", "employee", "patient"],
+    authorization: ["", "hospital_admin", "employee"],
     username: "",
     password: "",
     first_name: "",
@@ -133,7 +133,7 @@ class CreateUser extends Component {
 
     return (
       <div className="scroll-page">
-        <Row style={{margin: "0"}}>Create User</Row>
+        <Row style={{margin: "0"}}>Create Employee</Row>
         <Form
           onChange={(e) => this.handleChange(e)}
           onSubmit={(e) => this.handleSubmit(e)}
@@ -167,4 +167,4 @@ const mapStateToProps = (state) => ({
   createdUser: state.user.createdUser,
 });
 
-export default connect(mapStateToProps, { createUserSuccess })(CreateUser);
+export default connect(mapStateToProps, { createUserSuccess })(CreateEmployee);

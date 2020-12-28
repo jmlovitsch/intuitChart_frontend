@@ -25,3 +25,19 @@ export const openAddPatient = () => {
         });
     };
   };
+
+
+  export const fetchAllPatients = () => {
+    return (dispatch) => {
+      dispatch({ type: "FETCHING_ALL_PATIENTS" });
+      fetch("http://localhost:3001/patients", {
+        method: "GET"
+      })
+        .then((response) => {
+          return response.json();
+        })
+        .then((patients) => {
+          dispatch({ type: "ALL_PATIENTS", patients });
+        });
+    };
+  };

@@ -27,8 +27,8 @@ class Dashboard extends Component {
   };
 
   render() {
-    return <div   >
-    {this.Switching()}</div>;
+    return <   >
+    {this.Switching()}</>;
   }
 }
 

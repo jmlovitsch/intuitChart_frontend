@@ -164,9 +164,8 @@ class Admin extends Component {
   };
 
   render() {
-      console.log(this.props.employees)
     return (
-      <Row xs={2} md={4} lg={12}>
+      <Row xs={2} md={4} lg={12} style={{margin: "inherit"}}>
         <Col className="main" lg={2}>
           <Card className="small-btns mb-3">
             <Container>Welcome, Admin.</Container>
@@ -192,7 +191,7 @@ class Admin extends Component {
         <Col
           className="main"
           lg={10}
-          style={{ outline: "solid", outlineColor: "whitesmoke" }}
+        //   style={{ outlineLeft: "solid", outlineColor: "whitesmoke" }}
         >
           {this.renderTask()}{" "}
         </Col>

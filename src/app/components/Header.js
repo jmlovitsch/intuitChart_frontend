@@ -92,6 +92,7 @@ class Header extends Component {
         </Row>
 
         <Navbar.Brand
+        className="logo"
           href="/"
           style={{ color: "#238a917c", marginRight: "0px" }}
         >

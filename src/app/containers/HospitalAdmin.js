@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
 import {
   Row,
@@ -9,12 +9,12 @@ import {
   Table,
   Card,
 } from "react-bootstrap";
-import CreateUser from "../components/forms/CreateUser";
+import CreateEmployee from "../components/forms/CreateEmployee";
 import EditUser from "../components/forms/EditUser";
-import { SignOutIcon } from "@primer/octicons-react";
 import { fetchAllEmployees, logoutUser } from "../actions/users";
 import { admin, allCategories } from "../categories/UserCategories";
 import DeletePopUp from "../components/hooks/DeletePopUp";
+import CreateAdmission from "../components/forms/CreateAdmission";
 
 class HospitalAdmin extends Component {
   state = {
@@ -28,6 +28,8 @@ class HospitalAdmin extends Component {
         this.props.id
       );
   }
+
+
 
   handleClick = (e) => {
     this.setState({
@@ -51,7 +53,7 @@ class HospitalAdmin extends Component {
     switch (this.state.task) {
       case "createUser":
         return (
-          <CreateUser handleBack={this.handleBack} arrayKeys={admin} />
+          <CreateEmployee handleBack={this.handleBack} arrayKeys={admin} />
         );
       case "deleteUser":
         return (
@@ -64,7 +66,11 @@ class HospitalAdmin extends Component {
             handleBack={this.handleBack}
             arrayKeys={allCategories}
           />
-        );
+        )
+            case "createAdmission":
+                return (
+                    <CreateAdmission handleBack={this.handleBack} />
+                )
       default:
         return (
           <Container>
@@ -139,13 +145,17 @@ class HospitalAdmin extends Component {
                   this.handleClick(e);
                 }}
               >
-                Create User
+                Create Employee
               </Button>
-            </Row>
-            <Row>
-              <div onClick={() => this.handleLogout()} style={{ position: "absolute", bottom: "20px", left: "-20px" }}>
-                <SignOutIcon type="button" size={35} />
-              </div>
+              <Button
+                name="createAdmission"
+                onClick={(e) => {
+                  this.handleClick(e);
+                }}
+              >
+                Create Admission
+              </Button>
+
             </Row>
           </Col>{" "}
           <Col lg={10} className="centerColumn">

@@ -25,7 +25,15 @@
 
 .header {
     height: 6vh;
-    background-color: #238a917c;
+    outline: .05vh solid;
+
+    outline-color: #1761a0;
+}
+
+.logo {
+    z-index: 1;
+    /* box-shadow: 10px 5px 5px rgb(150, 137, 137), inset 0 0 50px  rgb(221, 221, 221); */
+
 }
 
 /* .App {
@@ -106,6 +114,9 @@ my-btn {
 
 .parent {
     height: 95vh;
+    padding-top: 1vh;
+    padding-right: 1vw;
+    padding-left: 1vw;
 
 }
 
