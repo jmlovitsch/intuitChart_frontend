@@ -4,8 +4,9 @@ import { Row, Col, Container } from "react-bootstrap";
 import PersonalColumn from "./employee/PersonalColumn";
 import CenterColumn from "./employee/CenterColumn";
 import { Messenger } from "../components/Messenger";
-import { withRouter } from "react-router-dom";
+import { withRouter, Switch } from "react-router-dom";
 import Header from "../components/Header";
+import { Profile } from "../components/forms/Profile";
 
 export class Employee extends Component {
   state = {
@@ -18,13 +19,22 @@ export class Employee extends Component {
     });
   };
 
+  componentDidMount() {
+    this.props.history.push(`/dashboard/${this.props.id}/visits`);
+  }
+
   render() {
     return (
       <div>
-        <CenterColumn
-          patient={this.state.patient}
-          addPatient={this.props.addPatient}
-        />
+        <Switch>
+          <CenterColumn
+            patient={this.state.patient}
+            addPatient={this.props.addPatient}
+
+            path={`/dashboard/${this.props.id}/visits*`}
+          />
+          <Profile path={`/dashboard/${this.props.id}/profile`} />
+        </Switch>
       </div>
     );
   }
@@ -33,6 +43,7 @@ export class Employee extends Component {
 const mapStateToProps = (state) => {
   return {
     username: state.username,
+    id: state.user.id,
   };
 };
 

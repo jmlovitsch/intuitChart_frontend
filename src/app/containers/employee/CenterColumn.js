@@ -22,6 +22,7 @@ class CenterColumn extends Component {
 
 
   renderOptions = () => {
+
     if (this.props.addPatient) {
       return <AddPatient />;
     } else {

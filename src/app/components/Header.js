@@ -14,23 +14,22 @@ import {
   Tooltip,
   OverlayTrigger,
   Nav,
+  NavbarBrand,
 } from "react-bootstrap";
 import LogoNE from "../../LogoNE.png";
 import Words2 from "../../Words2.png";
 import { openAddPatient } from "../actions/patients";
 
 class Header extends Component {
-    constructor(){
-        super()
-    }
+  constructor() {
+    super();
+  }
 
-
-
-  handleLogout = () => {
-    localStorage.removeItem("my_app_token");
-    this.props.history.push("/login");
-    this.props.logoutUser();
-  };
+//   handleLogout = () => {
+//     localStorage.removeItem("my_app_token");
+//     this.props.history.push("/login");
+//     this.props.logoutUser();
+//   };
   handleLogout = () => {
     localStorage.removeItem("my_app_token");
     this.props.history.push("/login");
@@ -41,7 +40,12 @@ class Header extends Component {
   };
 
   renderAdd = () => {
-      this.props.renderAdd()
+    this.props.renderAdd();
+  };
+
+  handleClick=()=>{
+    console.log("Clicked")
+    this.props.history.push(`/dashboard/${this.props.user.id}/profile`)
   }
   renderwithToken = () => {
     const token = localStorage.getItem("my_app_token");
@@ -49,32 +53,29 @@ class Header extends Component {
       return (
         <>
           <Navbar.Text className="justify-content-start">
-            Signed in as: <a href="">{this.props.user.username}</a>
+            <Row style={{ margin: "0" }}>
+              {" "}
+              <Navbar.Text>Signed in as:</Navbar.Text>{" "}
+              <NavDropdown
+                title={this.props.user.username}
+                // title={`Signed in as: ${this.props.user.username}`}
+                id="basic-nav-dropdown"
+              >
+                <NavDropdown.Item name="profile" onClick={this.handleClick}>Profile</NavDropdown.Item>
+                <NavDropdown.Item onClick={this.handleLogout}>
+                  Lock
+                  <KeyIcon />
+                </NavDropdown.Item>
+
+                <NavDropdown.Divider />
+                <NavDropdown.Item onClick={this.handleCloseWorkday}>
+                  Close Workday
+                  <SignOutIcon />
+                </NavDropdown.Item>
+              </NavDropdown>
+            </Row>
           </Navbar.Text>
 
-          <NavDropdown
-            title={`Signed in as: ${this.props.user.username}`}
-            id="basic-nav-dropdown"
-          >
-            <NavDropdown.Item>Profile</NavDropdown.Item>
-            <NavDropdown.Item onClick={this.handleLogout}>
-              Lock
-              <KeyIcon />
-            </NavDropdown.Item>
-
-            <NavDropdown.Divider />
-            <NavDropdown.Item onClick={this.handleCloseWorkday}>
-              Close Workday
-              <SignOutIcon />
-            </NavDropdown.Item>
-          </NavDropdown>
-
-          <NavDropdown title="Patients" id="basic-nav-dropdown">
-          {/* {this.props.user.assignments.map(a => {
-                  return <NavDropdown.Item onClick={this.props.history.push('/')}>{a}</NavDropdown.Item>
-              })} */}
-            <NavDropdown.Item onClick={()=>this.props.openAddPatient()}>Add Patient</NavDropdown.Item>
-          </NavDropdown>
         </>
       );
     }
@@ -84,34 +85,48 @@ class Header extends Component {
     return (
       <Navbar
         fixed="top"
-        className="header justify-content-between align-content-bottom "
+        className="header justify-content-between align-content-center "
         style={{ padding: "10px", backgroundColor: "whitesmoke" }}
       >
         <Row style={{ margin: "0" }} className="justify-content-start">
           {this.renderwithToken()}
         </Row>
 
-        <Navbar.Brand
-        className="logo"
-          href="/"
-          style={{ color: "#238a917c", marginRight: "0px" }}
-        >
-          <img
-            alt=""
-            src={Words2}
-            width="200"
-            height="auto"
-            style={{ margin: "-15px" }}
-          />
+        <Row style={{ margin: "0" }} className="justify-content-end" >
+<div >
+          <NavDropdown title="Patients" id="basic-nav-dropdown" >
+            {/* {this.props.user.assignments.map(a => {
+                  return <NavDropdown.Item onClick={this.props.history.push('/')}>{a}</NavDropdown.Item>
+              })} */}
+            <NavDropdown.Item onClick={() => this.props.openAddPatient()}>
+              Add Patient
+            </NavDropdown.Item>
+          </NavDropdown>
+          </div>
+          <div>
+          <Navbar.Brand
+            className="logo"
+            href="/"
+            style={{ color: "#238a917c", marginRight: "0px" }}
+          >
+            <img
+              alt=""
+              src={Words2}
+              width="200"
+              height="auto"
+              style={{ margin: "-15px" }}
+            />
 
-          <img
-            alt=""
-            src={LogoNE}
-            width="auto"
-            height="65"
-            style={{ margin: "0px" }}
-          />
-        </Navbar.Brand>
+            <img
+              alt=""
+              src={LogoNE}
+              width="auto"
+              height="65"
+              style={{ margin: "0px" }}
+            />
+          </Navbar.Brand>
+          </div>
+        </Row>
       </Navbar>
     );
   }
@@ -121,4 +136,6 @@ const mapStateToProps = (state) => ({
   user: state.user,
 });
 
-export default connect(mapStateToProps, { logoutUser, openAddPatient })(withRouter(Header));
+export default connect(mapStateToProps, { logoutUser, openAddPatient })(
+  withRouter(Header)
+);

@@ -35,6 +35,7 @@ export const emergencyCont = [
   "emergency_contact_phone",
 ];
 
+
 export const allCategories = emergencyCont.concat(
   healthInsInfo,
   personalInfo,
