@@ -2,18 +2,19 @@
     position: absolute;
     width: 100%;
     height: 100%;
-    top: 0;
+    /* top: 0; */
     background-color: #238a917c;
     font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
 
 .login {
+    /* padding-top: 5%; */
   /* background-color: #aaaaaa; */
   /* height: 100vh; */
   /* width: 100vw; */
   /* display: flex; */
   justify-content: center;
-  align-items: top;
+  /* align-items: top; */
 }
 .login-card {
     /* box-shadow: -1em .5em .5em rgb(131, 131, 128), -1em 0 .4em rgb(131, 131, 128); */
@@ -23,8 +24,8 @@
 }
 
 .header {
-    height: 5%;
-    background-color: #1761a0;
+    height: 6vh;
+    background-color: #238a917c;
 }
 
 /* .App {
@@ -104,7 +105,8 @@ my-btn {
 }
 
 .parent {
-    max-height: 95%;
+    height: 95vh;
+
 }
 
 .child {

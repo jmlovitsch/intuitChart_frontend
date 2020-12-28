@@ -14,27 +14,28 @@ import { fetchAllDrugs } from "./app/actions/drugs";
 import Header from "./app/components/Header";
 
 export class App extends Component {
-
   componentDidMount() {
-    const token = localStorage.getItem("my_app_token")
+    const token = localStorage.getItem("my_app_token");
 
     if (!token) {
       this.props.history.push("/login");
     } else {
-      fetch("http://localhost:3001/current_user", {
+      fetch("http://localhost:3001/profile", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
-          'Content-type': 'application/json',
-          Accept: 'application/json'
-
-        }
+          "Content-type": "application/json",
+          Accept: "application/json",
+        },
       })
-        .then(resp => resp.json())
-        .then(data => {
+        .then((resp) => resp.json())
+        .then((data) => {
+            console.log(data)
+        //   localStorage.setItem("my_app_token", data.jwt);
           this.props.currentUser(data);
+          this.props.history.push(`/dashboard/${data.user.id}`);
+
         });
-        this.props.history.push(`/dashboard/${this.props.id}`);
     }
   }
 
@@ -43,11 +44,15 @@ export class App extends Component {
   render() {
     return (
       <div fluid className="site-container">
-          <Header />
-        <Switch>
-          <Route path={`/dashboard/${this.props.id}`} component={Dashboard} />
-          <Route exact path="/login" component={Login} />
-        </Switch>
+        <div className="header">
+          <Header renderAdd={this.renderAdd} />
+        </div>
+        <div className="parent">
+          <Switch>
+            <Route path={`/dashboard/${this.props.id}`} component={Dashboard}  />
+            <Route exact path="/login" component={Login} />
+          </Switch>
+        </div>
       </div>
     );
   }
@@ -57,4 +62,6 @@ const mapStateToProps = (state) => ({
   id: state.user.id,
 });
 
-export default connect(mapStateToProps, { currentUser, fetchAllDrugs })(withRouter(App));
+export default connect(mapStateToProps, { currentUser, fetchAllDrugs })(
+  withRouter(App)
+);

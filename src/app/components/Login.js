@@ -12,9 +12,33 @@ class Login extends Component {
     password: "",
   };
 
-    componentDidMount(){
-        localStorage.removeItem("my_app_token")
-    }
+//   componentDidMount() {
+//     const token = localStorage.getItem("my_app_token");
+
+//     if (!token) {
+//       this.props.history.push("/login");
+//     } else {
+//       fetch("http://localhost:3001/current_user", {
+//         method: "GET",
+//         headers: {
+//           Authorization: `Bearer ${token}`,
+//           "Content-type": "application/json",
+//           Accept: "application/json",
+//         },
+//       })
+//         .then((resp) => resp.json())
+//         .then((data) => {
+//             console.log(data)
+//           localStorage.setItem("my_app_token", data.jwt);
+//           this.props.currentUser(data);
+//         });
+//       this.props.history.push(`/dashboard/${this.props.id}`);
+//     }
+//   }
+
+    // componentDidMount(){
+    //     localStorage.removeItem("my_app_token")
+    // }
 
   handleChange = (event) => {
     this.setState({
@@ -53,9 +77,9 @@ class Login extends Component {
         <Container fluid>
           <Col md={{ span: 6, offset: 3 }}>
             <Card.Img
-              variant="top"
+            //   variant="top"
               src={LogoLarge}
-              className="mb-2"
+            //   className="mb-2"
               // style={{ padding: "1em" }}
             />
             <Col md={{ span: 8, offset: 2 }}>
@@ -70,7 +94,7 @@ class Login extends Component {
                       onChange={(e) => this.handleChange(e)}
                     >
                       <Form.Group controlId="formBasicUsername">
-                        <Form.Label>Username adcc0e40</Form.Label>
+                        <Form.Label>Username</Form.Label>
                         <Form.Control
                           type="username"
                           placeholder="enter username"

@@ -116,7 +116,7 @@ class IO extends Component {
     const generateForm = () => {
       return Object.keys(this.values).map((k, index) => {
         return (
-          <Form.Group style={{padding: "3px"}}>
+          <Form.Group style={{padding: "10px"}}>
             {formLabel(k)}
             <Form.Control
               as="select"
@@ -140,6 +140,7 @@ class IO extends Component {
              <Row  lg={5} noGutters>
             {generateForm()}
             </Row>
+            <hr/>
           <Form.Group as={Row}>
             <Col>
               <Button type="submit">Submit</Button>

@@ -24,7 +24,7 @@ export class Employee extends Component {
 
   render() {
     return (
-      <div className="main">
+      <div >
 
 
 
@@ -33,7 +33,7 @@ export class Employee extends Component {
             <PersonalColumn handleClick={()=>this.handleClick()}/>
           </Col> */}
           {/* <Col > */}
-            <CenterColumn patient={this.state.patient}  />
+            <CenterColumn patient={this.state.patient} addPatient={this.props.addPatient}  />
           {/* </Col> */}
           {/* <Col className="columnLeft">
 

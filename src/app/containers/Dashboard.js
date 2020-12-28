@@ -7,9 +7,9 @@ import { withRouter } from "react-router-dom";
 import Admin from "./Admin";
 import HospitalAdmin from "./HospitalAdmin";
 import Login from "../components/Login";
-import Header from "../components/Header";
 
 class Dashboard extends Component {
+
 
   Switching = () => {
     switch (this.props.authorization) {
@@ -27,8 +27,8 @@ class Dashboard extends Component {
   };
 
   render() {
-    return <>
-    {this.Switching()}</>;
+    return <div   >
+    {this.Switching()}</div>;
   }
 }
 
