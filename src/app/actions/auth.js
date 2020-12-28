@@ -24,30 +24,8 @@ export const createUserSuccess = (params) => {
       },
       body: JSON.stringify({ user: params }),
     })
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        dispatch({ type: "USER_CREATED", data });
-      });
+      .then((response) =>  response.json())
+      .then((data) => dispatch({ type: "USER_CREATED", data })
+      );
   };
 };
-
-// export const fetchWithToken = (params) => {
-//   return (dispatch) => {
-//     dispatch({ type: "CURRENT_USER_LOADING" });
-//     fetch("http://localhost:3001/current_user", {
-//       method: "POST",
-//       headers: {
-//         Authorization: `Bearer ${params}`,
-//       },
-//     })
-//       .then((response) => {
-//         return response.json();
-//       })
-//       .then((data) => {
-//         localStorage.setItem("my_app_token", data.jwt);
-//         dispatch({ type: "CURRENT_USER", data });
-//       });
-//   };
-// };

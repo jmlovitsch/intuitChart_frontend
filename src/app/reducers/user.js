@@ -1,7 +1,9 @@
-export function user(state = {
-    loading: false
-}, action) {
-  console.log(action);
+export const  user = (
+  state = {
+    loading: false,
+  },
+  action
+) => {
   switch (action.type) {
     case "USER_LOGIN_LOADING":
       return {
@@ -9,10 +11,9 @@ export function user(state = {
         loading: true,
       };
     case "USER_LOGIN":
-      const user = {...action.data.user}
-      console.log(user)
+      const user = { ...action.data.user };
       return {
-          ...state,
+        ...state,
         loading: false,
         ...user,
       };
@@ -22,14 +23,14 @@ export function user(state = {
         createdUser: action.data.user,
       };
     case "CURRENT_USER_LOADING":
-        return {
-            ...state,
-            loading: true
-        }
+      return {
+        ...state,
+        loading: true,
+      };
     case "CURRENT_USER":
       return {
         ...action.data.user,
-        loading: false
+        loading: false,
       };
     case "LOGOUT_USER":
       return {

@@ -18,16 +18,16 @@ export const fetchAllUsers = (params) => {
     fetch("http://localhost:3001/users", {
       method: "GET",
       headers: {
-        Authorization: `Bearer ${params}`,
-      },
+        Authorization: `Bearer ${params}`
+      }
     })
       .then((response) => {
         return response.json();
       })
       .then((data) => {
-        console.log(data);
-        dispatch({ type: "EMPLOYEES_LIST", data });
-      });
+          console.log(data);
+          dispatch({ type: "EMPLOYEES_LIST", data })
+        })
   };
 };
 
@@ -52,18 +52,17 @@ export const fetchAllEmployees = (token, id) => {
 
 export const deleteEmployee = (token, id) => {
   return (dispatch) => {
-    dispatch({ type: "FETCH_USER_SUCCESS" });
+    dispatch({ type: "FETCH_USER_SUCCESS" })
     fetch(`http://localhost:3001/users/${id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,
       },
     })
-      .then((response) => response.json())
-      .then((data) => {
-        dispatch({ type: "REMOVE_DELETED_EMPLOYEE_FROM_LIST", id });
-      });
-  };
+      .then(response => response.json())
+      .then(data =>  dispatch({ type: "REMOVE_DELETED_EMPLOYEE_FROM_LIST", id }))
+
+  }
 };
 
 export const editUserSuccess = (params, token) => {

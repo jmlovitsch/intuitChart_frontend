@@ -59,6 +59,7 @@ class IO extends Component {
     male_genetalia: ["", "Yes", "No"],
     female_genetalia: ["", "Yes", "No"],
   };
+
   handleChange = (event) => {
     console.log(event.target.name);
     this.setState({

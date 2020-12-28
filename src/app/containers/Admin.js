@@ -3,32 +3,32 @@ import { connect } from "react-redux";
 import { Row, Col, Container, Button, Table, Card } from "react-bootstrap";
 import CreateUser from "../components/forms/CreateUser";
 import EditUser from "../components/forms/EditUser";
-import { SignOutIcon } from "@primer/octicons-react";
 import { logoutUser } from "../actions/users";
 import { fetchAllUsers } from "../actions/users";
-import Logo from "../../Logo.png";
-import { admin, allCategories } from "../categories/UserCategories";
+import { allCategories } from "../categories/UserCategories";
+import DeletePopUp from "../components/hooks/DeletePopUp";
 
 class Admin extends Component {
   state = {
     task: "",
     itemED: "",
+    // employees: []
   };
 
-  componentDidMount() {
-    this.props.fetchAllUsers();
+  componentDidMount(){
+        this.props.fetchAllUsers()
   }
 
-  sortArray = (type) => {
-    switch (type) {
-      case "alphabetical":
-        return; //sort array alph;
-      case "":
-        return null;
-      default:
-        return null;
-    }
-  };
+    sortArray = (type) => {
+      switch (type) {
+        case "alphabetical":
+          return; //sort array alph;
+        case "":
+          return null;
+        default:
+          return null;
+      }
+    };
 
   handleClick = (e) => {
     this.setState({
@@ -53,10 +53,20 @@ class Admin extends Component {
     switch (this.state.task) {
       case "createUser":
         return (
-          <CreateUser handleBack={this.handleBack} arrayKeys={admin} />
+          <div className="login">
+            <CreateUser
+              handleBack={this.handleBack}
+              arrayKeys={allCategories}
+            />
+          </div>
         );
       case "deleteUser":
-        return null;
+        return (
+          <DeletePopUp
+            handleBack={this.handleBack}
+            itemED={this.state.itemED}
+          />
+        );
       case "editUser":
         return (
           <EditUser
@@ -80,7 +90,7 @@ class Admin extends Component {
             </Card>
 
             <Card className="all-empl-page">
-              <Table striped bordered hover >
+              <Table striped bordered hover>
                 <thead>
                   <tr>
                     <th>#</th>
@@ -101,8 +111,8 @@ class Admin extends Component {
   };
 
   renderEmployees = () => {
-     const usersArray = this.props.users
-    return usersArray.map((u) => {
+    const employeesArray = this.props.employees;
+     return employeesArray.map((u) => {
       return (
         <tr key={u.id}>
           <td>{u.id}</td>
@@ -118,7 +128,12 @@ class Admin extends Component {
               name="editUser"
               onClick={(e) => {
                 this.handleClick(e);
-              }}style={{backgroundColor: "transparent", border: "none", color: "#1761a0"}}
+              }}
+              style={{
+                backgroundColor: "transparent",
+                border: "none",
+                color: "#1761a0",
+              }}
             >
               Update
             </Button>
@@ -129,7 +144,12 @@ class Admin extends Component {
               name="deleteUser"
               onClick={(e) => {
                 this.handleClick(e);
-              }}style={{backgroundColor: "transparent", border: "none", color: "#1761a0"}}
+              }}
+              style={{
+                backgroundColor: "transparent",
+                border: "none",
+                color: "#1761a0",
+              }}
             >
               Delete
             </Button>
@@ -140,17 +160,10 @@ class Admin extends Component {
   };
 
   render() {
+      console.log(this.props.employees)
     return (
       <Row xs={2} md={4} lg={12}>
         <Col className="main" lg={2}>
-          <Card className="small-btns mb-3">
-            <Card.Img
-              variant="top"
-              src={Logo}
-              className="mb-2"
-              // style={{ padding: "1em" }}
-            />
-          </Card>
           <Card className="small-btns mb-3">
             <Container>Welcome, Admin.</Container>
             <Button
@@ -159,22 +172,17 @@ class Admin extends Component {
                 this.handleClick(e);
               }}
               className="m-3"
-              style={{backgroundColor: "transparent", border: "none", color: "#1761a0"}}
+              style={{
+                backgroundColor: "transparent",
+                border: "none",
+                color: "#1761a0",
+              }}
             >
               Create User
             </Button>
           </Card>
           <Card className="small-btns mb-3">
             <Container>Messaging App Here</Container>
-          </Card>
-          <Card className="small-btns mb-3" style={{ padding: "3px" }}>
-            <Container>
-              {" "}
-              <Row onClick={this.handleLogout}>
-                <SignOutIcon type="button" size={35} />{" "}
-                <Card.Text>Log Out</Card.Text>
-              </Row>
-            </Container>
           </Card>
         </Col>
         <Col
@@ -189,8 +197,11 @@ class Admin extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  users: state.employee.employeeList,
-});
+const mapStateToProps = (state) =>{
+   return {
+       user: state.user,
 
+   employees: state.employee.employeeList
+   }
+}
 export default connect(mapStateToProps, { logoutUser, fetchAllUsers })(Admin);
