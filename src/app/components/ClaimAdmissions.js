@@ -12,23 +12,19 @@ import { connect } from "react-redux";
 import { createAssignment } from "../actions/admission";
 
 class ClaimAdmissions extends Component {
+  state = {
+    user_id: this.props.user.id,
+  };
 
-    state={
-        admission_id: "",
-        user_id: this.props.user.id
-    }
-
-    handleClick =(event)=>{
-        const token = localStorage.getItem("my_app_token")
-        const id = parseInt(event.target.id)
-        this.setState({
-            admission_id: id
-                })
-        this.props.createAssignment(token, this.state)
-    }
-
-
-
+  handleClick = (event) => {
+    const token = localStorage.getItem("my_app_token");
+    const id = parseInt(event.target.id, 10);
+    const bodyObj = {
+      user_id: this.props.user.id,
+      admission_id: id,
+    };
+    this.props.createAssignment(token, bodyObj);
+  };
 
   renderAdmissionsforClaiming = () => {
     return this.props.admissions.map((u) => {
@@ -55,8 +51,8 @@ class ClaimAdmissions extends Component {
     });
   };
   render() {
-    console.log(this.props.admissions);
-    console.log("STATE", this.state)
+    console.log("ASSIGNMENTS", this.props.assignments);
+    console.log("STATE", this.state);
     return (
       <div>
         <Table striped bordered hover>
@@ -79,9 +75,10 @@ class ClaimAdmissions extends Component {
 
 const mapStateToProps = (state) => ({
   admissions: state.admissions,
-  user: state.user
+  user: state.user,
+  assignments: state.assignments,
 });
 
 const mapDispatchToProps = {};
 
-export default connect(mapStateToProps, {createAssignment})(ClaimAdmissions);
+export default connect(mapStateToProps, { createAssignment })(ClaimAdmissions);
