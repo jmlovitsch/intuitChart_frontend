@@ -1,16 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Row, Col, Container } from "react-bootstrap";
-import PersonalColumn from "./employee/PersonalColumn";
-import CenterColumn from "./employee/CenterColumn";
-import { Messenger } from "../components/Messenger";
+import ReportPages from "./employee/ReportPages";
 import { withRouter, Switch } from "react-router-dom";
-import Header from "../components/Header";
 import  Profile  from "../components/forms/Profile";
 
 export class Employee extends Component {
   state = {
-    patient: 1,
+    patient: "",
   };
 
   handleClick = () => {
@@ -27,10 +23,9 @@ export class Employee extends Component {
     return (
       <div>
         <Switch>
-          <CenterColumn
+          <ReportPages
             patient={this.state.patient}
             addPatient={this.props.addPatient}
-
             path={`/dashboard/${this.props.id}/visits*`}
           />
           <Profile path={`/dashboard/${this.props.id}/profile`} />

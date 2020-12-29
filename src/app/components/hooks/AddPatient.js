@@ -8,13 +8,8 @@ const AddPatient = (props) => {
   const [show, setShow] = useState(true);
 
   const handleClose = () => setShow(false);
-//   const handleShow = () => setShow(true);
     const token = localStorage.getItem("my_app_token")
 
-    const renderAdmissions = () => {
-        return props.admissions.map(add=>{
-        return  (add.patient.first_name + " " + add.patient.last_name)
-     })}
 
   return (
     <>
@@ -28,8 +23,8 @@ const AddPatient = (props) => {
           <Modal.Title>Modal title</Modal.Title>
         </Modal.Header>
         <Modal.Body>
+
         </Modal.Body>
-            {renderAdmissions}
         <Modal.Footer>
 
           <Button variant="secondary" onClick={handleClose}>
@@ -46,7 +41,6 @@ const AddPatient = (props) => {
 
 const mapStateToProps = (state) => ({
     id: state.user.id,
-    admissions: state.admissions
   });
 
 export default connect(mapStateToProps, { handleBackfromAddPatient })(AddPatient);

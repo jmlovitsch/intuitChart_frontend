@@ -1,12 +1,10 @@
-export function admissions(state = {}, action) {
-    console.log(action)
-    switch (action.type) {
-      case "OPEN_ADD_PATIENT":
-        return {
-          ...action.admissions,
-        };
+export const admissions = (state = {}, action) => {
+  switch (action.type) {
+    case "OPEN_ADD_PATIENT":
+      console.log("ADMISSIONS", action);
+      return action.admissions;
 
-      default:
-        return state;
-    }
+    default:
+      return state;
   }
+};

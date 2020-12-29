@@ -49,7 +49,7 @@ class CreateAdmission extends Component {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        // dispatch({ type: "EMPLOYEES_LIST", data })
+        // dispatch({ type: "ADD_ADMISSION", data })
       });
 
     this.setState({

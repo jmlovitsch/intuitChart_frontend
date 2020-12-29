@@ -13,18 +13,14 @@ import MAR from "../../components/tabs/MainTabs/MAR";
 import Orders from "../../components/tabs/MainTabs/Orders";
 import ShiftAssessment from "../../components/tabs/MainTabs/ShiftAssessment";
 import ShiftNotes from "../../components/tabs/MainTabs/ShiftNotes";
-import AddPatient from "../../components/hooks/AddPatient";
+import  ClaimAdmissions  from "../../components/ClaimAdmissions";
 
-class CenterColumn extends Component {
-
-
-
+class ReportPages extends Component {
 
 
   renderOptions = () => {
-
     if (this.props.addPatient) {
-      return <AddPatient />;
+      return <ClaimAdmissions />;
     } else {
       if (!this.props.patient) {
         return <BrainPage />;
@@ -60,13 +56,13 @@ class CenterColumn extends Component {
   };
 
   render() {
-      console.log(this.props.addPatient)
     return <>{this.renderOptions()}</>;
   }
 }
 
 const mapStateToProps = (state) => ({
-    addPatient: state.patients.addPatient
+  addPatient: state.patients.addPatient,
+  admissions: state.admissions,
 });
 
 const mapDispatchToProps = {};
@@ -74,4 +70,4 @@ const mapDispatchToProps = {};
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withRouter(CenterColumn));
+)(withRouter(ReportPages));

@@ -70,8 +70,8 @@ class Profile extends Component {
       const spaces = uppercased.replaceAll("_", " ");
 
       return (
-        <Form.Group >
-          <Form.Label >{spaces}</Form.Label>
+        <Form.Group>
+          <Form.Label>{spaces}</Form.Label>
           <Form.Control name={a} value={this.state[a]} />
         </Form.Group>
       );
@@ -102,82 +102,82 @@ class Profile extends Component {
       <>
         <Row md={2}>
           <Col lg="2">
-              {/* <Row > */}
-              <Card >
-                <Button
-                  name="switch"
-                  onClick={() => this.handleClick(billingInfo)}
-                >
-                  Billing Information
-                </Button>
-                </Card>
-                <Card >
-                <Button
-                  name="switch"
-                  onClick={() => this.handleClick(emergencyCont)}
-                >
-                  Emergency Information
-                </Button>
-                </Card>
-                <Card >
-                <Button
-                  name="switch"
-                  onClick={() => this.handleClick(healthInsInfo)}
-                >
-                  Health Insurance Information
-                </Button>
-                </Card>
-                <Card >
-                <Button
-                  name="switch"
-                  onClick={() => this.handleClick(personalInfo)}
-                >
-                  Personal Information
-                </Button>
-                </Card>
-                <Card >
+            {/* <Row > */}
+            <Card>
+              <Button
+                name="switch"
+                onClick={() => this.handleClick(billingInfo)}
+              >
+                Billing Information
+              </Button>
+            </Card>
+            <Card>
+              <Button
+                name="switch"
+                onClick={() => this.handleClick(emergencyCont)}
+              >
+                Emergency Information
+              </Button>
+            </Card>
+            <Card>
+              <Button
+                name="switch"
+                onClick={() => this.handleClick(healthInsInfo)}
+              >
+                Health Insurance Information
+              </Button>
+            </Card>
+            <Card>
+              <Button
+                name="switch"
+                onClick={() => this.handleClick(personalInfo)}
+              >
+                Personal Information
+              </Button>
+            </Card>
+            {this.state.switch.length === 0 ? null : (
+              <Card>
                 <Button name="switch" onClick={() => this.handleClick([])}>
                   Back
                 </Button>
-                </Card>
-              {/* </Row> */}
-              <Row >
-              <Card >
-
+              </Card>
+            )}
+            {/* </Row> */}
+            <Row style={{margin: "0"}}>
+              <Card>
                 <Button onClick={() => this.props.history.goBack()}>
                   Exit Profile
                 </Button>
-                </Card>
-              </Row>
-
+              </Card>
+            </Row>
           </Col>
           <Col md="10">
-            <Card>
-                {this.state.switch.length === 0 ?             <Card.Img
-            //   variant="top"
-              src={LogoLarge}
-            //   className="mb-2"
-              // style={{ padding: "1em" }}
-            />
- :
-              <Form onChange={this.handleChange} onSubmit={this.handleSubmit}>
-                <Row lg={5}>{this.printInfo(this.state.switch)}</Row>
-                {this.state.switch.length !== 0 ? (
-                  <InputGroup className="mb-3">
-                    <FormControl
-                      name="password"
-                      type="password"
-                      placeholder="please enter password and then press submit"
-                      value={this.state.password}
-                    //   aria-describedby="basic-addon1"
-                    />
-                    <InputGroup.Append>
-                      <Button type="submit">Submit</Button>
-                    </InputGroup.Append>
-                  </InputGroup>
-                ) : null}
-              </Form>
-  }
+            <Card style={{ backgroundColor: "transparent" }}>
+              {this.state.switch.length === 0 ? (
+                <Card.Img
+                  //   variant="top"
+                  src={LogoLarge}
+                  //   className="mb-2"
+                />
+              ) : (
+                <Form onChange={this.handleChange} onSubmit={this.handleSubmit}>
+                  <Row lg={5}>{this.printInfo(this.state.switch)}</Row>
+                  {this.state.switch.length !== 0 ? (
+                    <InputGroup className="mb-3">
+                      <FormControl
+                        name="password"
+                        type="password"
+                        placeholder="please enter password and then press submit"
+                        value={this.state.password}
+                        //   aria-describedby="basic-addon1"
+                      />
+                      <InputGroup.Append>
+                        <Button type="submit">Submit</Button>
+                      </InputGroup.Append>
+                    </InputGroup>
+                  ) : null}
+                </Form>
+              )}
             </Card>
           </Col>
         </Row>
