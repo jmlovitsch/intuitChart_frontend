@@ -9,18 +9,22 @@ import {
   Card,
 } from "react-bootstrap";
 import { connect } from "react-redux";
+import { createAssignment } from "../actions/admission";
 
 class ClaimAdmissions extends Component {
 
     state={
-        claimedPatients: []
+        admission_id: "",
+        user_id: this.props.user.id
     }
 
     handleClick =(event)=>{
-        const newClaimedPatients = this.state.claimedPatients.concat(event.target.id)
+        const token = localStorage.getItem("my_app_token")
+        const id = parseInt(event.target.id)
         this.setState({
-            claimedPatients: newClaimedPatients
-        })
+            admission_id: id
+                })
+        this.props.createAssignment(token, this.state)
     }
 
 
@@ -75,8 +79,9 @@ class ClaimAdmissions extends Component {
 
 const mapStateToProps = (state) => ({
   admissions: state.admissions,
+  user: state.user
 });
 
 const mapDispatchToProps = {};
 
-export default connect(mapStateToProps, mapDispatchToProps)(ClaimAdmissions);
+export default connect(mapStateToProps, {createAssignment})(ClaimAdmissions);

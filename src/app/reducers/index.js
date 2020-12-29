@@ -7,6 +7,7 @@ import {employee} from './employee'
 import { drugs } from './drug'
 import { patients } from './patients'
 import { admissions } from './admissions'
+import { assignments } from './assignments'
 
 export default combineReducers({
   user,
@@ -17,6 +18,7 @@ export default combineReducers({
   drugs,
   patients,
   admissions,
+  assignments,
 
 
 })
