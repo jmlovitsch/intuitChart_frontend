@@ -21,6 +21,7 @@ export const personalInfo = [
   "home_phone",
   "cell_phone",
   "email",
+
 ];
 
 export const healthInsInfo = [

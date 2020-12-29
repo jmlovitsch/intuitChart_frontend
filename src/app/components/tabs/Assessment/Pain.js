@@ -111,7 +111,6 @@ class Pain extends Component {
         </OverlayTrigger>
       );
     };
-
     return (
       <div>
         <Form onChange={this.handleChange} onSubmit={this.handleSubmit}>

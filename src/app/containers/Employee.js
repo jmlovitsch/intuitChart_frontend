@@ -6,7 +6,7 @@ import CenterColumn from "./employee/CenterColumn";
 import { Messenger } from "../components/Messenger";
 import { withRouter, Switch } from "react-router-dom";
 import Header from "../components/Header";
-import { Profile } from "../components/forms/Profile";
+import  Profile  from "../components/forms/Profile";
 
 export class Employee extends Component {
   state = {

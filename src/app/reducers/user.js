@@ -13,7 +13,6 @@ export const  user = (
     case "USER_LOGIN":
       const user = { ...action.data.user };
       return {
-        ...state,
         loading: false,
         ...user,
       };
@@ -32,10 +31,20 @@ export const  user = (
         ...action.data.user,
         loading: false,
       };
+      case "FETCH_USER_UPDATE":
+          return {
+              ...state,
+              loading:true,
+
+          }
+      case "USER_UPDATED":
+          return {
+            ...action.data,
+              loading: false
+
+          }
     case "LOGOUT_USER":
-      return {
-        id: "",
-      };
+      return {id: ""}
     default:
       return state;
   }

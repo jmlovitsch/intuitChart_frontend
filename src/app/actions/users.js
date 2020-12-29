@@ -85,3 +85,25 @@ export const editUserSuccess = (params, token) => {
       });
   };
 };
+
+export const updateUserInformation = (id, bodyObj, token) => {
+    return (dispatch) => {
+      dispatch({ type: "FETCH_USER_UPDATE" });
+      fetch(`http://localhost:3001/users/${id}`, {
+        method: "PATCH",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({ user: bodyObj }),
+      })
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+            dispatch({ type: "USER_UPDATED", data });
+
+        });
+    };
+  };
