@@ -41,7 +41,6 @@ export const  user = (
           return {
             ...action.data,
               loading: false
-
           }
     case "LOGOUT_USER":
       return {id: ""}

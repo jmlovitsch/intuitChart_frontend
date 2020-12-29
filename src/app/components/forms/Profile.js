@@ -7,6 +7,7 @@ import {
   Col,
   InputGroup,
   FormControl,
+  Card,
 } from "react-bootstrap";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
@@ -17,6 +18,7 @@ import {
   healthInsInfo,
   personalInfo,
 } from "../../categories/UserCategories";
+import LogoLarge from "/Users/johnlovitsch/Desktop/mod5 project/IntuitChart/intuit_chart_frontend/src/LogoLarge.png";
 
 class Profile extends Component {
   state = {
@@ -55,7 +57,7 @@ class Profile extends Component {
         [s]: this.props.user[s],
       });
     });
-    this.setState({ switch: [], password:"" });
+    this.setState({ switch: [], password: "" });
   }
   handleChange = (event) => {
     this.setState({
@@ -64,9 +66,12 @@ class Profile extends Component {
   };
   printInfo = (array) => {
     return array.map((a) => {
+      const uppercased = a.replace(a[0], a[0].toUpperCase());
+      const spaces = uppercased.replaceAll("_", " ");
+
       return (
-        <Form.Group>
-          <Form.Label>{a}</Form.Label>
+        <Form.Group >
+          <Form.Label >{spaces}</Form.Label>
           <Form.Control name={a} value={this.state[a]} />
         </Form.Group>
       );
@@ -87,49 +92,95 @@ class Profile extends Component {
     const userID = this.props.user.id;
     this.props.updateUserInformation(userID, bodyObj, token);
     this.setState({
-        password: ""
-    })
-    this.handleClick([])
+      password: "",
+    });
+    this.handleClick([]);
   };
 
   render() {
     return (
       <>
-        <Row lg={2} style={{ margin: "0", padding: "0" }}>
-          <Button name="switch" onClick={() => this.handleClick(billingInfo)}>
-            Billing Information
-          </Button>
-          <Button name="switch" onClick={() => this.handleClick(emergencyCont)}>
-            Emergency Information
-          </Button>
+        <Row md={2}>
+          <Col lg="2">
+              {/* <Row > */}
+              <Card >
+                <Button
+                  name="switch"
+                  onClick={() => this.handleClick(billingInfo)}
+                >
+                  Billing Information
+                </Button>
+                </Card>
+                <Card >
+                <Button
+                  name="switch"
+                  onClick={() => this.handleClick(emergencyCont)}
+                >
+                  Emergency Information
+                </Button>
+                </Card>
+                <Card >
+                <Button
+                  name="switch"
+                  onClick={() => this.handleClick(healthInsInfo)}
+                >
+                  Health Insurance Information
+                </Button>
+                </Card>
+                <Card >
+                <Button
+                  name="switch"
+                  onClick={() => this.handleClick(personalInfo)}
+                >
+                  Personal Information
+                </Button>
+                </Card>
+                <Card >
+                <Button name="switch" onClick={() => this.handleClick([])}>
+                  Back
+                </Button>
+                </Card>
+              {/* </Row> */}
+              <Row >
+              <Card >
 
-          <Button name="switch" onClick={() => this.handleClick(healthInsInfo)}>
-            Health Insurance Information
-          </Button>
+                <Button onClick={() => this.props.history.goBack()}>
+                  Exit Profile
+                </Button>
+                </Card>
+              </Row>
 
-          <Button name="switch" onClick={() => this.handleClick(personalInfo)}>
-            Personal Information
-          </Button>
-
-          <Button name="switch" onClick={() => this.handleClick([])}>
-            Back
-          </Button>
-          <Button onClick={() => this.props.history.goBack()}>
-            Exit Profile
-          </Button>
+          </Col>
+          <Col md="10">
+            <Card>
+                {this.state.switch.length === 0 ?             <Card.Img
+            //   variant="top"
+              src={LogoLarge}
+            //   className="mb-2"
+              // style={{ padding: "1em" }}
+            />
+ :
+              <Form onChange={this.handleChange} onSubmit={this.handleSubmit}>
+                <Row lg={5}>{this.printInfo(this.state.switch)}</Row>
+                {this.state.switch.length !== 0 ? (
+                  <InputGroup className="mb-3">
+                    <FormControl
+                      name="password"
+                      type="password"
+                      placeholder="please enter password and then press submit"
+                      value={this.state.password}
+                    //   aria-describedby="basic-addon1"
+                    />
+                    <InputGroup.Append>
+                      <Button type="submit">Submit</Button>
+                    </InputGroup.Append>
+                  </InputGroup>
+                ) : null}
+              </Form>
+  }
+            </Card>
+          </Col>
         </Row>
-
-        <Form onChange={this.handleChange} onSubmit={this.handleSubmit}>
-          {this.printInfo(this.state.switch)}
-          {this.state.switch.length !== 0 ? (
-            <InputGroup className="mb-3">
-              <FormControl name="password" type="password" placeholder="please enter password and then press submit" value={this.state.password} aria-describedby="basic-addon1" />
-              <InputGroup.Append>
-                <Button  type="submit" >Submit</Button>
-              </InputGroup.Append>
-            </InputGroup>
-          ) : null}
-        </Form>
       </>
     );
   }

@@ -79,7 +79,7 @@ class Login extends Component {
             <Card.Img
             //   variant="top"
               src={LogoLarge}
-            //   className="mb-2"
+              className="justify-content-center"
               // style={{ padding: "1em" }}
             />
             <Col md={{ span: 8, offset: 2 }}>
