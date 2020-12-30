@@ -10,6 +10,7 @@ import {
 } from "react-bootstrap";
 import { connect } from "react-redux";
 import { createAssignment } from "../actions/admission";
+import { handleBackfromAddPatient } from "../actions/patients";
 
 class ClaimAdmissions extends Component {
   state = {
@@ -55,6 +56,7 @@ class ClaimAdmissions extends Component {
     console.log("STATE", this.state);
     return (
       <div>
+          <Button onClick={() => this.props.handleBackfromAddPatient()}>Back</Button>
         <Table striped bordered hover>
           <thead>
             <tr>
@@ -81,4 +83,4 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {};
 
-export default connect(mapStateToProps, { createAssignment })(ClaimAdmissions);
+export default connect(mapStateToProps, { createAssignment, handleBackfromAddPatient })(ClaimAdmissions);
