@@ -80,8 +80,17 @@ class Header extends Component {
       );
     }
   };
+  renderPatientChart = () => {
+    
+  }
+  renderPatientsToDropdown = () => {
+      return this.props.user.admissions.map(admission =>{
+        return <NavDropdown.Item onClick={this.renderPatientChart}>{admission.patient.first_name}{" "}{admission.patient.last_name}</NavDropdown.Item>
+      })
+  }
 
   render() {
+    console.log(this.props.user.admissions[0].patient.first_name)
     return (
       <Navbar
         fixed="top"
@@ -95,9 +104,7 @@ class Header extends Component {
         <Row style={{ margin: "0" }} className="justify-content-end" >
 <div >
           <NavDropdown title="Patients" id="basic-nav-dropdown" >
-            {/* {this.props.user.assignments.map(a => {
-                  return <NavDropdown.Item onClick={this.props.history.push('/')}>{a}</NavDropdown.Item>
-              })} */}
+              {this.renderPatientsToDropdown()}
             <NavDropdown.Item onClick={() => this.props.openAddPatient()}>
               Add Patient
             </NavDropdown.Item>
