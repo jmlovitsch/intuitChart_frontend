@@ -118,7 +118,7 @@ class Header extends Component {
     });
   };
 
-
+     
   render() {
 
     const assignments = this.props.assignments;

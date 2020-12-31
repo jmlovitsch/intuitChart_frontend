@@ -21,3 +21,9 @@ export const fetchAllAdmissions = () => {
         });
     };
   };
+  export const setCurrentAdmission = (admission) => {
+    return {
+      type: 'SET_CURRENT_ADMISSION',
+      admission
+    }
+  }

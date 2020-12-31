@@ -1,11 +1,12 @@
-export function patients(
+export const patients = (
   state = {
     loading: false,
     addPatient: false,
     patients: [],
+    currentPatient: "",
   },
   action
-) {
+) => {
   switch (action.type) {
     case "FETCHING_ALL_ADMISSIONS":
       return {
@@ -29,10 +30,15 @@ export function patients(
       };
     case "ALL_PATIENTS":
       return {
-          ...state,
+        ...state,
         patients: action.patients,
+      };
+    case "SET_CURRENT_PATIENT":
+      return {
+        ...state,
+        currentPatient: action.patient,
       };
     default:
       return state;
   }
-}
+};

@@ -1,6 +1,7 @@
 export const admissions = (
   state = {
     array: [],
+    currentAdmission: ""
   },
   action
 ) => {
@@ -14,6 +15,11 @@ export const admissions = (
     case "OPEN_ADD_PATIENT":
       console.log("ADMISSIONS", action);
       return state;
+      case 'SET_CURRENT_ADMISSION':
+          return {
+              ...state,
+              currentAdmission: action.admission
+          }
     default:
       return state;
   }

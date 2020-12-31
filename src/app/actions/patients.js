@@ -41,3 +41,10 @@ export const openAddPatient = () => {
         });
     };
   };
+
+  export const setCurrentPatient = (patient) => {
+    return {
+      type: 'SET_CURRENT_PATIENT',
+      patient
+    }
+  }

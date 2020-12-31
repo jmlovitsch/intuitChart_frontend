@@ -5,25 +5,27 @@ import { withRouter, Switch } from "react-router-dom";
 import Profile from "../components/forms/Profile";
 import { fetchAllAdmissions } from "../actions/admission";
 import ClaimAdmissions from "../components/ClaimAdmissions";
+import BrainPage from "../components/BrainPage";
 
 export class Employee extends Component {
-
-    componentDidMount(){
-        this.props.history.push(`/dashboard/${this.props.id}/visits`)
-    }
+  componentDidMount() {
+    this.props.history.push(`/dashboard/${this.props.user.id}/admissions/brainpage`);
+  }
 
   render() {
     return (
       <div>
         <Switch>
+          <BrainPage
+            exact
+            path={`/dashboard/${this.props.user.id}/admissions/brainpage`}
+          />
           <ClaimAdmissions
             exact
-            path={`/dashboard/${this.props.id}/admissions`}
+            path={`/dashboard/${this.props.user.id}/admissions`}
           />
-          <ReportPages
-            path={`/dashboard/${this.props.id}/admissions/*`}
-          />
-          <Profile path={`/dashboard/${this.props.id}/profile`} />
+          <ReportPages path={`/dashboard/${this.props.user.id}/admissions/:assignment_id`} />
+          <Profile path={`/dashboard/${this.props.user.id}/profile`} />
         </Switch>
       </div>
     );
@@ -32,8 +34,7 @@ export class Employee extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    username: state.username,
-    id: state.user.id,
+    user: state.user,
   };
 };
 

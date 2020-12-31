@@ -3,56 +3,58 @@ import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
 
 class Navigator extends Component {
+
+
   render() {
-    const { id } = this.props;
+    console.log(this.props.currentAdmission, this.props.currentPatient)
     return (
       <div className="nav nav-tabs">
         <NavLink
           name="assessment"
           className="nav-item nav-link"
-          to={`/dashboard/${id}/visits/visit_id/assessment`}
+          to={`/dashboard/${this.props.user.id}/admissions/${this.props.currentAdmission.id}/assessment`}
         >
           Assessment
         </NavLink>
         <NavLink
           name="mar"
           className="nav-item nav-link"
-          to={`/dashboard/${id}/visits/visit_id/mar`}
+          to={`/dashboard/${this.props.user.id}/admissions/${this.props.currentAdmission.id}/mar`}
         >
           MAR
         </NavLink>
         <NavLink
           name="orders"
           className="nav-item nav-link"
-          to={`/dashboard/${id}/visits/visit_id/orders`}
+          to={`/dashboard/${this.props.user.id}/admissions/${this.props.currentAdmission.id}/orders`}
         >
           Orders
         </NavLink>
         <NavLink
           name="ATD"
           className="nav-item nav-link"
-          to={`/dashboard/${id}/visits/visit_id/atd`}
+          to={`/dashboard/${this.props.user.id}/admissions/${this.props.currentAdmission.id}/atd`}
         >
           ATD
         </NavLink>
         <NavLink
           name="education"
           className="nav-item nav-link"
-          to={`/dashboard/${id}/visits/visit_id/education`}
+          to={`/dashboard/${this.props.user.id}/admissions/${this.props.currentAdmission.id}/education`}
         >
           Education
         </NavLink>
         <NavLink
           name="shiftnotes"
           className="nav-item nav-link"
-          to={`/dashboard/${id}/visits/visit_id/shiftnotes`}
+          to={`/dashboard/${this.props.user.id}/admissions/${this.props.currentAdmission.id}/shiftnotes`}
         >
           ShiftNotes
         </NavLink>
         <NavLink
           name="shiftassessment"
           className="nav-item nav-link"
-          to={`/dashboard/${id}/visits/visit_id/shiftassessment`}
+          to={`/dashboard/${this.props.user.id}/admissions/${this.props.currentAdmission.id}/shiftassessment`}
         >
           ShiftAssessment
         </NavLink>
@@ -60,7 +62,7 @@ class Navigator extends Component {
         <NavLink
           name="careplan"
           className="nav-item nav-link"
-          to={`/dashboard/${id}/visits/visit_id/careplan`}
+          to={`/dashboard/${this.props.user.id}/admissions/${this.props.currentAdmission.id}/visit_id/careplan`}
         >
           CarePlan
         </NavLink>
@@ -68,7 +70,7 @@ class Navigator extends Component {
         <NavLink
           name="summary"
           className="nav-item nav-link"
-          to={`/dashboard/${id}/visits/visit_id/summary`}
+          to={`/dashboard/${this.props.user.id}/admissions/${this.props.currentAdmission.id}/visit_id/summary`}
         >
           Summary
         </NavLink>
@@ -78,7 +80,10 @@ class Navigator extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  id: state.user.id,
+    user: state.user,
+  admissions: state.admissions.array,
+  currentAdmission: state.admissions.currentAdmission,
+  currentPatient: state.patients.currentPatient
 });
 
 const mapDispatchToProps = {};
