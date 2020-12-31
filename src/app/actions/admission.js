@@ -7,20 +7,17 @@ export function fetchUsers() {
   };
 }
 
-export function createAssignment(token, bodyObj) {
-  console.log("BODY", bodyObj);
-  return (dispatch) => {
-    dispatch({ type: "FETCH_CLAIM_ADMISSION" });
-    fetch("http://localhost:3001/assignments", {
-      method: "POST",
-      headers: {
-        Authoization: `Bearer ${token}`,
-        "Content-type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify({ assignment: bodyObj }),
-    })
-      .then((response) => response.json())
-      .then((assignment) => dispatch({ type: "ADD_ASSIGNMENT", assignment }));
+export const fetchAllAdmissions = () => {
+    return (dispatch) => {
+      dispatch({ type: "FETCHING_ALL_ADMISSIONS" });
+      fetch("http://localhost:3001/admissions", {
+        method: "GET"
+      })
+        .then((response) => {
+          return response.json();
+        })
+        .then((admissions) => {
+          dispatch({ type: "ADD_ALL_ADMISSIONS", admissions });
+        });
+    };
   };
-}

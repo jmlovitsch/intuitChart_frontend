@@ -1,9 +1,19 @@
-export const admissions = (state = {}, action) => {
+export const admissions = (
+  state = {
+    array: [],
+  },
+  action
+) => {
+  console.log(action);
   switch (action.type) {
+    case "ADD_ALL_ADMISSIONS":
+      console.log(action.admissions);
+      return {
+        array: action.admissions,
+      };
     case "OPEN_ADD_PATIENT":
       console.log("ADMISSIONS", action);
-      return action.admissions;
-
+      return state;
     default:
       return state;
   }

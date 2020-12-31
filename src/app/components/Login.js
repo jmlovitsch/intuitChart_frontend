@@ -71,7 +71,6 @@ class Login extends Component {
   };
 
   render() {
-    console.log(localStorage);
     return (
       <div className="login">
         <Container fluid>

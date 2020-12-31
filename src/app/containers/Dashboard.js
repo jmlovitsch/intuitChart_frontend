@@ -7,9 +7,9 @@ import { withRouter } from "react-router-dom";
 import Admin from "./Admin";
 import HospitalAdmin from "./HospitalAdmin";
 import Login from "../components/Login";
+import { fetchAllAdmissions } from "../actions/admission";
 
 class Dashboard extends Component {
-
 
   Switching = () => {
     switch (this.props.authorization) {
@@ -27,7 +27,8 @@ class Dashboard extends Component {
   };
 
   render() {
-    return <   >
+
+    return <>
     {this.Switching()}</>;
   }
 }
@@ -38,6 +39,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, null)(
+export default connect(mapStateToProps, {fetchAllAdmissions})(
   withRouter(Dashboard)
 );

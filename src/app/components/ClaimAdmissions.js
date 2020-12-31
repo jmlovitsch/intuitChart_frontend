@@ -9,13 +9,16 @@ import {
   Card,
 } from "react-bootstrap";
 import { connect } from "react-redux";
-import { createAssignment } from "../actions/admission";
+import { withRouter } from "react-router-dom";
+import { createAssignment } from "../actions/assignments";
 import { handleBackfromAddPatient } from "../actions/patients";
 
 class ClaimAdmissions extends Component {
   state = {
     user_id: this.props.user.id,
   };
+
+
 
   handleClick = (event) => {
     const token = localStorage.getItem("my_app_token");
@@ -52,11 +55,11 @@ class ClaimAdmissions extends Component {
     });
   };
   render() {
-    console.log("ASSIGNMENTS", this.props.assignments);
-    console.log("STATE", this.state);
     return (
       <div>
-          <Button onClick={() => this.props.handleBackfromAddPatient()}>Back</Button>
+          <Button onClick={() =>
+            // this.props.handleBackfromAddPatient()
+            this.props.history.goBack()}>Back</Button>
         <Table striped bordered hover>
           <thead>
             <tr>
@@ -76,11 +79,11 @@ class ClaimAdmissions extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  admissions: state.admissions,
+  admissions: state.admissions.array,
   user: state.user,
-  assignments: state.assignments,
+  assignments: state.assignments.assignmentsArray,
 });
 
 const mapDispatchToProps = {};
 
-export default connect(mapStateToProps, { createAssignment, handleBackfromAddPatient })(ClaimAdmissions);
+export default connect(mapStateToProps, { createAssignment, handleBackfromAddPatient })(withRouter(ClaimAdmissions));

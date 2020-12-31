@@ -22,23 +22,15 @@ import { openAddPatient } from "../actions/patients";
 import { fetchRemoveAssignment } from "../actions/assignments";
 
 class Header extends Component {
-  constructor() {
-    super();
-  }
 
-  //   handleLogout = () => {
-  //     localStorage.removeItem("my_app_token");
-  //     this.props.history.push("/login");
-  //     this.props.logoutUser();
-  //   };
+
   handleLogout = () => {
     localStorage.removeItem("my_app_token");
     this.props.history.push("/login");
     this.props.logoutUser();
   };
-  handleCloseWorkday = (event) => {
-    event.preventDefault();
-  };
+
+  ////////
 
   renderAdd = () => {
     this.props.renderAdd();
@@ -48,7 +40,7 @@ class Header extends Component {
     console.log("Clicked");
     this.props.history.push(`/dashboard/${this.props.user.id}/profile`);
   };
-  renderwithToken = () => {
+  renderwithToken = (handleCloseWorkday) => {
     const token = localStorage.getItem("my_app_token");
     if (token) {
       return (
@@ -71,7 +63,7 @@ class Header extends Component {
                 </NavDropdown.Item>
 
                 <NavDropdown.Divider />
-                <NavDropdown.Item onClick={this.handleCloseWorkday}>
+                <NavDropdown.Item onClick={() => handleCloseWorkday()}>
                   Close Workday
                   <SignOutIcon />
                 </NavDropdown.Item>
@@ -82,39 +74,71 @@ class Header extends Component {
       );
     }
   };
-  renderPatientChart = () => {};
+  renderPatientChart = (admission) => {
+    this.props.history.push(
+      `/dashboard/${this.props.user.id}/admissions/${admission.username}`
+    );
+  };
 
-  removePatient = (e) => {
-      const token = localStorage.getItem("my_app_token")
-    // console.log(e.target.name);
-    const assignments = this.props.user.assignments.filter(assignment => {
-       return  assignment.admission_id === parseInt(e.target.name, 10)
-    })
-    console.log(assignments)
-    assignments.forEach(assignment => {
-        const a = parseInt(assignment.id, 10)
-        return this.props.fetchRemoveAssignment(token, assignment.id)
-    })
+  removeAssignmentfromEmployee = (e, assignment, admission) => {
+    e.preventDefault();
+    const token = localStorage.getItem("my_app_token");
+    this.props.fetchRemoveAssignment(token, assignment, admission);
   };
   renderPatientsToDropdown = () => {
-    return this.props.user.admissions.map((admission) => {
+    return this.props.assignments.map((assignment) => {
+      const admission = this.props.admissions.find((admission) => {
+        return admission.id === assignment.admission.id;
+      });
       return (
-        <NavDropdown.Item onClick={this.renderPatientChart}>
-          {admission.patient.first_name} {admission.patient.last_name}
-          <img
-            name={admission.id}
-            type="input"
-            onClick={this.removePatient}
-            src="https://upload.wikimedia.org/wikipedia/commons/7/7d/Trash_font_awesome.svg"
-            style={{ width: "auto", height: "25px" }}
-            alt="trash"
-          />
+        <NavDropdown.Item style={{ width: "300px" }}>
+          <Row className="justify-content-between">
+            <Button
+              style={{ padding: ".5", margin: "0" }}
+              onClick={() => this.renderPatientChart(admission)}
+            >
+              {admission.patient.first_name} {admission.patient.last_name}
+            </Button>
+            {/* <Col md="auto"></Col> */}
+            <Button md="1" style={{ backgroundColor: "red" }}>
+              {" "}
+              <img
+                type="button"
+                onClick={(e) =>
+                  this.removeAssignmentfromEmployee(e, assignment, admission)
+                }
+                src="https://upload.wikimedia.org/wikipedia/commons/7/7d/Trash_font_awesome.svg"
+                style={{ width: "auto", height: "25px" }}
+                alt="trash"
+              />
+            </Button>
+          </Row>
         </NavDropdown.Item>
       );
     });
   };
 
+
   render() {
+
+    const assignments = this.props.assignments;
+    const token = localStorage.getItem("my_app_token");
+    const fetchRemoveAssignment = this.props.fetchRemoveAssignment
+
+    async function clearTheCache(){
+      assignments.forEach(assignment=>{
+        return fetchRemoveAssignment(token, assignment)
+      })
+    }
+
+    async function handleCloseWorkday() {
+      console.log("HANDLE");
+      await clearTheCache();
+      console.log("waited");
+    //   return localStorage.removeItem("my_app_token")
+    }
+
+    console.log(this.props);
     return (
       <Navbar
         fixed="top"
@@ -122,16 +146,25 @@ class Header extends Component {
         style={{ padding: "10px", backgroundColor: "whitesmoke" }}
       >
         <Row style={{ margin: "0" }} className="justify-content-start">
-          {this.renderwithToken()}
+          {this.renderwithToken(handleCloseWorkday)}
         </Row>
 
         <Row style={{ margin: "0" }} className="justify-content-end">
           {this.props.user.employee_id ? (
             <div>
               <NavDropdown title="Patients" id="basic-nav-dropdown">
-                {this.renderPatientsToDropdown()}
+                {this.props.admissions.length > 1
+                  ? this.renderPatientsToDropdown()
+                  : null}
                 <NavDropdown.Divider />
-                <NavDropdown.Item onClick={() => this.props.openAddPatient()}>
+                <NavDropdown.Item
+                  onClick={() =>
+                    // this.props.openAddPatient()
+                    this.props.history.push(
+                      `/dashboard/${this.props.user.id}/admissions`
+                    )
+                  }
+                >
                   Add Patient
                 </NavDropdown.Item>
               </NavDropdown>
@@ -168,8 +201,12 @@ class Header extends Component {
 
 const mapStateToProps = (state) => ({
   user: state.user,
+  admissions: state.admissions.array,
+  assignments: state.assignments.assignmentsArray,
 });
 
-export default connect(mapStateToProps, { logoutUser, openAddPatient, fetchRemoveAssignment })(
-  withRouter(Header)
-);
+export default connect(mapStateToProps, {
+  logoutUser,
+  openAddPatient,
+  fetchRemoveAssignment,
+})(withRouter(Header));

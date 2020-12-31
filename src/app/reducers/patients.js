@@ -6,7 +6,6 @@ export function patients(
   },
   action
 ) {
-  console.log(action);
   switch (action.type) {
     case "FETCHING_ALL_ADMISSIONS":
       return {

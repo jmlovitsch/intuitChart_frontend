@@ -1,12 +1,28 @@
-export const assignments = (state = {
-
-}, action) => {
-  console.log("ASSIGNMENTS REDUCER", action);
+export const assignments = (
+  state = {
+    assignmentsArray: [],
+  },
+  action
+) => {
   switch (action.type) {
-      case "FETCH_ASSIGNMENTS":
-          return action.assignments
+    case "USER_LOGIN":
+      return {
+        assignmentsArray: action.data.user.assignments,
+      };
+    case "FETCH_CLAIM_ADMISSION":
+      return state;
     case "ADD_ASSIGNMENT":
-      return action.assignment;
+      return {
+        assignmentsArray: state.assignmentsArray.concat(action.assignment),
+      };
+    case "REMOVE_ASSIGNMENT":
+      const newArray = state.assignmentsArray.filter((a) => {
+        return a.id !== action.assignment.id })
+
+      return {
+         assignmentsArray: newArray
+      };
+
     default:
       return state;
   }
