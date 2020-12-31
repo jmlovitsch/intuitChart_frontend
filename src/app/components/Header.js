@@ -74,10 +74,11 @@ class Header extends Component {
       );
     }
   };
-  renderPatientChart = (admission) => {
+  renderPatientChart = (assignment) => {
     this.props.history.push(
-      `/dashboard/${this.props.user.id}/admissions/${admission.username}`
-    );
+        `/dashboard/${this.props.user.id}/admissions/${assignment.admission.id}`,
+        assignment
+    )
   };
 
   removeAssignmentfromEmployee = (e, assignment, admission) => {
@@ -95,7 +96,7 @@ class Header extends Component {
           <Row className="justify-content-between">
             <Button
               style={{ padding: ".5", margin: "0" }}
-              onClick={() => this.renderPatientChart(admission)}
+              onClick={() => this.renderPatientChart(assignment)}
             >
               {admission.patient.first_name} {admission.patient.last_name}
             </Button>
@@ -118,7 +119,10 @@ class Header extends Component {
     });
   };
 
-     
+  clickedLogo =() => {
+    this.props.history.push(`/dashboard/${this.props.user.id}/admissions/brainpage`)
+  }
+
   render() {
 
     const assignments = this.props.assignments;
@@ -173,7 +177,7 @@ class Header extends Component {
           <div>
             <Navbar.Brand
               className="logo"
-              href="/"
+              onClick={this.clickedLogo}
               style={{ color: "#238a917c", marginRight: "0px" }}
             >
               <img

@@ -27,7 +27,7 @@ class Dashboard extends Component {
   };
 
   render() {
-
+    console.log(this.props.user)
     return <>
     {this.Switching()}</>;
   }
@@ -36,6 +36,7 @@ class Dashboard extends Component {
 const mapStateToProps = (state) => {
   return {
     authorization: state.user.authorization,
+    user: state.user
   };
 };
 

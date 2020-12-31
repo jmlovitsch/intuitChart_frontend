@@ -145,7 +145,7 @@ class Profile extends Component {
             {/* </Row> */}
             <Row style={{margin: "0"}}>
               <Card>
-                <Button onClick={() => this.props.history.goBack()}>
+                <Button onClick={() => this.props.history.push(`/dashboard/${this.props.user.id}/admissions/brainpage`)}>
                   Exit Profile
                 </Button>
               </Card>
