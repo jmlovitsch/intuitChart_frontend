@@ -1,15 +1,22 @@
-export function assessment(state = {}, action) {
+export function assessment(
+  state = {
+    users: [],
+  },
+  action
+) {
   switch (action.type) {
     case "START_ADDING_USERS_REQUEST":
       return {
-        ...state,
         users: [...state.users],
-     };
+      };
 
     case "ADD_USERS":
       return {
-        ...state,
         users: action.users,
+      };
+    case "LOGOUT_USER":
+      return {
+        users: [],
       };
 
     default:

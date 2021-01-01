@@ -49,7 +49,7 @@ export class App extends Component {
         </div>
         <div className="parent">
           <Switch>
-            <Route path={`/dashboard/${this.props.id}`} component={Dashboard}  />
+            <Route path={`/dashboard/${this.props.id}*`} component={Dashboard}  />
             <Route exact path="/login" component={Login} />
           </Switch>
         </div>

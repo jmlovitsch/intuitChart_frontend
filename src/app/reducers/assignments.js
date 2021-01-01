@@ -17,11 +17,16 @@ export const assignments = (
       };
     case "REMOVE_ASSIGNMENT":
       const newArray = state.assignmentsArray.filter((a) => {
-        return a.id !== action.assignment.id })
+        return a.id !== action.assignment.id;
+      });
 
       return {
-         assignmentsArray: newArray
+        assignmentsArray: newArray,
       };
+    case "LOGOUT_USER":
+      return {
+        assignmentsArray: [],
+    };
 
     default:
       return state;

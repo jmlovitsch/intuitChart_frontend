@@ -4,20 +4,19 @@ import { NavLink, withRouter } from "react-router-dom";
 
 class AssessmentNavigator extends Component {
   render() {
-    const { id } = this.props;
     return (
       <div className="nav nav-tabs">
         <NavLink
           name="vitals"
           className="nav-item nav-link"
-          to={`/dashboard/${id}/visits/visit_id/assessment/vitals`}
+          to={`/dashboard/${this.props.user.id}/admissions/${this.props.currentAdmission.id}/assessment/vitals`}
         >
           Vitals
         </NavLink>
         <NavLink
           name="pain"
           className="nav-item nav-link"
-          to={`/dashboard/${id}/visits/visit_id/assessment/pain`}
+          to={`/dashboard/${this.props.user.id}/admissions/${this.props.currentAdmission.id}/assessment/pain`}
         >
           Pain
         </NavLink>
@@ -25,32 +24,34 @@ class AssessmentNavigator extends Component {
           type="input"
           name="iv"
           className="nav-item nav-link"
-          to={`/dashboard/${id}/visits/visit_id/assessment/iv`}
+          to={`/dashboard/${this.props.user.id}/admissions/${this.props.currentAdmission.id}/assessment/iv`}
         >
           IV
         </NavLink>
         <NavLink
           name="dailyCares"
           className="nav-item nav-link "
-          to={`/dashboard/${id}/visits/visit_id/assessment/dailycares`}
+          to={`/dashboard/${this.props.user.id}/admissions/${this.props.currentAdmission.id}/assessment/dailyCares`}
         >
           Daily Cares
         </NavLink>
         <NavLink
           name="io"
           className="nav-item nav-link"
-          to={`/dashboard/${id}/visits/visit_id/assessment/io`}
+          to={`/dashboard/${this.props.user.id}/admissions/${this.props.currentAdmission.id}/assessment/io`}
         >
           I/O
         </NavLink>
-
       </div>
     );
   }
 }
 
 const mapStateToProps = (state) => ({
-  id: state.user.id,
+  user: state.user,
+  admissions: state.admissions.array,
+  currentAdmission: state.admissions.currentAdmission,
+  currentPatient: state.patients.currentPatient,
 });
 
 export default connect(mapStateToProps)(withRouter(AssessmentNavigator));

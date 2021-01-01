@@ -32,19 +32,37 @@ class ClaimAdmissions extends Component {
 
   renderAdmissionsforClaiming = () => {
     return this.props.admissions.map((u) => {
+        console.log(u)
+        const chris = this.props.assignments.map(assignment => {
+            return assignment.admission.id})
+            console.log( )
       return (
         <tr key={u.id}>
           <td>
-            <Button
+              {chris.includes(u.id) ?
+            <Button disabled
               id={u.id}
               name="claimPatient"
               onClick={(e) => {
                 this.handleClick(e);
               }}
             >
+
               +
             </Button>
-          </td>
+            :
+                        <Button
+                        id={u.id}
+                        name="claimPatient"
+                        onClick={(e) => {
+                          this.handleClick(e);
+                        }}
+                      >
+                        +
+                      </Button>
+
+                                         }
+                                                              </td>
           <td>{u.id}</td>
           <td>{u.patient.username}</td>
           <td>{u.patient.first_name}</td>
@@ -55,6 +73,7 @@ class ClaimAdmissions extends Component {
     });
   };
   render() {
+      console.log(this.props)
     return (
       <div>
           <Button onClick={() =>

@@ -1,7 +1,10 @@
-export const employee = (state = {
+export const employee = (
+  state = {
     message: "",
-    employeeList: []
-}, action) => {
+    employeeList: [],
+  },
+  action
+) => {
   switch (action.type) {
     case "EMPLOYEES_LIST":
       const employeeArray = action.data;
@@ -11,26 +14,35 @@ export const employee = (state = {
       };
     case "USER_CREATED":
       return {
-          ...state,
+        ...state,
         employeeList: state.employeeList.concat(action.data.user),
       };
     case "REMOVE_DELETED_EMPLOYEE_FROM_LIST":
       return {
-          message: action.data.message,
-        employeeList: state.employeeList.filter((em) => em.id !== parseInt(action.id,10) ),
+        message: action.data.message,
+        employeeList: state.employeeList.filter(
+          (em) => em.id !== parseInt(action.id, 10)
+        ),
       };
     case "EMPLOYEE_UPDATED":
       const updatedEmployee = action.data;
       return {
         ...state,
-        employeeList: state.employeeList.map((em) =>  em.id !== updatedEmployee.id ? em : updatedEmployee),
+        employeeList: state.employeeList.map((em) =>
+          em.id !== updatedEmployee.id ? em : updatedEmployee
+        ),
       };
-      case "CLEAR_EMPLOYEE_MESSAGES":
-          return {
-              ...state,
-              message: "",
+    case "CLEAR_EMPLOYEE_MESSAGES":
+      return {
+        ...state,
+        message: "",
+      };
+    case "LOGOUT_USER":
+      return {
+        message: "",
+        employeeList: [],
+      };
 
-          }
     default:
       return state;
   }

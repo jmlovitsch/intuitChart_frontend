@@ -22,9 +22,15 @@ import { openAddPatient } from "../actions/patients";
 import { fetchRemoveAssignment } from "../actions/assignments";
 
 class Header extends Component {
+  state = {
+    logout: false,
+  };
 
-
-  handleLogout = () => {
+  handleLogout = (promise) => {
+    this.setState({
+      logout: false,
+    });
+    console.log(promise);
     localStorage.removeItem("my_app_token");
     this.props.history.push("/login");
     this.props.logoutUser();
@@ -76,9 +82,9 @@ class Header extends Component {
   };
   renderPatientChart = (assignment) => {
     this.props.history.push(
-        `/dashboard/${this.props.user.id}/admissions/${assignment.admission.id}`,
-        assignment
-    )
+      `/dashboard/${this.props.user.id}/admissions/${assignment.admission.id}`,
+      assignment
+    );
   };
 
   removeAssignmentfromEmployee = (e, assignment, admission) => {
@@ -119,27 +125,52 @@ class Header extends Component {
     });
   };
 
-  clickedLogo =() => {
-    this.props.history.push(`/dashboard/${this.props.user.id}/admissions/brainpage`)
+  clickedLogo = () => {
+    if (this.props.user.authorization === "employee") {
+      this.props.history.push(
+        `/dashboard/${this.props.user.id}/admissions/brainpage`
+      );
+    } else if (this.props.user.authorization === "admin") {
+        return null
+    }
+  }
+
+  setting = () => {
+      this.setState({
+          logout: true
+      })
   }
 
   render() {
 
+
+    const id = this.props.user.id
+    const pushing = () => this.props.history.push(`/dashboard/${id}/admissions/brainpage`)
+
     const assignments = this.props.assignments;
     const token = localStorage.getItem("my_app_token");
-    const fetchRemoveAssignment = this.props.fetchRemoveAssignment
+    const fetchRemoveAssignment = this.props.fetchRemoveAssignment;
+    const setState = () => this.setting()
+    let num = 1000
 
-    async function clearTheCache(){
-      assignments.forEach(assignment=>{
-        return fetchRemoveAssignment(token, assignment)
-      })
+    async function fetchIt(assignment) {
+        num = num + 500
+        setTimeout(()=> {fetchRemoveAssignment(token, assignment)}, num )
+    }
+
+
+    async function clearTheCache() {
+        pushing()
+      assignments.forEach((assignment) => {
+         return fetchIt(assignment).then(
+             console.log("it waited")
+         )
+      });
     }
 
     async function handleCloseWorkday() {
       console.log("HANDLE");
-      await clearTheCache();
-      console.log("waited");
-    //   return localStorage.removeItem("my_app_token")
+      await clearTheCache().then(setState());
     }
 
     console.log(this.props);
@@ -149,10 +180,14 @@ class Header extends Component {
         className="header justify-content-between align-content-center "
         style={{ padding: "10px", backgroundColor: "whitesmoke" }}
       >
+              {(this.state.logout && this.props.assignments.length === 0)
+        ? this.handleLogout()
+        : null}
+
+        {" "}
         <Row style={{ margin: "0" }} className="justify-content-start">
           {this.renderwithToken(handleCloseWorkday)}
         </Row>
-
         <Row style={{ margin: "0" }} className="justify-content-end">
           {this.props.user.employee_id ? (
             <div>

@@ -8,11 +8,13 @@ import Admin from "./Admin";
 import HospitalAdmin from "./HospitalAdmin";
 import Login from "../components/Login";
 import { fetchAllAdmissions } from "../actions/admission";
+import { currentUser } from "../actions/auth";
 
 class Dashboard extends Component {
 
-  Switching = () => {
-    switch (this.props.authorization) {
+
+    Switching = () => {
+    switch (this.props.user.authorization) {
       case "admin":
         return <Admin />;
       case "hospital":
@@ -35,11 +37,10 @@ class Dashboard extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    authorization: state.user.authorization,
     user: state.user
   };
 };
 
-export default connect(mapStateToProps, {fetchAllAdmissions})(
+export default connect(mapStateToProps, {fetchAllAdmissions, currentUser})(
   withRouter(Dashboard)
 );

@@ -17,6 +17,7 @@ import {
   emergencyCont,
   healthInsInfo,
   personalInfo,
+  securityInfo
 } from "../../categories/UserCategories";
 import LogoLarge from "/Users/johnlovitsch/Desktop/mod5 project/IntuitChart/intuit_chart_frontend/src/LogoLarge.png";
 
@@ -86,8 +87,16 @@ class Profile extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
+    // if(this.state.new_password && (this.state.new_password === this.state.confirm_password)){
+    //     this.setState({
+    //         password: this.state.new_password
+    //     })
+    // }
     const token = localStorage.getItem("my_app_token");
     delete this.state.switch;
+    delete this.state.new_password;
+    delete this.state.confirm_password;
+
     const bodyObj = this.state;
     const userID = this.props.user.id;
     this.props.updateUserInformation(userID, bodyObj, token);
@@ -135,6 +144,15 @@ class Profile extends Component {
                 Personal Information
               </Button>
             </Card>
+            <Card>
+              <Button
+                name="switch"
+                onClick={() => this.handleClick(securityInfo)}
+              >
+                Change Password
+              </Button>
+            </Card>
+
             {this.state.switch.length === 0 ? null : (
               <Card>
                 <Button name="switch" onClick={() => this.handleClick([])}>
@@ -167,9 +185,8 @@ class Profile extends Component {
                       <FormControl
                         name="password"
                         type="password"
-                        placeholder="please enter password and then press submit"
+                        placeholder="to update, please enter password and then press submit"
                         value={this.state.password}
-                        //   aria-describedby="basic-addon1"
                       />
                       <InputGroup.Append>
                         <Button type="submit">Submit</Button>

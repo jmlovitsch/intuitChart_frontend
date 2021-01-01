@@ -9,6 +9,7 @@ const DateTime = ({ date, handleDateChange }) => {
 
   return (
     <DatePicker
+
       selected={date}
       onChange={handleDateChange}
       showTimeSelect

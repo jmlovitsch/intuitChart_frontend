@@ -37,6 +37,7 @@ export const user = (
         loading: true,
       };
     case "USER_UPDATED":
+
       return {
         ...action.data,
         loading: false,

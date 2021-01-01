@@ -11,7 +11,6 @@ import IO from "../Assessment/IO";
 
 class Assessment extends Component {
   render() {
-    const { id } = this.props;
     return (
       <Card>
         <Card.Header>
@@ -20,20 +19,20 @@ class Assessment extends Component {
         <Card.Body style={{ backgroundColor: "#1761a0", overflow: "scroll" }}>
           <Switch>
             <Vitals
-              path={`/dashboard/${id}/visits/visit_id/assessment/vitals`}
+              path={`/dashboard/${this.props.user.id}/admissions/${this.props.currentAdmission.id}/assessment/vitals`}
             />
             <Pain
               exact
-              path={`/dashboard/${id}/visits/visit_id/assessment/pain`}
+              path={`/dashboard/${this.props.user.id}/admissions/${this.props.currentAdmission.id}/assessment/pain`}
             />
-            <IV exact path={`/dashboard/${id}/visits/visit_id/assessment/iv`} />
+            <IV exact path={`/dashboard/${this.props.user.id}/admissions/${this.props.currentAdmission.id}/assessment/iv`} />
             <DailyCares
               exact
-              path={`/dashboard/${id}/visits/visit_id/assessment/dailycares`}
+              path={`/dashboard/${this.props.user.id}/admissions/${this.props.currentAdmission.id}/assessment/dailycares`}
             />
             <IO
               exact
-              path={`/dashboard/${id}/visits/visit_id/assessment/io`}
+              path={`/dashboard/${this.props.user.id}/admissions/${this.props.currentAdmission.id}/assessment/io`}
             />
           </Switch>
         </Card.Body>
@@ -43,7 +42,10 @@ class Assessment extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  id: state.user.id,
+    user: state.user,
+  admissions: state.admissions.array,
+  currentAdmission: state.admissions.currentAdmission,
+  currentPatient: state.patients.currentPatient
 });
 
 const mapDispatchToProps = {};

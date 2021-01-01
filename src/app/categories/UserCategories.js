@@ -1,7 +1,7 @@
 export const admin = ["username", "password", "authorization"];
 
 export const employee = ["employee_id", "employee_type"];
-
+export const securityInfo = ["new_password", "confirm_password"]
 export const billingInfo = [
   "billing_address",
   "billing_address_2",

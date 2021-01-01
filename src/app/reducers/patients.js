@@ -38,6 +38,13 @@ export const patients = (
         ...state,
         currentPatient: action.patient,
       };
+    case "LOGOUT_USER":
+      return {
+        loading: false,
+        addPatient: false,
+        patients: [],
+        currentPatient: "",
+      };
     default:
       return state;
   }

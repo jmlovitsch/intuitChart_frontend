@@ -10,42 +10,42 @@ class OrdersNavigator extends Component {
         <NavLink
           name="medications"
           className="nav-item nav-link"
-          to={`/dashboard/${id}/visits/visit_id/orders/medications`}
+          to={`/dashboard/${this.props.user.id}/admissions/${this.props.currentAdmission.id}/orders/medications`}
         >
           Medications
         </NavLink>
         <NavLink
           name="labs"
           className="nav-item nav-link"
-          to={`/dashboard/${id}/visits/visit_id/orders/labs`}
+          to={`/dashboard/${this.props.user.id}/admissions/${this.props.currentAdmission.id}/orders/labs`}
         >
           Labs
         </NavLink>
         <NavLink
           name="nursing"
           className="nav-item nav-link"
-          to={`/dashboard/${id}/visits/visit_id/orders/nursing`}
+          to={`/dashboard/${this.props.user.id}/admissions/${this.props.currentAdmission.id}/orders/nursing`}
         >
           Nursing
         </NavLink>
         <NavLink
           name="consult"
           className="nav-item nav-link "
-          to={`/dashboard/${id}/visits/visit_id/orders/consult`}
+          to={`/dashboard/${this.props.user.id}/admissions/${this.props.currentAdmission.id}/orders/consult`}
         >
           Consult
         </NavLink>
         <NavLink
           name="imaging"
           className="nav-item nav-link "
-          to={`/dashboard/${id}/visits/visit_id/orders/imaging`}
+          to={`/dashboard/${this.props.user.id}/admissions/${this.props.currentAdmission.id}/orders/imaging`}
         >
           Imaging
         </NavLink>
         <NavLink
           name="diet"
           className="nav-item nav-link "
-          to={`/dashboard/${id}/visits/visit_id/orders/diet`}
+          to={`/dashboard/${this.props.user.id}/admissions/${this.props.currentAdmission.id}/orders/diet`}
         >
           Diet
         </NavLink>
@@ -55,8 +55,11 @@ class OrdersNavigator extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    id: state.user.id
-});
+    user: state.user,
+    admissions: state.admissions.array,
+    currentAdmission: state.admissions.currentAdmission,
+    currentPatient: state.patients.currentPatient,
+  });
 
 const mapDispatchToProps = {
 

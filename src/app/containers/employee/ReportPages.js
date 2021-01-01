@@ -37,15 +37,15 @@ class ReportPages extends Component {
               </Card.Header>
               <Card.Body style={{ padding: "5px" }}>
                 <Switch>
-                  <Assessment exact path={`/dashboard/${this.props.user.id}/admissions/${this.props.currentAdmission.id}/assessment`} />
-                  <Summary path={`/dashboard/${this.props.user.id}/admissions/${this.props.currentAdmission.id}/summary`} />
-                  <CarePlan path={`/dashboard/${this.props.user.id}/admissions/${this.props.currentAdmission.id}/careplan`} />
-                  <ATD path={`/dashboard/${this.props.user.id}/admissions/${this.props.currentAdmission.id}/atd`} />
-                  <Education path={`/dashboard/${this.props.user.id}/admissions/${this.props.currentAdmission.id}/education`} />
-                  <MAR path={`/dashboard/${this.props.user.id}/admissions/${this.props.currentAdmission.id}/mar`} />
-                  <Orders path={`/dashboard/${this.props.user.id}/admissions/${this.props.currentAdmission.id}/orders`} />
-                  <ShiftAssessment path={`/dashboard/${this.props.user.id}/admissions/${this.props.currentAdmission.id}/shiftassessment`} />
-                  <ShiftNotes path={`/dashboard/${this.props.user.id}/admissions/${this.props.currentAdmission.id}/shiftnotes`} />
+                  <Assessment exact path={`/dashboard/${this.props.user.id}/admissions/${this.props.currentAdmission.id}/assessment*`} />
+                  <Summary path={`/dashboard/${this.props.user.id}/admissions/${this.props.currentAdmission.id}/summary*`} />
+                  <CarePlan path={`/dashboard/${this.props.user.id}/admissions/${this.props.currentAdmission.id}/careplan*`} />
+                  <ATD path={`/dashboard/${this.props.user.id}/admissions/${this.props.currentAdmission.id}/atd*`} />
+                  <Education path={`/dashboard/${this.props.user.id}/admissions/${this.props.currentAdmission.id}/education*`} />
+                  <MAR path={`/dashboard/${this.props.user.id}/admissions/${this.props.currentAdmission.id}/mar*`} />
+                  <Orders path={`/dashboard/${this.props.user.id}/admissions/${this.props.currentAdmission.id}/orders*`} />
+                  <ShiftAssessment path={`/dashboard/${this.props.user.id}/admissions/${this.props.currentAdmission.id}/shiftassessment*`} />
+                  <ShiftNotes path={`/dashboard/${this.props.user.id}/admissions/${this.props.currentAdmission.id}/shiftnotes*`} />
                 </Switch>
               </Card.Body>
             </Card>

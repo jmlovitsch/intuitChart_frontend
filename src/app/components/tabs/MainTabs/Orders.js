@@ -21,28 +21,28 @@ class Orders extends Component {
             <Card.Body>
               <Switch>
                 <Medications
-                  path={`/dashboard/${id}/visits/visit_id/orders/medications`}
-                />
+              path={`/dashboard/${this.props.user.id}/admissions/${this.props.currentAdmission.id}/orders/vitals*`}
+              />
                 <Labs
                   exact
-                  path={`/dashboard/${id}/visits/visit_id/orders/labs`}
-                />
+                  path={`/dashboard/${this.props.user.id}/admissions/${this.props.currentAdmission.id}/orders/labs*`}
+                  />
                 <Nursing
                   exact
-                  path={`/dashboard/${id}/visits/visit_id/orders/nursing`}
-                />
+                  path={`/dashboard/${this.props.user.id}/admissions/${this.props.currentAdmission.id}/orders/nursing*`}
+                  />
                 <Consult
                   exact
-                  path={`/dashboard/${id}/visits/visit_id/orders/consult`}
-                />
+                  path={`/dashboard/${this.props.user.id}/admissions/${this.props.currentAdmission.id}/orders/consult*`}
+                  />
                 <Imaging
                   exact
-                  path={`/dashboard/${id}/visits/visit_id/orders/imaging`}
-                />
+                  path={`/dashboard/${this.props.user.id}/admissions/${this.props.currentAdmission.id}/orders/imaging*`}
+                  />
                 <Diet
                   exact
-                  path={`/dashboard/${id}/visits/visit_id/orders/diet`}
-                />
+                  path={`/dashboard/${this.props.user.id}/admissions/${this.props.currentAdmission.id}/orders/diet*`}
+                  />
               </Switch>
             </Card.Body>
           </Card>
@@ -51,8 +51,11 @@ class Orders extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    id: state.user.id
-})
+    user: state.user,
+    admissions: state.admissions.array,
+    currentAdmission: state.admissions.currentAdmission,
+    currentPatient: state.patients.currentPatient,
+  })
 
 const mapDispatchToProps = {
 
