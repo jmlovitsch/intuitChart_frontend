@@ -1,46 +1,77 @@
-.site-container{
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    /* top: 0; */
-    background-color: #238a9134;
-    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+.site-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #238a910c;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+    color: #1761a0
 }
 
-* {
+/* * {
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
      box-sizing: border-box;
+} */
+
+.app-header {
+  height: 6vh;
+  width: inherit;
+  /* background-color: whitesmoke;
+    outline: .05vh solid;
+    outline-color: #1761a0; */
 }
 
+.app-non-header {
 
-.login {
-    /* padding-top: 5%; */
-  /* background-color: #aaaaaa; */
-  /* height: 100vh; */
-  /* width: 100vw; */
-  /* display: flex; */
-  justify-content: center;
-  /* align-items: top; */
-}
-.login-card {
-    /* box-shadow: -1em .5em .5em rgb(131, 131, 128), -1em 0 .4em rgb(131, 131, 128); */
-    box-shadow: 10px 5px 5px rgb(150, 137, 137), inset 0 0 50px  rgb(221, 221, 221);
-    padding: 1em;
-    /* color: #1761a0; */
+  height: 94vh;
+  width: inherit;
+  /* overflow: hidden; */
 }
 
 .header {
-    height: 6vh;
-    outline: .05vh solid;
+  height: inherit;
+  width: inherit;
+  background-color: whitesmoke;
+  outline: 0.05vh solid;
+  outline-color: #1761a0;
+}
 
-    outline-color: #1761a0;
+.dashboard {
+
+  /* background-color: rgb(43, 226, 134); */
+  height: 94vh;
+  width: inherit;
+}
+
+.parent {
+  overflow: scroll;
+  height: inherit;
+  width: inherit;
+  /* background-color: blueviolet; */
+}
+.brainpage {
+  justify-content: center;
+  align-items: center;
+}
+
+.child {
+}
+
+.login-card {
+  /* box-shadow: -1em .5em .5em rgb(131, 131, 128), -1em 0 .4em rgb(131, 131, 128); */
+  box-shadow: 10px 5px 5px rgb(150, 137, 137), inset 0 0 50px rgb(221, 221, 221);
+  padding: 1em;
+  /* color: #1761a0; */
+}
+.card-shadow {
+  box-shadow: -1em 0.5em 0.5em rgb(131, 131, 128),
+    -1em 0 0.4em rgb(131, 131, 128);
+  box-shadow: 10px 5px 5px rgb(150, 137, 137), inset 0 0 50px rgb(221, 221, 221);
 }
 
 .logo {
-    z-index: 1;
-    /* box-shadow: 10px 5px 5px rgb(150, 137, 137), inset 0 0 50px  rgb(221, 221, 221); */
-
+  z-index: 1;
+  /* box-shadow: 10px 5px 5px rgb(150, 137, 137), inset 0 0 50px  rgb(221, 221, 221); */
 }
 
 /* .App {
@@ -57,50 +88,48 @@
 } */
 
 my-btn {
-    background-color: powderblue;
-    transition: background-color .5s;}
+  background-color: powderblue;
+  transition: background-color 0.5s;
+}
 
-    my-btn:hover {
-        background-color: gold;
-      }
+my-btn:hover {
+  background-color: gold;
+}
 
 .all-empl-page {
-    padding: 3px;
-    box-shadow: 10px 5px 5px rgb(150, 137, 137);
-    height: 80vh;
-    overflow: scroll;
+  padding: 3px;
+  box-shadow: 10px 5px 5px rgb(150, 137, 137);
+  height: 80vh;
+  overflow: scroll;
 }
 
 .all-drugs-scroll-page {
-    padding: 3px;
-    box-shadow: 10px 5px 5px rgb(150, 137, 137);
-    max-height: 60vh;
-    overflow: scroll;
+  padding: 3px;
+  box-shadow: 10px 5px 5px rgb(150, 137, 137);
+  max-height: 60vh;
+  overflow: scroll;
 }
-
 
 .scroll-page {
-    box-shadow: 10px 5px 5px rgb(150, 137, 137) , inset 0 0 50px  rgb(231, 231, 231);;
-    margin-bottom: 2em;
+  box-shadow: 10px 5px 5px rgb(150, 137, 137), inset 0 0 50px rgb(231, 231, 231);
+  margin-bottom: 2em;
 }
 .small-btns {
-    box-shadow: 10px 5px 5px rgb(150, 137, 137) , inset 0 0 10px  rgb(231, 231, 231);;
-    margin-bottom: 2em;
+  box-shadow: 10px 5px 5px rgb(150, 137, 137), inset 0 0 10px rgb(231, 231, 231);
+  margin-bottom: 2em;
 }
 
-
 .scroll-page-title {
-    /* box-shadow: 10px 5px 5px rgb(150, 137, 137); */
-    padding: 20px;
-    margin-bottom: .5em;
-    text-align: center;
-    text-justify: center;
+  /* box-shadow: 10px 5px 5px rgb(150, 137, 137); */
+  padding: 20px;
+  margin-bottom: 0.5em;
+  text-align: center;
+  text-justify: center;
 }
 
 .create-page {
-    /* box-shadow: 10px 5px 5px rgb(150, 137, 137) */
+  /* box-shadow: 10px 5px 5px rgb(150, 137, 137) */
 }
-
 
 .columnRight {
   /* background-color: #aaaaaa; */
@@ -119,22 +148,6 @@ my-btn {
   /* z-index: 1; */
 }
 
-.parent {
-    height: 95vh;
-    padding-top: 1vh;
-    padding-right: 1vw;
-    padding-left: 1vw;
-
-}
-
-.child {
-  /* padding-top: 7px;
-  padding-left: 15px;
-  padding-right: 15px;
-  height: 85vh; */
-  background-color: #238a917c;
-}
-
 /* .popup{
     position:fixed;
     margin:0px auto;
@@ -150,59 +163,65 @@ my-btn {
     } */
 /* Popup container - can be anything you want */
 .popup {
-    position: relative;
-    display: inline-block;
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* The actual popup */
+.popup .popuptext {
+  visibility: hidden;
+  width: 160px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -80px;
+}
+
+/* Popup arrow */
+.popup .popuptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+/* Toggle this class - hide and show the popup */
+.popup .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s;
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
   }
-
-  /* The actual popup */
-  .popup .popuptext {
-    visibility: hidden;
-    width: 160px;
-    background-color: #555;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 8px 0;
-    position: absolute;
-    z-index: 1;
-    bottom: 125%;
-    left: 50%;
-    margin-left: -80px;
+  to {
+    opacity: 1;
   }
+}
 
-  /* Popup arrow */
-  .popup .popuptext::after {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: #555 transparent transparent transparent;
+@keyframes fadeIn {
+  from {
+    opacity: 0;
   }
-
-
-
-  /* Toggle this class - hide and show the popup */
-  .popup .show {
-    visibility: visible;
-    -webkit-animation: fadeIn 1s;
-    animation: fadeIn 1s;
+  to {
+    opacity: 1;
   }
-
-  /* Add animation (fade in the popup) */
-  @-webkit-keyframes fadeIn {
-    from {opacity: 0;}
-    to {opacity: 1;}
-  }
-
-  @keyframes fadeIn {
-    from {opacity: 0;}
-    to {opacity:1 ;}
-  }
+}

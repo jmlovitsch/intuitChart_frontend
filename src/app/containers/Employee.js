@@ -14,8 +14,8 @@ export class Employee extends Component {
 
   render() {
     return (
-      <div>
-        <Switch>
+      <div className="parent">
+        <Switch >
           <BrainPage
             exact
             path={`/dashboard/${this.props.user.id}/admissions/brainpage`}
@@ -27,7 +27,7 @@ export class Employee extends Component {
           <ReportPages path={`/dashboard/${this.props.user.id}/admissions/:assignment_id`} />
           <Profile path={`/dashboard/${this.props.user.id}/profile`} />
         </Switch>
-      </div>
+    </div>
     );
   }
 }

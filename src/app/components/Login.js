@@ -12,33 +12,6 @@ class Login extends Component {
     password: "",
   };
 
-//   componentDidMount() {
-//     const token = localStorage.getItem("my_app_token");
-
-//     if (!token) {
-//       this.props.history.push("/login");
-//     } else {
-//       fetch("http://localhost:3001/current_user", {
-//         method: "GET",
-//         headers: {
-//           Authorization: `Bearer ${token}`,
-//           "Content-type": "application/json",
-//           Accept: "application/json",
-//         },
-//       })
-//         .then((resp) => resp.json())
-//         .then((data) => {
-//             console.log(data)
-//           localStorage.setItem("my_app_token", data.jwt);
-//           this.props.currentUser(data);
-//         });
-//       this.props.history.push(`/dashboard/${this.props.id}`);
-//     }
-//   }
-
-    // componentDidMount(){
-    //     localStorage.removeItem("my_app_token")
-    // }
 
   handleChange = (event) => {
     this.setState({

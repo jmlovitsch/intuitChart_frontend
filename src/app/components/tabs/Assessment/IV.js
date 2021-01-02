@@ -12,10 +12,11 @@ import {
   OverlayTrigger,
 } from "react-bootstrap";
 import DateTime from "../../hooks/DateTime";
+import { fetchCreateAssessment } from "../../../actions/assessment";
 
 class IV extends Component {
   state = {
-    admissions_id: "",
+    admission_id: this.props.admission.id,
     author: this.props.user.username,
     iv_type: "",
     dresssing_status: "",
@@ -40,7 +41,9 @@ class IV extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    console.log(this.state);
+    console.log(this.state)
+    const token = localStorage.getItem("my_app_token")
+    this.props.fetchCreateAssessment(token, "ivs", {iv: this.state})
   };
 
   generateOptions = (place, [...props]) => {
@@ -184,9 +187,10 @@ class IV extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  user: state.user,
+    user: state.user,
+    admission: state.admissions.currentAdmission
 });
 
 const mapDispatchToProps = {};
 
-export default connect(mapStateToProps, mapDispatchToProps)(IV);
+export default connect(mapStateToProps, {fetchCreateAssessment})(IV);

@@ -14,7 +14,7 @@ class Orders extends Component {
     render() {
         const {id} = this.props
         return (
-            <Card className="child login-card">
+            <Card style={{height: "100%", overflow: "scroll"}}>
             <Card.Header>
               <OrdersNavigator />
             </Card.Header>

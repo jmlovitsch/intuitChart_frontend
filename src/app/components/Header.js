@@ -18,7 +18,8 @@ import {
 } from "react-bootstrap";
 import LogoNE from "../../LogoNE.png";
 import Words2 from "../../Words2.png";
-import { openAddPatient } from "../actions/patients";
+import { openAddPatient, setCurrentPatient  } from "../actions/patients";
+import { setCurrentAdmission } from "../actions/admission"
 import { fetchRemoveAssignment } from "../actions/assignments";
 
 class Header extends Component {
@@ -80,10 +81,12 @@ class Header extends Component {
       );
     }
   };
+
   renderPatientChart = (assignment) => {
+    this.props.setCurrentAdmission(assignment.admission);
+    this.props.setCurrentPatient(assignment.patient);
     this.props.history.push(
-      `/dashboard/${this.props.user.id}/admissions/${assignment.admission.id}`,
-      assignment
+      `/dashboard/${this.props.user.id}/admissions/${assignment.admission.id}`
     );
   };
 
@@ -178,7 +181,6 @@ class Header extends Component {
       <Navbar
         fixed="top"
         className="header justify-content-between align-content-center "
-        style={{ padding: "10px", backgroundColor: "whitesmoke" }}
       >
               {(this.state.logout && this.props.assignments.length === 0)
         ? this.handleLogout()
@@ -248,4 +250,7 @@ export default connect(mapStateToProps, {
   logoutUser,
   openAddPatient,
   fetchRemoveAssignment,
+  setCurrentAdmission,
+  setCurrentPatient
+
 })(withRouter(Header));

@@ -11,40 +11,44 @@ import {
   Overlay,
   OverlayTrigger,
 } from "react-bootstrap";
-import { render } from "@testing-library/react";
+import { fetchCreateAssessment } from "../../../actions/assessment";
 
 class Vitals extends Component {
   state = {
-    bp_systolic: "",
-    bp_diastolic: "",
-    bp_site: "",
-    bp_position: "",
-    bp_type: "",
-    hr_type: "",
-    hr_bpm: "",
-    hr_quality: "",
-    temp_site: "",
-    temp_degree: "",
-    rr_hr: "",
-    rr_rrmin: "",
-    rr_quality: "",
-    o2_saturation: "",
-    o2_source: "",
-    o2_site: "",
-    admissions_id: "",
-    author: this.props.user.username
+
+        bp_systolic: "",
+        bp_diastolic: "",
+        bp_site: "",
+        bp_position: "",
+        bp_type: "",
+        hr_type: "",
+        hr_bpm: "",
+        hr_quality: "",
+        temp_site: "",
+        temp_degree: "",
+        rr_hr: "",
+        rr_rrmin: "",
+        rr_quality: "",
+        o2_saturation: "",
+        o2_source: "",
+        o2_site: "",
+        admission_id: this.props.admission.id,
+        author: this.props.user.id.toString()
+
   };
 
   handleChange = (event) => {
     console.log(event.target.name);
     this.setState({
-      [event.target.name]: event.target.value,
+            [event.target.name]: event.target.value,
     });
   };
 
   handleSubmit = (event) => {
     event.preventDefault();
     console.log(this.state)
+    const token = localStorage.getItem("my_app_token")
+    this.props.fetchCreateAssessment(token, "vitals", {vital: this.state})
   };
 
   generateOptions = (place, [...props]) => {
@@ -69,6 +73,7 @@ class Vitals extends Component {
 
 
   render() {
+      console.log(this.props)
     const renderTooltip = (props) => (
       <Tooltip id="button-tooltip" {...props}>
         {props}
@@ -88,7 +93,7 @@ class Vitals extends Component {
         </OverlayTrigger>
       );
     };
-
+    console.log(this.state)
     return (
       <div>
         <Form onChange={this.handleChange} onSubmit={this.handleSubmit}>
@@ -297,9 +302,10 @@ class Vitals extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    user: state.user
+    user: state.user,
+    admission: state.admissions.currentAdmission
 });
 
 const mapDispatchToProps = {};
 
-export default connect(mapStateToProps, mapDispatchToProps)(Vitals);
+export default connect(mapStateToProps, {fetchCreateAssessment})(Vitals);

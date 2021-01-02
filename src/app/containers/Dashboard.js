@@ -3,7 +3,6 @@ import Patient from "./Patient";
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-// import { fetchWithToken } from "../actions/auth";
 import Admin from "./Admin";
 import HospitalAdmin from "./HospitalAdmin";
 import Login from "../components/Login";
@@ -30,8 +29,8 @@ class Dashboard extends Component {
 
   render() {
     console.log(this.props.user)
-    return <>
-    {this.Switching()}</>;
+    return <div className="dashboard" >
+    {this.Switching()}</div>;
   }
 }
 

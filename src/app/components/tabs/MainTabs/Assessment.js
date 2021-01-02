@@ -12,12 +12,12 @@ import IO from "../Assessment/IO";
 class Assessment extends Component {
   render() {
     return (
-      <Card>
+      <Card style={{height: "100%", overflow: "scroll"}}>
         <Card.Header>
           <AssessmentNavigator />
         </Card.Header>
-        <Card.Body style={{ backgroundColor: "#1761a0", overflow: "scroll" }}>
-          <Switch>
+        <Card.Body >
+          <Switch >
             <Vitals
               path={`/dashboard/${this.props.user.id}/admissions/${this.props.currentAdmission.id}/assessment/vitals`}
             />

@@ -13,6 +13,7 @@ import {
   } from "react-bootstrap";
 
   import DateTime from "../../hooks/DateTime";
+  import { fetchCreateAssessment } from "../../../actions/assessment";
 
 
 
@@ -25,7 +26,7 @@ import {
         goals_outcomes: "",
         interventions: "",
         evaluation: "",
-        admission_id: ""
+        admission_id: this.props.admission.id
     }
 
 
@@ -46,7 +47,9 @@ import {
 
       handleSubmit = (event) => {
         event.preventDefault();
-        console.log(this.state);
+        console.log(this.state)
+        const token = localStorage.getItem("my_app_token")
+        this.props.fetchCreateAssessment(token, "dailycares", {dailycare: this.state})
       };
 
       generateOptions = (place, [...props]) => {
@@ -182,9 +185,10 @@ import {
     }
 
     const mapStateToProps = (state) => ({
-      user: state.user,
-    });
+        user: state.user,
+        admission: state.admissions.currentAdmission
+        });
 
 const mapDispatchToProps = {};
 
-export default connect(mapStateToProps, mapDispatchToProps)(DailyCares);
+export default connect(mapStateToProps, {fetchCreateAssessment})(DailyCares);

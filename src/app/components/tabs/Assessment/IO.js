@@ -12,10 +12,11 @@ import {
   OverlayTrigger,
 } from "react-bootstrap";
 import { FormFunctions } from "../../hooks/FormFunctions";
+import { fetchCreateAssessment } from "../../../actions/assessment";
 
 class IO extends Component {
   state = {
-    admission_id: "",
+    admission_id: this.props.admission.id,
     author: this.props.user.username,
     po: "",
     percent_meal: "",
@@ -75,7 +76,9 @@ class IO extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    console.log(this.state);
+    console.log(this.state)
+    const token = localStorage.getItem("my_app_token")
+    this.props.fetchCreateAssessment(token, "intakeoutputs", {intakeoutput: this.state})
   };
 
   generateOptions = (place, [...props]) => {
@@ -154,9 +157,10 @@ class IO extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  user: state.user,
+    user: state.user,
+    admission: state.admissions.currentAdmission
 });
 
 const mapDispatchToProps = {};
 
-export default connect(mapStateToProps, mapDispatchToProps)(IO);
+export default connect(mapStateToProps, {fetchCreateAssessment})(IO);

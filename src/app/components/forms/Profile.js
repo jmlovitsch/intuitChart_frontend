@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import {
   Form,
   Button,
-  Container,
   Row,
   Col,
   InputGroup,
@@ -110,59 +109,57 @@ class Profile extends Component {
     return (
       <>
         <Row md={2}>
-          <Col lg="2">
-            {/* <Row > */}
-            <Card>
-              <Button
+          <Col lg="2" >
+              <Card style={{padding: "10px"}}className="card-shadow">
+             <Card.Title className="align-self-center">Profile Page</Card.Title>
+         <hr/>
+              <Button md-2
                 name="switch"
                 onClick={() => this.handleClick(billingInfo)}
               >
                 Billing Information
               </Button>
-            </Card>
-            <Card>
+              <hr/>
               <Button
                 name="switch"
                 onClick={() => this.handleClick(emergencyCont)}
               >
                 Emergency Information
               </Button>
-            </Card>
-            <Card>
+              <hr/>
               <Button
                 name="switch"
                 onClick={() => this.handleClick(healthInsInfo)}
               >
                 Health Insurance Information
               </Button>
-            </Card>
-            <Card>
+              <hr/>
               <Button
                 name="switch"
                 onClick={() => this.handleClick(personalInfo)}
               >
                 Personal Information
               </Button>
-            </Card>
-            <Card>
+              <hr/>
               <Button
                 name="switch"
                 onClick={() => this.handleClick(securityInfo)}
               >
                 Change Password
               </Button>
-            </Card>
+
 
             {this.state.switch.length === 0 ? null : (
-              <Card>
+                <><hr/>
                 <Button name="switch" onClick={() => this.handleClick([])}>
                   Back
-                </Button>
-              </Card>
+                </Button></>
+
             )}
+             </Card>
             {/* </Row> */}
-            <Row style={{margin: "0"}}>
-              <Card>
+            <Row style={{margin: "0", position: "fixed", bottom: "5px"}} >
+            <Card style={{padding: "5px", margin: "5px"}} className="card-shadow">
                 <Button onClick={() => this.props.history.push(`/dashboard/${this.props.user.id}/admissions/brainpage`)}>
                   Exit Profile
                 </Button>

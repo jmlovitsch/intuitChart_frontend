@@ -6,6 +6,7 @@ export const assignments = (
 ) => {
   switch (action.type) {
     case "USER_LOGIN":
+        console.log(action)
       return {
         assignmentsArray: action.data.user.assignments,
       };

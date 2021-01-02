@@ -44,15 +44,14 @@ export class App extends Component {
   render() {
     return (
       <div fluid className="site-container">
-        <div className="header">
+        <div className="app-header">
           <Header renderAdd={this.renderAdd} />
         </div>
-        <div className="parent">
-          <Switch>
-            <Route path={`/dashboard/${this.props.id}*`} component={Dashboard}  />
-            <Route exact path="/login" component={Login} />
+          <Switch style={{padding: "0"}}  >
+            <Route path={`/dashboard/${this.props.id}*`} component={Dashboard}  className="app-non-header"/>
+            <Route exact path="/login" component={Login} className="app-non-header"/>
           </Switch>
-        </div>
+
       </div>
     );
   }

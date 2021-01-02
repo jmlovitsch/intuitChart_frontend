@@ -9,49 +9,62 @@ import {
   InputGroup,
   Tooltip,
 } from "react-bootstrap";
+import { fetchCreateAssessment } from "../../../actions/assessment";
+import { CPOT } from "../../hooks/NewNote";
 
 class Pain extends Component {
   state = {
     author: this.props.user.username,
-    admission_id: "",
+    admission_id: this.props.admission.id,
     assume_pain: "",
     asleep: "",
-    scale_type: "",
-    scale_value: "",
+    sscale_type: "",
+    scale_value: "N/A",
     orientation: "",
     location: "",
     treatment: "",
     pasero_sedation: "",
   };
 
+  //   handleChange = (event) => {
+  //     console.log(event);
+  //     if (event.target.checked) {
+  //       const newState = {
+  //         ...this.state,
+  //         [event.target.name]: this.state[event.target.name].concat(
+  //           event.target.value
+  //         ),
+  //       };
+  //       this.setState({
+  //         ...newState,
+  //       });
+  //     } else {
+  //       const newState = {
+  //         ...this.state,
+  //         [event.target.name]: this.state[event.target.name].filter(
+  //           (x) => x !== event.target.value
+  //         ),
+  //       };
+  //       this.setState({
+  //         ...newState,
+  //       });
+  //     }
+  //   };
+
   handleChange = (event) => {
-    console.log(event);
-    if (event.target.checked) {
-      const newState = {
-        ...this.state,
-        [event.target.name]: this.state[event.target.name].concat(
-          event.target.value
-        ),
-      };
-      this.setState({
-        ...newState,
-      });
-    } else {
-      const newState = {
-        ...this.state,
-        [event.target.name]: this.state[event.target.name].filter(
-          (x) => x !== event.target.value
-        ),
-      };
-      this.setState({
-        ...newState,
-      });
-    }
+    console.log(event.target.name);
+    this.setState({
+      [event.target.name]: event.target.value,
+    });
   };
 
   handleSubmit = (event) => {
     event.preventDefault();
+    console.log(this.state);
+    const token = localStorage.getItem("my_app_token");
+    this.props.fetchCreateAssessment(token, "pains", { pain: this.state });
   };
+
   formLabel = (props) => {
     return (
       <OverlayTrigger
@@ -69,7 +82,7 @@ class Pain extends Component {
       return (
         <option
           inline
-        //   type="checkbox"
+          //   type="checkbox"
           label={site}
           name={place}
           id={`inline-${site}-2`}
@@ -79,16 +92,47 @@ class Pain extends Component {
     });
   };
 
-  handleChange = (event) => {
-    console.log(event.target.name);
-    this.setState({
-      [event.target.name]: event.target.value,
-    });
-  };
-
-  handleSubmit = (event) => {
-    event.preventDefault();
-    console.log(this.state);
+  generateValueOptions = () => {
+    switch (this.state.sscale_type) {
+      case "0-10":
+        return this.generateOptions("scale_value", ["",
+          "Mild",
+          "Moderate",
+          "Severe",
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9",
+          "10",
+        ]);
+      case "CPOT":
+        return (<CPOT />);
+      case "Wong-Baker":
+        return this.generateOptions("scale_value", ["",
+            "0, No Hurt",
+            "1",
+            "2, Hurts Little Bit",
+            "3",
+            "4, Hurts, Little More",
+            "5",
+            "6, Hurts Even More",
+            "7",
+            "8, Hurts, Whole Lot",
+            "9",
+            "10, Hurts Worst",
+          ]);
+      case "Asleep":
+        return this.generateOptions("scale_value", ["None"]);
+      case "Assume Pain":
+        return this.generateOptions("scale_value", ["N/A"]);
+      default:
+        return this.generateOptions("scale_value", ["N/A"]);
+    }
   };
 
   render() {
@@ -117,8 +161,8 @@ class Pain extends Component {
           <Row>
             <Col>
               <Form.Group>
-                {formLabel("Scoring Tool")}
-                {formLabel("Assume Pain")}
+                {/* {formLabel("Scoring Tool")} */}
+                {/* {formLabel("Assume Pain")}
                 <Form.Control
                   as="select"
                   value={this.state.assume_pain}
@@ -136,20 +180,21 @@ class Pain extends Component {
                   name="asleep"
                 >
                   {this.generateOptions("asleep", ["yes", "no"])}
-                </Form.Control>
+                </Form.Control> */}
 
                 {formLabel("Scale Type")}
                 <Form.Control
                   as="select"
-                  value={this.state.scale_type}
+                  value={this.state.sscale_type}
                   className="mb-3"
-                  name="scale_type"
+                  name="sscale_type"
                 >
-                  {this.generateOptions("scale_type", [
+                  {this.generateOptions("sscale_type", [
                     "0-10",
                     "CPOT",
                     "Wong-Baker",
-                    "Faces",
+                    "Asleep",
+                    "Assume Pain",
                   ])}
                 </Form.Control>
 
@@ -160,15 +205,7 @@ class Pain extends Component {
                   name="scale_value"
                   value={this.state.scale_value}
                 >
-                  {this.generateOptions("scale_value", [
-                    "0",
-                    "1",
-                    "2",
-                    "3",
-                    "CPOT",
-                    "Wong-Baker",
-                    "Faces",
-                  ])}
+                  {this.generateValueOptions()}
                 </Form.Control>
               </Form.Group>
             </Col>
@@ -253,8 +290,9 @@ class Pain extends Component {
 
 const mapStateToProps = (state) => ({
   user: state.user,
+  admission: state.admissions.currentAdmission,
 });
 
 const mapDispatchToProps = {};
 
-export default connect(mapStateToProps, mapDispatchToProps)(Pain);
+export default connect(mapStateToProps, { fetchCreateAssessment })(Pain);

@@ -134,8 +134,8 @@ class HospitalAdmin extends Component {
   render() {
     return (
       <Container fluid>
-        <Row className="mainRow">
-          <Col className="columnRight">
+        <Row >
+          <Col >
 
             <Row>Welcome, Hospital Administrator</Row>
             <Row>

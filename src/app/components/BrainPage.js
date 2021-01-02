@@ -1,10 +1,10 @@
 import React, { Component, useState } from "react";
 import { Card, Col, Table, Button, Modal, Form } from "react-bootstrap";
-import DatePicker from "react-datepicker";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import LogoLarge from "/Users/johnlovitsch/Desktop/mod5 project/IntuitChart/intuit_chart_frontend/src/LogoLarge.png";
-import DateTime from "/Users/johnlovitsch/Desktop/mod5 project/IntuitChart/intuit_chart_frontend/src/app/components/hooks/DateTime.js";
+import { setCurrentPatient } from "../actions/patients";
+import { setCurrentAdmission } from "../actions/admission";
 
 // class BrainPage extends Component {
 //   state = {
@@ -189,7 +189,7 @@ class BrainPage extends Component {
     reminderTime: "",
     show: false,
     content: "",
-    title: ""
+    title: "",
   };
 
   componentDidMount() {
@@ -200,7 +200,7 @@ class BrainPage extends Component {
 
   handleChange = (event) => {
     this.setState({
-      [event.target.name]: event.target.value
+      [event.target.name]: event.target.value,
     });
   };
 
@@ -210,21 +210,28 @@ class BrainPage extends Component {
     });
   };
 
+  renderPatientChart = (assignment) => {
+    this.props.setCurrentAdmission(assignment.admission);
+    this.props.setCurrentPatient(assignment.patient);
+    this.props.history.push(
+      `/dashboard/${this.props.user.id}/admissions/${assignment.admission.id}`
+    );
+  };
+
   ///////////////////////////////////////////////////
   render() {
-      console.log(this.state)
+    console.log(this.state);
 
-     const MyVerticallyCenteredModal = (props) => {
-
-        const handleSubmit =(event)=>{
-            console.log(event)
-            debugger
-            this.setState({
-                title: event.target[0].value,
-                content: event.target[1].value
-            })
-                    }
-              return (
+    const MyVerticallyCenteredModal = (props) => {
+      const handleSubmit = (event) => {
+        console.log(event);
+        debugger;
+        this.setState({
+          title: event.target[0].value,
+          content: event.target[1].value,
+        });
+      };
+      return (
         <Modal
           {...props}
           size="lg"
@@ -245,15 +252,14 @@ class BrainPage extends Component {
             <Form onSubmit={handleSubmit}>
               <Form.Group>
                 <Form.Label>Title:</Form.Label>
-                <Form.Control name="title"   />
+                <Form.Control name="title" />
               </Form.Group>
 
               <Form.Group>
                 <Form.Label>Content:</Form.Label>
-                <Form.Control name="content"  as="textarea"  />
+                <Form.Control name="content" as="textarea" />
               </Form.Group>
-              <Button type="submit" >Make Note</Button>
-
+              <Button type="submit">Make Note</Button>
             </Form>
           </Modal.Body>
           <Modal.Footer>
@@ -261,22 +267,39 @@ class BrainPage extends Component {
           </Modal.Footer>
         </Modal>
       );
-    }
-
+    };
+    console.log(this.props);
     return (
       <div>
-        <Col fluid md={{ span: 6, offset: 3 }}>
+        <Col
+          md={{
+            offset: "2",
+            span: "8",
+          }}
+          style={{
+            padding: "10% 0",
+            //   border: "3px solid green",
+            //   textAlign: "center",
+          }}
+          className="align-items-center"
+        >
           {this.props.assignments.length === 0 ? (
-            <Card.Img
-              //   variant="top"
-
-              src={LogoLarge}
-              //   className="mb-2"
-            />
+            <Card.Img src={LogoLarge} />
           ) : (
-            <Card>
-              <Card.Text>Brain Page</Card.Text>
-              <div>Your Patients</div>
+            <Card
+              style={
+                {
+                  // display: "flex",
+                  // justifyContent: "center",
+                  // alignItems: "center",
+                  // height: "initial",
+                  // margin: "auto"
+                }
+              }
+              className="card-shadow"
+            >
+              <Card.Header ><strong>Brain Page</strong></Card.Header>
+              <hr className="align-self-center" style={{width: "50%"}} />
               <Table striped bordered hover>
                 <thead>
                   <tr>
@@ -299,12 +322,7 @@ class BrainPage extends Component {
                           <Button
                             id={assignment.id}
                             name="viewReportPages"
-                            onClick={() =>
-                              this.props.history.push(
-                                `/dashboard/${this.props.user.id}/admissions/${assignment.admission.id}`,
-                                assignment
-                              )
-                            }
+                            onClick={() => this.renderPatientChart(assignment)}
                           >
                             Go
                           </Button>
@@ -355,9 +373,7 @@ const mapStateToProps = (state) => ({
   assignments: state.assignments.assignmentsArray,
 });
 
-const mapDispatchToProps = {};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withRouter(BrainPage));
+export default connect(mapStateToProps, {
+  setCurrentPatient,
+  setCurrentAdmission,
+})(withRouter(BrainPage));
