@@ -175,11 +175,20 @@ class IV extends Component {
 
           <hr />
 
-          <Form.Group as={Row}>
-            <Col>
-              <Button type="submit">Submit</Button>
-            </Col>
-          </Form.Group>
+          <Form.Group>
+              <Row className="justify-content-end">
+                <Button
+                  type="submit"
+                  style={{
+                    backgroundColor: "transparent",
+                    border: "solid",
+                    color: "#1761a0",
+                  }}
+                >
+                  Submit Assessment
+                </Button>
+              </Row>
+            </Form.Group>
         </Form>
       </div>
     );

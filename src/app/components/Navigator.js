@@ -62,7 +62,7 @@ class Navigator extends Component {
         <NavLink
           name="careplan"
           className="nav-item nav-link"
-          to={`/dashboard/${this.props.user.id}/admissions/${this.props.currentAdmission.id}/visit_id/careplan`}
+          to={`/dashboard/${this.props.user.id}/admissions/${this.props.currentAdmission.id}/careplan`}
         >
           CarePlan
         </NavLink>
@@ -70,7 +70,7 @@ class Navigator extends Component {
         <NavLink
           name="summary"
           className="nav-item nav-link"
-          to={`/dashboard/${this.props.user.id}/admissions/${this.props.currentAdmission.id}/visit_id/summary`}
+          to={`/dashboard/${this.props.user.id}/admissions/${this.props.currentAdmission.id}/summary`}
         >
           Summary
         </NavLink>

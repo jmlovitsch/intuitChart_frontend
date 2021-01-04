@@ -192,9 +192,9 @@ class Header extends Component {
         </Row>
         <Row style={{ margin: "0" }} className="justify-content-end">
           {this.props.user.employee_id ? (
-            <div>
-              <NavDropdown title="Patients" id="basic-nav-dropdown">
-                {this.props.admissions.length > 1
+
+              <NavDropdown style={{paddingTop: ".75rem", paddingRight: "1rem"}} title="Patients" id="basic-nav-dropdown">
+                {this.props.admissions.length > 0
                   ? this.renderPatientsToDropdown()
                   : null}
                 <NavDropdown.Divider />
@@ -209,7 +209,6 @@ class Header extends Component {
                   Add Patient
                 </NavDropdown.Item>
               </NavDropdown>
-            </div>
           ) : null}
           <div>
             <Navbar.Brand

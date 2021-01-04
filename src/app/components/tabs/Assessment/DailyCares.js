@@ -14,19 +14,21 @@ import {
 
   import DateTime from "../../hooks/DateTime";
   import { fetchCreateAssessment } from "../../../actions/assessment";
+import PatientCarePlan from "../../forms/PatientCarePlan";
 
 
 
   class DailyCares extends Component {
 
     state = {
-        author: this.props.user.username,
+        author: this.props.user.id,
         date_initiated: "",
         nursing_diagnosis: "",
         goals_outcomes: "",
         interventions: "",
         evaluation: "",
-        admission_id: this.props.admission.id
+        admission_id: this.props.currentAdmission.id,
+        notes: ""
     }
 
 
@@ -98,86 +100,42 @@ import {
             </OverlayTrigger>
           );
         };
-
+console.log(this.state.notes)
         return (
           <div>
+              {this.props.patientCareplan ? <PatientCarePlan /> : null}
+              <hr/>
             <Form onChange={this.handleChange} onSubmit={this.handleSubmit}>
               <Row>
                 <Col>
                   <Form.Group>
-                    {formLabel("Daily Cares")}
-                    {formLabel("nursing_diagnosis")}
-                    <Form.Control
-                      as="select"
-                      value={this.state.nursing_diagnosis}
-                      className="mb-3"
-                      name="nursing_diagnosis"
-                    >
-                      {this.generateOptions("nursing_diagnosis", [
-                        "Bolus",
-                        "Infusion",
-                        "Secondary",
-                        "Lower Left Arm",
-                      ])}
+                    {formLabel("Nurse Notes")}
+                    <br/>
+                    <Form.Control as="textarea"
+                    value={this.props.notes}
+                    name="notes"
+                    onChange={this.handleChange}>
                     </Form.Control>
-
-                    {formLabel("goals_outcomes")}
-                    <Form.Control
-                      as="select"
-                      value={this.state.goals_outcomes}
-                      className="mb-3"
-                      name="goals_outcomes"
-                    >
-                      {this.generateOptions("goals_outcomes", [
-                        "Clean",
-                        "Dry",
-                        "Intact",
-                        "Drainage",
-                      ])}
-                    </Form.Control>
-
-                    {formLabel("interventions")}
-                    <Form.Control
-                      as="select"
-                      value={this.state.interventions}
-                      className="mb-3"
-                      name="interventions"
-                    >
-                      {this.generateOptions("interventions", [
-                        "c|d|i",
-                        "red",
-                        "painful",
-                        "fragile",
-                      ])}
-                    </Form.Control>
-
-                    {formLabel("evaluation")}
-                    <Form.Control
-                      as="select"
-                      value={this.state.evaluation}
-                      className="mb-3"
-                      name="evaluation"
-                    >
-                      {this.generateOptions("evaluation", [
-                        "Flushed",
-                        "Saline locked",
-                        "Infusing",
-                        "Infiltrated",
-                        "Occluded",
-                      ])}
-                    </Form.Control>
-
                   </Form.Group>
                 </Col>
               </Row>
 
               <hr />
 
-              <Form.Group as={Row}>
-                <Col>
-                  <Button type="submit">Submit</Button>
-                </Col>
-              </Form.Group>
+              <Form.Group>
+              <Row className="justify-content-end">
+                <Button
+                  type="submit"
+                  style={{
+                    backgroundColor: "transparent",
+                    border: "solid",
+                    color: "#1761a0",
+                  }}
+                >
+                  Submit Assessment
+                </Button>
+              </Row>
+            </Form.Group>
             </Form>
           </div>
         );
@@ -186,7 +144,12 @@ import {
 
     const mapStateToProps = (state) => ({
         user: state.user,
-        admission: state.admissions.currentAdmission
+        admissions: state.admissions.array,
+        currentAdmission: state.admissions.currentAdmission,
+        currentPatient: state.patients.currentPatient,
+        careplans: state.careplans.array,
+        patientCareplan: state.careplans.patientCareplan
+
         });
 
 const mapDispatchToProps = {};

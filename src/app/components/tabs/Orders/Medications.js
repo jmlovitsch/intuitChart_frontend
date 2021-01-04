@@ -201,7 +201,6 @@ this.setState({
 
                   <Form.Group className="justify-content-end">
                     <Button
-                      onClick={this.setSubmitTime}
                       type="submit"
                       style={{
                         backgroundColor: "transparent",

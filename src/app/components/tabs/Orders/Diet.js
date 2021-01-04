@@ -228,25 +228,24 @@ class Diet extends Component {
                 ></Form.Control>
               </Form.Group>
             </Col>
-            <Col md={{ offset: 1, span: 2 }} className="justify-content-end">
-              <br />
-              <Row>
-                <Form.Group>
-                  <Button
-                  onClick={this.setSubmitTime}
-                    type="submit"
-                    style={{
-                      backgroundColor: "transparent",
-                      border: "solid",
-                      color: "#1761a0",
-                    }}
-                  >
-                    Submit Order
-                  </Button>
-                </Form.Group>
+            </Row>
+            <hr />
+            <Form.Group>
+              <Row className="justify-content-end">
+                <Button
+                  type="submit"
+                  style={{
+                    backgroundColor: "transparent",
+                    border: "solid",
+                    color: "#1761a0",
+                  }}
+                >
+                  Submit Order
+                </Button>
               </Row>
-            </Col>
-          </Row>
+            </Form.Group>
+
+
         </Form>
       </div>
     );

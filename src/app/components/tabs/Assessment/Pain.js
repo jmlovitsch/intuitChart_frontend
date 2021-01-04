@@ -95,7 +95,8 @@ class Pain extends Component {
   generateValueOptions = () => {
     switch (this.state.sscale_type) {
       case "0-10":
-        return this.generateOptions("scale_value", ["",
+        return this.generateOptions("scale_value", [
+          "",
           "Mild",
           "Moderate",
           "Severe",
@@ -111,21 +112,22 @@ class Pain extends Component {
           "10",
         ]);
       case "CPOT":
-        return (<CPOT />);
+        return <CPOT />;
       case "Wong-Baker":
-        return this.generateOptions("scale_value", ["",
-            "0, No Hurt",
-            "1",
-            "2, Hurts Little Bit",
-            "3",
-            "4, Hurts, Little More",
-            "5",
-            "6, Hurts Even More",
-            "7",
-            "8, Hurts, Whole Lot",
-            "9",
-            "10, Hurts Worst",
-          ]);
+        return this.generateOptions("scale_value", [
+          "",
+          "0, No Hurt",
+          "1",
+          "2, Hurts Little Bit",
+          "3",
+          "4, Hurts, Little More",
+          "5",
+          "6, Hurts Even More",
+          "7",
+          "8, Hurts, Whole Lot",
+          "9",
+          "10, Hurts Worst",
+        ]);
       case "Asleep":
         return this.generateOptions("scale_value", ["None"]);
       case "Assume Pain":
@@ -278,10 +280,19 @@ class Pain extends Component {
           <hr />
 
           <Form.Group>
-            <Col>
-              <Button type="submit">Submit</Button>
-            </Col>
-          </Form.Group>
+              <Row className="justify-content-end">
+                <Button
+                  type="submit"
+                  style={{
+                    backgroundColor: "transparent",
+                    border: "solid",
+                    color: "#1761a0",
+                  }}
+                >
+                  Submit Assessment
+                </Button>
+              </Row>
+            </Form.Group>
         </Form>
       </div>
     );
