@@ -138,7 +138,8 @@ class ReportPages extends Component {
             </Col>
           </>
         ) : (
-          <LoadingCard />
+            null
+        //   <LoadingCard style={{position: "fixed"}} />
         )}
       </Row>
     );

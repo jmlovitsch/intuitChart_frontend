@@ -14,6 +14,7 @@ export const loginSuccess = (data) => {
 
 
 export const createUserSuccess = (params) => {
+    console.log(params)
   return (dispatch) => {
     dispatch({ type: "CREATE_USER_LOADING" });
     fetch("http://localhost:3001/users", {
@@ -25,7 +26,7 @@ export const createUserSuccess = (params) => {
       body: JSON.stringify({ user: params }),
     })
       .then((response) =>  response.json())
-      .then((data) => dispatch({ type: "USER_CREATED", data })
+      .then((data) => (console.log(data), dispatch({ type: "USER_CREATED", data }))
       );
   };
 };

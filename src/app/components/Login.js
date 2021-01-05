@@ -6,12 +6,14 @@ import { Row, Col, Container } from "react-bootstrap";
 import { loginSuccess } from "../actions/auth";
 import LogoLarge from "../../LogoLarge.png";
 
-class Login extends Component {
-  state = {
-    username: "",
-    password: "",
-  };
-
+export class Login extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: "",
+      password: "",
+    };
+  }
 
   handleChange = (event) => {
     this.setState({
@@ -34,7 +36,7 @@ class Login extends Component {
           return response.json();
         })
         .then((data) => {
-            console.log(data);
+          console.log(data);
 
           this.props.loginSuccess(data);
           localStorage.setItem("my_app_token", data.jwt);
@@ -43,13 +45,23 @@ class Login extends Component {
     }
   };
 
+// componentDidUpdate(){
+//     if(!this.state.username){
+//         this.setState({
+//             username: this.props.createdUser.username
+//         })
+//     }
+// }
   render() {
+    console.log(this.props);
+
     return (
       <div className="login">
+        {this.props.setting ? this.setting : null}
         <Container fluid>
           <Col md={{ span: 6, offset: 3 }}>
             <Card.Img
-            //   variant="top"
+              //   variant="top"
               src={LogoLarge}
               className="justify-content-center"
               // style={{ padding: "1em" }}
@@ -71,6 +83,7 @@ class Login extends Component {
                           type="username"
                           placeholder="enter username"
                           name="username"
+                          value={this.state.username}
                         />
                         <Form.Text className="text-muted">
                           Please enter your appropriate username for patient or
@@ -111,9 +124,8 @@ class Login extends Component {
 }
 
 const mapStateToProps = (state) => ({
+  createdUser: state.user.createdUser,
   id: state.user.id,
 });
 
-export default connect(mapStateToProps, { loginSuccess })(
-  withRouter(Login)
-);
+export default connect(mapStateToProps, { loginSuccess })(withRouter(Login));

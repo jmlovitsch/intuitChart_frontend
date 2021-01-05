@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 import { createUserSuccess } from "../../actions/auth";
+import { CreateNewPatientForms } from "./CreateNewPatientFoms";
 
 class CreatePatient extends Component {
   state = {
-    authorization: "",
+    authorization: "patient",
     username: "",
     password: "",
     first_name: "",
@@ -34,7 +36,6 @@ class CreatePatient extends Component {
   };
 
   values = {
-    authorization: ["", "hospital_admin", "employee", "patient"],
     username: "",
     password: "",
     first_name: "",
@@ -75,6 +76,7 @@ class CreatePatient extends Component {
       [event.target.name]: event.target.value,
     });
   };
+
   generateOptions = (place, [...props]) => {
     return [...props].map((site) => {
       return (
@@ -128,11 +130,15 @@ class CreatePatient extends Component {
     this.props.createUserSuccess(this.state);
 
   };
-
+settingState = () => {
+    this.props.handleBack()
+}
   render() {
 
     return (
+
       <div className="scroll-page">
+            <CreateNewPatientForms settingState={this.settingState}/>
         <Row style={{margin: "0"}}>Create Patient</Row>
         <Form
           onChange={(e) => this.handleChange(e)}
@@ -167,4 +173,4 @@ const mapStateToProps = (state) => ({
   createdUser: state.user.createdUser,
 });
 
-export default connect(mapStateToProps, { createUserSuccess })(CreatePatient);
+export default connect(mapStateToProps, { createUserSuccess })(withRouter(CreatePatient));

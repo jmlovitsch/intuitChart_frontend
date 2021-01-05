@@ -13,7 +13,6 @@ class Admin extends Component {
   state = {
     task: "",
     itemED: "",
-    // employees: []
   };
 
   componentDidMount(){

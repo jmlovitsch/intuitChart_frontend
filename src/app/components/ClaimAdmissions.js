@@ -18,8 +18,6 @@ class ClaimAdmissions extends Component {
     user_id: this.props.user.id,
   };
 
-
-
   handleClick = (event) => {
     const token = localStorage.getItem("my_app_token");
     const id = parseInt(event.target.id, 10);
@@ -32,37 +30,37 @@ class ClaimAdmissions extends Component {
 
   renderAdmissionsforClaiming = () => {
     return this.props.admissions.map((u) => {
-        console.log(u)
-        const chris = this.props.assignments.map(assignment => {
-            return assignment.admission.id})
-            console.log( )
+      console.log(u);
+      const chris = this.props.assignments.map((assignment) => {
+        return assignment.admission.id;
+      });
+      console.log();
       return (
         <tr key={u.id}>
           <td>
-              {chris.includes(u.id) ?
-            <Button disabled
-              id={u.id}
-              name="claimPatient"
-              onClick={(e) => {
-                this.handleClick(e);
-              }}
-            >
-
-              +
-            </Button>
-            :
-                        <Button
-                        id={u.id}
-                        name="claimPatient"
-                        onClick={(e) => {
-                          this.handleClick(e);
-                        }}
-                      >
-                        +
-                      </Button>
-
-                                         }
-                                                              </td>
+            {chris.includes(u.id) ? (
+              <Button
+                disabled
+                id={u.id}
+                name="claimPatient"
+                onClick={(e) => {
+                  this.handleClick(e);
+                }}
+              >
+                +
+              </Button>
+            ) : (
+              <Button
+                id={u.id}
+                name="claimPatient"
+                onClick={(e) => {
+                  this.handleClick(e);
+                }}
+              >
+                +
+              </Button>
+            )}
+          </td>
           <td>{u.id}</td>
           <td>{u.patient.username}</td>
           <td>{u.patient.first_name}</td>
@@ -73,25 +71,67 @@ class ClaimAdmissions extends Component {
     });
   };
   render() {
-      console.log(this.props)
+    console.log(this.props);
     return (
       <div>
-          <Button onClick={() =>
-            // this.props.handleBackfromAddPatient()
-            this.props.history.goBack()}>Back</Button>
-        <Table striped bordered hover>
-          <thead>
-            <tr>
-              <th>Add Patient</th>
-              <th>Admission ID</th>
-              <th>Username</th>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Room</th>
-            </tr>
-          </thead>
-          <tbody>{this.renderAdmissionsforClaiming()}</tbody>
-        </Table>
+        <Col
+          md={{
+            offset: "2",
+            span: "8",
+          }}
+          style={{
+            padding: "10% 0",
+            //   border: "3px solid green",
+            //   textAlign: "center",
+          }}
+          className="align-items-center"
+        >
+          <Card
+            style={
+              {
+                // display: "flex",
+                // justifyContent: "center",
+                // alignItems: "center",
+                // height: "initial",
+                // margin: "auto"
+              }
+            }
+            className="card-shadow"
+          >
+            <Table striped bordered hover>
+              <thead>
+                <tr>
+                  <th>Add Patient</th>
+                  <th>Admission ID</th>
+                  <th>Username</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Room</th>
+                </tr>
+              </thead>
+              <tbody>{this.renderAdmissionsforClaiming()}</tbody>
+            </Table>
+            <hr/>
+            <div>
+            <Row style={{margin: "0"}} className="justify-content-end">
+              <Button
+                type="button"
+                style={{
+                  backgroundColor: "transparent",
+                  border: "solid",
+                  color: "#1761a0",
+                }}
+                onClick={() =>
+                    // this.props.handleBackfromAddPatient()
+                    this.props.history.goBack()
+                  }
+
+              >
+                Back
+              </Button>
+            </Row></div>
+          </Card>
+        </Col>
       </div>
     );
   }
@@ -105,4 +145,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {};
 
-export default connect(mapStateToProps, { createAssignment, handleBackfromAddPatient })(withRouter(ClaimAdmissions));
+export default connect(mapStateToProps, {
+  createAssignment,
+  handleBackfromAddPatient,
+})(withRouter(ClaimAdmissions));

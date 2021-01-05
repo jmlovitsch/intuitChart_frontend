@@ -5,6 +5,7 @@ import { withRouter } from "react-router-dom";
 import LogoLarge from "/Users/johnlovitsch/Desktop/mod5 project/IntuitChart/intuit_chart_frontend/src/LogoLarge.png";
 import { setCurrentPatient } from "../actions/patients";
 import { setCurrentAdmission } from "../actions/admission";
+import { HistoryChart } from "./hooks/History";
 
 // class BrainPage extends Component {
 //   state = {
@@ -220,8 +221,8 @@ class BrainPage extends Component {
 
   ///////////////////////////////////////////////////
   render() {
-    console.log(this.state);
-
+    console.log("ASSIGNMENTS", this.props.assignments);
+    console.log("ADMISSIONS", this.props.admissions);
     const MyVerticallyCenteredModal = (props) => {
       const handleSubmit = (event) => {
         console.log(event);
@@ -268,7 +269,6 @@ class BrainPage extends Component {
         </Modal>
       );
     };
-    console.log(this.props);
     return (
       <div>
         <Col
@@ -298,8 +298,10 @@ class BrainPage extends Component {
               }
               className="card-shadow"
             >
-              <Card.Header ><strong>Brain Page</strong></Card.Header>
-              <hr className="align-self-center" style={{width: "50%"}} />
+              <Card.Header>
+                <strong>Brain Page</strong>
+              </Card.Header>
+              <hr className="align-self-center" style={{ width: "50%" }} />
               <Table striped bordered hover>
                 <thead>
                   <tr>
@@ -316,6 +318,10 @@ class BrainPage extends Component {
                 <tbody>
                   {/* {this.renderAssignmentAdmissionInformation( )} */}
                   {this.props.assignments.map((assignment) => {
+                      const historyInfo = this.props.admissions.filter(admission=>{
+                          return admission.id === assignment.admission.id
+                      })
+
                     return (
                       <tr key={assignment.id}>
                         <td>
@@ -351,9 +357,7 @@ class BrainPage extends Component {
                           />
                         </td>
                         <td>
-                          <Button id={assignment.id} name="patientHistory">
-                            History
-                          </Button>
+                          {/* <HistoryChart historyInfo={historyInfo} /> */}
                         </td>
                       </tr>
                     );
@@ -371,6 +375,10 @@ class BrainPage extends Component {
 const mapStateToProps = (state) => ({
   user: state.user,
   assignments: state.assignments.assignmentsArray,
+  admissions: state.admissions.array,
+  currentAdmission: state.admissions.currentAdmission,
+  currentPatient: state.patients.currentPatient,
+
 });
 
 export default connect(mapStateToProps, {

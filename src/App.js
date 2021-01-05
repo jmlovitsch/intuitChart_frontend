@@ -14,6 +14,10 @@ import { fetchAllDrugs } from "./app/actions/drugs";
 import Header from "./app/components/Header";
 
 export class App extends Component {
+
+    state = {
+        username: ""
+    }
   componentDidMount() {
     const token = localStorage.getItem("my_app_token");
 
@@ -39,17 +43,24 @@ export class App extends Component {
     }
   }
 
+  setUsername = (p) => {
+    this.setState({
+        username: p
+    })
+  }
 
 
   render() {
+      console.log(this.state)
     return (
       <div fluid className="site-container">
         <div className="app-header">
-          <Header renderAdd={this.renderAdd} />
+          <Header renderAdd={this.renderAdd} setUsername={this.setUsername}/>
         </div>
           <Switch style={{padding: "0"}}  >
             <Route path={`/dashboard/${this.props.id}*`} component={Dashboard}  className="app-non-header"/>
-            <Route exact path="/login" component={Login} className="app-non-header"/>
+
+            <Route exact path="/login" component={Login} newUsername={this.state.username} className="app-non-header"/>
           </Switch>
 
       </div>

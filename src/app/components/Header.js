@@ -1,7 +1,7 @@
 import React, { Component, render } from "react";
 import { connect } from "react-redux";
 import { SignOutIcon, KeyIcon } from "@primer/octicons-react";
-import { withRouter } from "react-router-dom";
+import { NavLink, withRouter } from "react-router-dom";
 import { logoutUser } from "/Users/johnlovitsch/Desktop/mod5 project/IntuitChart/intuit_chart_frontend/src/app/actions/users.js";
 import {
   Card,
@@ -18,9 +18,12 @@ import {
 } from "react-bootstrap";
 import LogoNE from "../../LogoNE.png";
 import Words2 from "../../Words2.png";
-import { openAddPatient, setCurrentPatient  } from "../actions/patients";
-import { setCurrentAdmission } from "../actions/admission"
+import { openAddPatient, setCurrentPatient } from "../actions/patients";
+import { setCurrentAdmission } from "../actions/admission";
 import { fetchRemoveAssignment } from "../actions/assignments";
+import { SelfCreateUser } from "./hooks/SelfCreateUser";
+import { createUserSuccess } from "../actions/auth";
+import {Login} from "./Login";
 
 class Header extends Component {
   state = {
@@ -47,6 +50,17 @@ class Header extends Component {
     console.log("Clicked");
     this.props.history.push(`/dashboard/${this.props.user.id}/profile`);
   };
+
+  handleSubmit = (props) => {
+    console.log(props)
+    let newPatient = {
+        username: props.username,
+        password: props.password,
+        authorization: "patient",
+    }
+    this.props.createUserSuccess(newPatient)
+  };
+
   renderwithToken = (handleCloseWorkday) => {
     const token = localStorage.getItem("my_app_token");
     if (token) {
@@ -79,6 +93,16 @@ class Header extends Component {
           </Navbar.Text>
         </>
       );
+    } else {
+      return (
+        <>
+          <SelfCreateUser
+            handleSubmit={this.handleSubmit}
+            createUserSuccess={this.props.createUserSuccess}
+
+          />
+        </>
+      );
     }
   };
 
@@ -109,7 +133,6 @@ class Header extends Component {
             >
               {admission.patient.first_name} {admission.patient.last_name}
             </Button>
-            {/* <Col md="auto"></Col> */}
             <Button md="1" style={{ backgroundColor: "red" }}>
               {" "}
               <img
@@ -134,40 +157,39 @@ class Header extends Component {
         `/dashboard/${this.props.user.id}/admissions/brainpage`
       );
     } else if (this.props.user.authorization === "admin") {
-        return null
+      return null;
     }
-  }
+  };
 
   setting = () => {
-      this.setState({
-          logout: true
-      })
-  }
+    this.setState({
+      logout: true,
+    });
+  };
 
   render() {
 
-
-    const id = this.props.user.id
-    const pushing = () => this.props.history.push(`/dashboard/${id}/admissions/brainpage`)
+    const id = this.props.user.id;
+    const pushing = () =>
+      this.props.history.push(`/dashboard/${id}/admissions/brainpage`);
 
     const assignments = this.props.assignments;
     const token = localStorage.getItem("my_app_token");
     const fetchRemoveAssignment = this.props.fetchRemoveAssignment;
-    const setState = () => this.setting()
-    let num = 1000
+    const setState = () => this.setting();
+    let num = 1000;
 
     async function fetchIt(assignment) {
-        num = num + 500
-        setTimeout(()=> {fetchRemoveAssignment(token, assignment)}, num )
+      num = num + 500;
+      setTimeout(() => {
+        fetchRemoveAssignment(token, assignment);
+      }, num);
     }
 
-
     async function clearTheCache() {
-        pushing()
+      pushing();
       assignments.forEach((assignment) => {
-         return fetchIt(assignment).then(
-             console.log("it waited")
-         )
+        return fetchIt(assignment).then(console.log("it waited"));
       });
     }
 
@@ -176,39 +198,39 @@ class Header extends Component {
       await clearTheCache().then(setState());
     }
 
-    console.log(this.props);
     return (
       <Navbar
         fixed="top"
         className="header justify-content-between align-content-center "
       >
-              {(this.state.logout && this.props.assignments.length === 0)
-        ? this.handleLogout()
-        : null}
-
-        {" "}
+        {this.state.logout && this.props.assignments.length === 0
+          ? this.handleLogout()
+          : null}{" "}
         <Row style={{ margin: "0" }} className="justify-content-start">
           {this.renderwithToken(handleCloseWorkday)}
         </Row>
         <Row style={{ margin: "0" }} className="justify-content-end">
           {this.props.user.employee_id ? (
-
-              <NavDropdown style={{paddingTop: ".75rem", paddingRight: "1rem"}} title="Patients" id="basic-nav-dropdown">
-                {this.props.admissions.length > 0
-                  ? this.renderPatientsToDropdown()
-                  : null}
-                <NavDropdown.Divider />
-                <NavDropdown.Item
-                  onClick={() =>
-                    // this.props.openAddPatient()
-                    this.props.history.push(
-                      `/dashboard/${this.props.user.id}/admissions`
-                    )
-                  }
-                >
-                  Add Patient
-                </NavDropdown.Item>
-              </NavDropdown>
+            <NavDropdown
+              style={{ paddingTop: ".75rem", paddingRight: "1rem" }}
+              title="Patients"
+              id="basic-nav-dropdown"
+            >
+              {this.props.admissions.length > 0
+                ? this.renderPatientsToDropdown()
+                : null}
+              <NavDropdown.Divider />
+              <NavDropdown.Item
+                onClick={() =>
+                  // this.props.openAddPatient()
+                  this.props.history.push(
+                    `/dashboard/${this.props.user.id}/admissions`
+                  )
+                }
+              >
+                Add Patient
+              </NavDropdown.Item>
+            </NavDropdown>
           ) : null}
           <div>
             <Navbar.Brand
@@ -250,6 +272,6 @@ export default connect(mapStateToProps, {
   openAddPatient,
   fetchRemoveAssignment,
   setCurrentAdmission,
-  setCurrentPatient
-
+  setCurrentPatient,
+  createUserSuccess,
 })(withRouter(Header));
