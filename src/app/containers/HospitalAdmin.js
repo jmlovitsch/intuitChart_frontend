@@ -23,13 +23,8 @@ class HospitalAdmin extends Component {
   };
 
   componentDidMount() {
-        this.props.fetchAllEmployees(
-        localStorage.my_app_token,
-        this.props.id
-      );
+    this.props.fetchAllEmployees(localStorage.my_app_token, this.props.id);
   }
-
-
 
   handleClick = (e) => {
     this.setState({
@@ -57,7 +52,10 @@ class HospitalAdmin extends Component {
         );
       case "deleteUser":
         return (
-          <DeletePopUp handleBack={this.handleBack} itemED={this.state.itemED} />
+          <DeletePopUp
+            handleBack={this.handleBack}
+            itemED={this.state.itemED}
+          />
         );
       case "editUser":
         return (
@@ -66,29 +64,25 @@ class HospitalAdmin extends Component {
             handleBack={this.handleBack}
             arrayKeys={allCategories}
           />
-        )
-            case "createAdmission":
-                return (
-                    <CreateAdmission handleBack={this.handleBack} />
-                )
+        );
+      case "createAdmission":
+        return <CreateAdmission handleBack={this.handleBack} />;
       default:
         return (
-          <Container>
-            <Table striped bordered hover>
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Username</th>
-                  <th>First Name</th>
-                  <th>Last Name</th>
-                  <th>Employee ID</th>
-                  <th>Authorization</th>
-                  <th>Medical Group</th>
-                </tr>
-              </thead>
-              <tbody>{this.renderEmployees()}</tbody>
-            </Table>
-          </Container>
+          <Table striped bordered hover>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Username</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Employee ID</th>
+                <th>Authorization</th>
+                <th>Medical Group</th>
+              </tr>
+            </thead>
+            <tbody>{this.renderEmployees()}</tbody>
+          </Table>
         );
     }
   };
@@ -106,6 +100,12 @@ class HospitalAdmin extends Component {
           <td>{u.medical_group}</td>
           <td>
             <Button
+              className="m-3"
+              style={{
+                backgroundColor: "transparent",
+                border: "none",
+                color: "#1761a0",
+              }}
               id={u.id}
               name="editUser"
               onClick={(e) => {
@@ -117,6 +117,12 @@ class HospitalAdmin extends Component {
           </td>
           <td>
             <Button
+              className="m-3"
+              style={{
+                backgroundColor: "transparent",
+                border: "none",
+                color: "#1761a0",
+              }}
               id={u.id}
               name="deleteUser"
               onClick={(e) => {
@@ -133,36 +139,64 @@ class HospitalAdmin extends Component {
 
   render() {
     return (
-      <Container fluid>
-        <Row >
-          <Col >
+      <>
+        <div className="parent">
+          <Row style={{ margin: "1rem" }}>
+            <>
+              <Col md="2">
+                <Card
+                  className="card-shadow"
+                  style={{ height: "90vh", overflow: "scroll" }}
+                >
+                  <Card.Header>
+                    <strong>Welcome, Hospital Administrator</strong>
+                  </Card.Header>
+                  <Card.Body>
+                    <Button
+                      className="m-3"
+                      style={{
+                        backgroundColor: "transparent",
+                        border: "none",
+                        color: "#1761a0",
+                      }}
+                      name="createUser"
+                      onClick={(e) => {
+                        this.handleClick(e);
+                      }}
+                    >
+                      Create Employee
+                    </Button>
+                    <Button
+                      className="m-3"
+                      style={{
+                        backgroundColor: "transparent",
+                        border: "none",
+                        color: "#1761a0",
+                      }}
+                      name="createAdmission"
+                      onClick={(e) => {
+                        this.handleClick(e);
+                      }}
+                    >
+                      Create Admission
+                    </Button>
+                  </Card.Body>
+                </Card>
+              </Col>
 
-            <Row>Welcome, Hospital Administrator</Row>
-            <Row>
-              <Button
-                name="createUser"
-                onClick={(e) => {
-                  this.handleClick(e);
-                }}
-              >
-                Create Employee
-              </Button>
-              <Button
-                name="createAdmission"
-                onClick={(e) => {
-                  this.handleClick(e);
-                }}
-              >
-                Create Admission
-              </Button>
-
-            </Row>
-          </Col>{" "}
-          <Col lg={10} className="centerColumn">
-            <Card>{this.renderTask()}</Card>
-          </Col>
-        </Row>
-      </Container>
+              <Col>
+                <Card className="card-shadow" style={{ height: "90vh" }}>
+                  <Card.Body style={{ padding: "5px" }}>
+                    <Card style={{ height: "100%", overflow: "scroll" }}>
+                      {this.renderTask()}
+                    </Card>
+                  </Card.Body>
+                </Card>
+              </Col>
+            </>
+          </Row>
+        </div>
+      </>
     );
   }
 }

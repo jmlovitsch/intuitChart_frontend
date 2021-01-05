@@ -92,11 +92,12 @@ class CreateEmployee extends Component {
 
   printForms = (keys) => {
     return keys.map((k) => {
-      const uppercased = k.replace(k[0], k[0].toUpperCase());
-      if (Array.isArray(this.values[k])) {
+        const uppercased = k.replace(k[0], k[0].toUpperCase());
+        const spaces = uppercased.replaceAll("_", " ");
+        if (Array.isArray(this.values[k])) {
         return (
           <Form.Group style={{ padding: "10px" }} controlId={k}>
-            <Form.Label>{uppercased}</Form.Label>
+            <Form.Label>{spaces}</Form.Label>
             <Form.Control
               as="select"
               name={k}
@@ -110,7 +111,7 @@ class CreateEmployee extends Component {
       } else {
         return (
           <Form.Group style={{ padding: "10px" }} controlId={k}>
-            <Form.Label>{uppercased}</Form.Label>
+            <Form.Label>{spaces}</Form.Label>
             <Form.Control
               type="text"
               name={k}
@@ -126,27 +127,43 @@ class CreateEmployee extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.createUserSuccess(this.state);
-
   };
 
   render() {
-
     return (
       <div className="scroll-page">
-        <Row style={{margin: "0"}}>Create Employee</Row>
         <Form
           onChange={(e) => this.handleChange(e)}
           onSubmit={(e) => this.handleSubmit(e)}
         >
-          <Row lg={4} noGutters>
+          <Row md="3" style={{ margin: "0", padding: "1rem" }}>
             {this.printForms(Object.keys(this.state))}
           </Row>
-          <Button variant="primary" type="submit">
-            Create
-          </Button>
-          <Button variant="light" onClick={this.props.handleBack}>
-            Back
-          </Button>
+          <hr />
+          <Row className="justify-content-between" style={{ margin: "0", padding: "1rem" }}>
+            <Button
+              className="m-3"
+              style={{
+                backgroundColor: "transparent",
+                border: "solid",
+                color: "#1761a0",
+              }}
+              onClick={this.props.handleBack}
+            >
+              Back
+            </Button>
+            <Button
+              className="m-3"
+              style={{
+                backgroundColor: "transparent",
+                border: "solid",
+                color: "#1761a0",
+              }}
+              type="submit"
+            >
+              Create
+            </Button>
+          </Row>
         </Form>
 
         <Container>

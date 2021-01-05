@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Col, Form } from "react-bootstrap";
+import { Button, Col, Row, Form } from "react-bootstrap";
 import { connect } from "react-redux";
 import { editUserSuccess } from "../../actions/users";
 
@@ -11,13 +11,12 @@ class EditUser extends Component {
       (employee) => employee.id.toString() === this.props.itemED
     );
 
-
     this.setState({
-        id: employeeEdit[0].id
-    })
+      id: employeeEdit[0].id,
+    });
     this.props.arrayKeys.map((key) => {
       this.setState({
-        [key]: employeeEdit[0][key]
+        [key]: employeeEdit[0][key],
       });
     });
   }
@@ -31,10 +30,16 @@ class EditUser extends Component {
   printForms = (keys) => {
     return keys.map((k) => {
       const uppercased = k.replace(k[0], k[0].toUpperCase());
+      const spaces = uppercased.replaceAll("_", " ");
       return (
-        <Form.Group controlId={k}>
-          <Form.Label>{uppercased}</Form.Label>
-          <Form.Control name={k} type="text" value={this.state[k]} onChange={(e) => this.handleChange(e)}/>
+        <Form.Group controlId={k} style={{ padding: "1rem" }}>
+          <Form.Label>{spaces}</Form.Label>
+          <Form.Control
+            name={k}
+            type="text"
+            value={this.state[k]}
+            onChange={(e) => this.handleChange(e)}
+          />
         </Form.Group>
       );
     });
@@ -42,24 +47,42 @@ class EditUser extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const token = localStorage.getItem("my_app_token")
+    const token = localStorage.getItem("my_app_token");
     this.props.editUserSuccess(this.state, token);
-    this.props.handleBack()
+    this.props.handleBack();
   };
 
   generateForm = () => {
     return (
-      <Form  onSubmit={(e)=>this.handleSubmit(e) }>
-          <Col md={{ span: 6, offset: 3 }} >
-        {this.printForms(this.props.arrayKeys)}
-
-        <Button variant="primary" type="submit">
-          Submit
-        </Button>{" "}
-        <Button variant="light" onClick={this.props.handleBack}>
-          Back
-        </Button>
-        </Col>
+      <Form onSubmit={(e) => this.handleSubmit(e)}>
+        <Row md="3" style={{ margin: "0", padding: "1rem" }}>
+          {this.printForms(this.props.arrayKeys)}
+        </Row>
+        <hr />
+        <Row className="justify-content-between">
+          <Button
+            className="m-3"
+            style={{
+              backgroundColor: "transparent",
+              border: "solid",
+              color: "#1761a0",
+            }}
+            onClick={this.props.handleBack}
+          >
+            Back
+          </Button>
+          <Button
+            className="m-3"
+            style={{
+              backgroundColor: "transparent",
+              border: "solid",
+              color: "#1761a0",
+            }}
+            type="submit"
+          >
+            Submit
+          </Button>{" "}
+        </Row>
       </Form>
     );
   };
@@ -73,6 +96,4 @@ const mapStateToProps = (state) => ({
   ...state.employee,
 });
 
-
-
-export default connect(mapStateToProps, {editUserSuccess})(EditUser);
+export default connect(mapStateToProps, { editUserSuccess })(EditUser);

@@ -147,10 +147,22 @@ settingState = () => {
           <Row lg={4} noGutters>
             {this.printForms(Object.keys(this.state))}
           </Row>
-          <Button variant="primary" type="submit">
+          <Button                     className="m-3"
+                    style={{
+                      backgroundColor: "transparent",
+                      border: "none",
+                      color: "#1761a0",
+                    }}
+ type="submit">
             Patient Create
           </Button>
-          <Button variant="light" onClick={this.props.handleBack}>
+          <Button                     className="m-3"
+                    style={{
+                      backgroundColor: "transparent",
+                      border: "none",
+                      color: "#1761a0",
+                    }}
+ onClick={this.props.handleBack}>
             Back
           </Button>
         </Form>

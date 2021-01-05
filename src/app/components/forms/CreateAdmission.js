@@ -21,10 +21,10 @@ class CreateAdmission extends Component {
   }
 
   handleChange = (event) => {
-    let today = new Date().toString()
+    let today = new Date().toString();
     this.setState({
       [event.target.name]: event.target.value,
-      admission_date: today
+      admission_date: today,
     });
   };
 
@@ -80,6 +80,12 @@ class CreateAdmission extends Component {
           <td>{patient.medical_group}</td>
           <td>
             <Button
+              className="m-3"
+              style={{
+                backgroundColor: "transparent",
+                border: "none",
+                color: "#1761a0",
+              }}
               id={patient.id}
               name="choosePatient"
               onClick={(e) => {
@@ -95,7 +101,6 @@ class CreateAdmission extends Component {
   };
 
   RenderAdmissionsForm = () => {
-
     return Object.keys(this.state).map((k) => {
       const uppercased = k.replace(k[0], k[0].toUpperCase());
       const spaces = uppercased.replaceAll("_", " ");
@@ -108,7 +113,7 @@ class CreateAdmission extends Component {
         );
       }
 
-      if ((k !== "patient_id") && (k !== "admission_date")) {
+      if (k !== "patient_id" && k !== "admission_date") {
         return (
           <Form.Group key={this.state[k].id} style={{ padding: "20px" }}>
             <Form.Label>{spaces}</Form.Label>
@@ -124,54 +129,95 @@ class CreateAdmission extends Component {
           </Form.Group>
         );
       }
-
     });
   };
-
 
   render() {
     //   const {patient_id, admitting_diagnosis, admission_date, current_room, expected_discharge, code_status, who_authorized_share, religion_and_parish} = this.state
 
     return (
       <div style={{ padding: "5px" }}>
-                  {this.state.patient_id === "creator" ? <CreatePatient handleBack={this.props.handleBack} /> : <>
-
-        {!this.state.patient_id ? (
-          <Form>
-            Create Admission
-            <Row style={{ margin: "0" }}>
-              <Table striped bordered hover>
-                <thead>
-                  <tr>
-                    <th>Username</th>
-                    <th>Name</th>
-                    <th>Address</th>
-                    <th>SSN</th>
-                  </tr>
-                </thead>
-                <tbody>{this.generatePatientList()}</tbody>
-              </Table>
-            </Row>
-            <Button variant="primary" onClick={() =>this.setState({patient_id:"creator"})}>Create New Patient</Button>{" "}
-            <Button variant="light" onClick={this.props.handleBack}>
-              Back
-            </Button>
-          </Form>
+        {this.state.patient_id === "creator" ? (
+          <CreatePatient handleBack={this.props.handleBack} />
         ) : (
-          <Form onChange={this.handleChange} onSubmit={this.handleSubmit}>
-            <Row style={{ margin: "0" }} lg={3} noGutters>
-              {this.RenderAdmissionsForm()}
-            </Row>
-            <Button variant="primary" type="submit">
-              Create Admission
-            </Button>{" "}
-            <Button variant="light" onClick={this.props.handleBack}>
-              Back
-            </Button>
+          <>
+            {!this.state.patient_id ? (
+              <Form>
+                <Row style={{ margin: "0" }}>
+                  <Table striped bordered hover>
+                    <thead>
+                      <tr>
+                        <th>Username</th>
+                        <th>Name</th>
+                        <th>Address</th>
+                        <th>SSN</th>
+                      </tr>
+                    </thead>
+                    <tbody>{this.generatePatientList()}</tbody>
+                  </Table>
+                </Row>
+                <hr />
+        <Row className="justify-content-between" style={{padding: "1rem"}}>
 
-          </Form>
+                <Button
+                  className="m-3"
+                  style={{
+                    backgroundColor: "transparent",
+                    border: "solid",
+                    color: "#1761a0",
+                  }}
+                  onClick={this.props.handleBack}
+                >
+                  Back
+                </Button>
+                <Button
+                  className="m-3"
+                  style={{
+                    backgroundColor: "transparent",
+                    border: "solid",
+                    color: "#1761a0",
+                  }}
+                  onClick={() => this.setState({ patient_id: "creator" })}
+                >
+                  Create New Patient
+                </Button>
+</Row>
+              </Form>
+            ) : (
+              <Form onChange={this.handleChange} onSubmit={this.handleSubmit}>
+                <Row style={{ margin: "0" }} lg={3} noGutters>
+                  {this.RenderAdmissionsForm()}
+                </Row>
+                <hr />
+                <Row className="justify-content-between">
+                  <Button
+                    className="m-3"
+                    style={{
+                      backgroundColor: "transparent",
+                      border: "solid",
+                      color: "#1761a0",
+                    }}
+                    onClick={this.props.handleBack}
+                  >
+                    Back
+                  </Button>
+
+                  <Button
+                    className="m-3"
+                    style={{
+                      backgroundColor: "transparent",
+                      border: "solid",
+                      color: "#1761a0",
+                    }}
+                    type="submit"
+                  >
+                    Create Admission
+                  </Button>
+                </Row>
+              </Form>
+            )}
+          </>
         )}
-      </>  }
       </div>
     );
   }

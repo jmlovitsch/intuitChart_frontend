@@ -15,22 +15,22 @@ class Admin extends Component {
     itemED: "",
   };
 
-  componentDidMount(){
-      if(this.props.employees.length === 0){
-        this.props.fetchAllUsers()
-      }
+  componentDidMount() {
+    if (this.props.employees.length === 0) {
+      this.props.fetchAllUsers();
+    }
   }
 
-    sortArray = (type) => {
-      switch (type) {
-        case "alphabetical":
-          return; //sort array alph;
-        case "":
-          return null;
-        default:
-          return null;
-      }
-    };
+  sortArray = (type) => {
+    switch (type) {
+      case "alphabetical":
+        return; //sort array alph;
+      case "":
+        return null;
+      default:
+        return null;
+    }
+  };
 
   handleClick = (e) => {
     this.setState({
@@ -44,7 +44,7 @@ class Admin extends Component {
       task: "",
       itemED: "",
     });
-    this.props.clearEmployeeMessages()
+    this.props.clearEmployeeMessages();
   };
 
   handleLogout = () => {
@@ -56,7 +56,7 @@ class Admin extends Component {
     switch (this.state.task) {
       case "createUser":
         return (
-          <div >
+          <div>
             <CreateUser
               handleBack={this.handleBack}
               arrayKeys={allCategories}
@@ -82,7 +82,7 @@ class Admin extends Component {
       default:
         return (
           <>
-            <Card className="scroll-page">
+            {/* <Card className="scroll-page">
               <Container className="scroll-page-title">
                 All Users Sort Container
                 <br />
@@ -90,9 +90,9 @@ class Admin extends Component {
                   Alphabetical
                 </Button>
               </Container>
-            </Card>
+            </Card> */}
 
-            <Card className="all-empl-page">
+            <Card style={{height: "100%", overflow: "scroll"}}>
               <Table striped bordered hover>
                 <thead>
                   <tr>
@@ -115,9 +115,9 @@ class Admin extends Component {
 
   renderEmployees = () => {
     const employeesArray = this.props.employees;
-     return employeesArray.map((u) => {
+    return employeesArray.map((u) => {
       return (
-        <tr key={u.id}>
+        <tr key={u.id} >
           <td>{u.id}</td>
           <td>{u.username}</td>
           <td>{u.first_name}</td>
@@ -164,46 +164,60 @@ class Admin extends Component {
 
   render() {
     return (
-      <Row xs={2} md={4} lg={12} style={{margin: "inherit"}}>
-        <Col className="main" lg={2}>
-          <Card className="small-btns mb-3">
-            <Container>Welcome, Admin.</Container>
-            <Button
-              name="createUser"
-              onClick={(e) => {
-                this.handleClick(e);
-              }}
-              className="m-3"
-              style={{
-                backgroundColor: "transparent",
-                border: "none",
-                color: "#1761a0",
-              }}
-            >
-              Create User
-            </Button>
-          </Card>
-          <Card className="small-btns mb-3">
-            <Container>Messaging App Here</Container>
-          </Card>
-        </Col>
-        <Col
-          className="main"
-          lg={10}
-        //   style={{ outlineLeft: "solid", outlineColor: "whitesmoke" }}
-        >
-          {this.renderTask()}{" "}
-        </Col>
-      </Row>
+      <div className="parent">
+        <Row style={{ margin: "1rem" }}>
+          <>
+            <Col md="2">
+              <Card
+                className="card-shadow"
+                style={{ height: "90vh", overflow: "scroll" }}
+              >
+                <Card.Header>
+                  <strong>Welcome, Admin.</strong>
+                </Card.Header>
+                <Card.Body>
+                  <Button
+                    name="createUser"
+                    onClick={(e) => {
+                      this.handleClick(e);
+                    }}
+                    className="m-3"
+                    style={{
+                      backgroundColor: "transparent",
+                      border: "none",
+                      color: "#1761a0",
+                    }}
+                  >
+                    Create User
+                  </Button>
+                </Card.Body>
+              </Card>
+            </Col>
+
+            <Col>
+              <Card className="card-shadow" style={{ height: "90vh" }}>
+
+                <Card.Body style={{padding: "5px", height: "100%", overflow: "scroll"}}>
+                  {this.renderTask()}
+                </Card.Body>
+              </Card>
+            </Col>
+          </>
+        </Row>
+      </div>
     );
   }
 }
 
-const mapStateToProps = (state) =>{
-   return {
-       user: state.user,
+const mapStateToProps = (state) => {
+  return {
+    user: state.user,
 
-   employees: state.employee.employeeList
-   }
-}
-export default connect(mapStateToProps, { logoutUser, clearEmployeeMessages, fetchAllUsers })(Admin);
+    employees: state.employee.employeeList,
+  };
+};
+export default connect(mapStateToProps, {
+  logoutUser,
+  clearEmployeeMessages,
+  fetchAllUsers,
+})(Admin);

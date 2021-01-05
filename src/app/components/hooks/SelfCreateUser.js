@@ -61,7 +61,7 @@ export function SelfCreateUser(props) {
           New Patient HIPPA Agreement
         </Modal.Title>
         <Modal.Body>
-          {agreement()}
+          <Card style={{padding: "1rem", backgroundColor: "#1760a013" }}>{agreement()}</Card>
           <Form onSubmit={handleSubmit}>
             <hr />
             <Form.Group>

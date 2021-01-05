@@ -16,7 +16,7 @@ import {
   emergencyCont,
   healthInsInfo,
   personalInfo,
-  securityInfo
+  securityInfo,
 } from "../../categories/UserCategories";
 import LogoLarge from "/Users/johnlovitsch/Desktop/mod5 project/IntuitChart/intuit_chart_frontend/src/LogoLarge.png";
 
@@ -70,7 +70,7 @@ class Profile extends Component {
       const spaces = uppercased.replaceAll("_", " ");
 
       return (
-        <Form.Group>
+        <Form.Group style={{ padding: "10px" }}>
           <Form.Label>{spaces}</Form.Label>
           <Form.Control name={a} value={this.state[a]} />
         </Form.Group>
@@ -107,95 +107,168 @@ class Profile extends Component {
 
   render() {
     return (
-      <>
-        <Row md={2}>
-          <Col lg="2" >
-              <Card style={{padding: "10px"}}className="card-shadow">
-             <Card.Title className="align-self-center">Profile Page</Card.Title>
-         <hr/>
-              <Button md-2
-                name="switch"
-                onClick={() => this.handleClick(billingInfo)}
-              >
-                Billing Information
-              </Button>
-              <hr/>
-              <Button
-                name="switch"
-                onClick={() => this.handleClick(emergencyCont)}
-              >
-                Emergency Information
-              </Button>
-              <hr/>
-              <Button
-                name="switch"
-                onClick={() => this.handleClick(healthInsInfo)}
-              >
-                Health Insurance Information
-              </Button>
-              <hr/>
-              <Button
-                name="switch"
-                onClick={() => this.handleClick(personalInfo)}
-              >
-                Personal Information
-              </Button>
-              <hr/>
-              <Button
-                name="switch"
-                onClick={() => this.handleClick(securityInfo)}
-              >
-                Change Password
-              </Button>
-
-
-            {this.state.switch.length === 0 ? null : (
-                <><hr/>
-                <Button name="switch" onClick={() => this.handleClick([])}>
-                  Back
-                </Button></>
-
-            )}
-             </Card>
-            {/* </Row> */}
-            <Row style={{margin: "0", position: "fixed", bottom: "5px"}} >
-            <Card style={{padding: "5px", margin: "5px"}} className="card-shadow">
-                <Button onClick={() => this.props.history.push(`/dashboard/${this.props.user.id}/admissions/brainpage`)}>
+      <div className="parent">
+        <Row style={{ margin: "1rem" }}>
+          <Col md="2">
+            <Card
+              className="card-shadow"
+              style={{ height: "90vh", overflow: "scroll" }}
+            >
+              <Card.Header>
+                <strong>Profile Page</strong>
+              </Card.Header>
+              <Card.Body>
+                <hr />
+                <Button
+                  style={{
+                    backgroundColor: "transparent",
+                    border: "none",
+                    color: "#1761a0",
+                  }}
+                  md-2
+                  name="switch"
+                  onClick={() => this.handleClick(billingInfo)}
+                >
+                  Billing Information
+                </Button>
+                <hr />
+                <Button
+                  style={{
+                    backgroundColor: "transparent",
+                    border: "none",
+                    color: "#1761a0",
+                  }}
+                  name="switch"
+                  onClick={() => this.handleClick(emergencyCont)}
+                >
+                  Emergency Information
+                </Button>
+                <hr />
+                <Button
+                  style={{
+                    backgroundColor: "transparent",
+                    border: "none",
+                    color: "#1761a0",
+                  }}
+                  name="switch"
+                  onClick={() => this.handleClick(healthInsInfo)}
+                >
+                  Health Insurance Information
+                </Button>
+                <hr />
+                <Button
+                  style={{
+                    backgroundColor: "transparent",
+                    border: "none",
+                    color: "#1761a0",
+                  }}
+                  name="switch"
+                  onClick={() => this.handleClick(personalInfo)}
+                >
+                  Personal Information
+                </Button>
+                <hr />
+                <Button
+                  style={{
+                    backgroundColor: "transparent",
+                    border: "none",
+                    color: "#1761a0",
+                  }}
+                  name="switch"
+                  onClick={() => this.handleClick(securityInfo)}
+                >
+                  Change Password
+                </Button>
+                {this.state.switch.length === 0 ? null : (
+                  <>
+                    <hr />
+                    <Button
+                      style={{
+                        backgroundColor: "transparent",
+                        border: "none",
+                        color: "#1761a0",
+                      }}
+                      name="switch"
+                      onClick={() => this.handleClick([])}
+                    >
+                      Back
+                    </Button>
+                  </>
+                )}
+                <div style={{position: "absolute", bottom: "1rem"}}>
+                <hr />
+                <Button
+                  style={{
+                    backgroundColor: "transparent",
+                    border: "none",
+                    color: "#1761a0",
+                  }}
+                  onClick={() =>
+                    this.props.history.push(
+                      `/dashboard/${this.props.user.id}/admissions/brainpage`
+                    )
+                  }
+                >
                   Exit Profile
                 </Button>
-              </Card>
-            </Row>
+                </div>
+              </Card.Body>
+            </Card>
           </Col>
-          <Col md="10">
-            <Card style={{ backgroundColor: "transparent" }}>
-              {this.state.switch.length === 0 ? (
-                <Card.Img
-                  //   variant="top"
-                  src={LogoLarge}
-                  //   className="mb-2"
-                />
-              ) : (
-                <Form onChange={this.handleChange} onSubmit={this.handleSubmit}>
-                  <Row lg={5}>{this.printInfo(this.state.switch)}</Row>
-                  {this.state.switch.length !== 0 ? (
-                    <InputGroup className="mb-3">
-                      <FormControl
-                        name="password"
-                        type="password"
-                        placeholder="to update, please enter password and then press submit"
-                        value={this.state.password}
-                      />
-                      <InputGroup.Append>
-                        <Button type="submit">Submit</Button>
-                      </InputGroup.Append>
-                    </InputGroup>
-                  ) : null}
-                </Form>
-              )}
+
+          <Col>
+            <Card className="card-shadow" style={{ height: "90vh" }}>
+              <Card.Body style={{ padding: "5px" }}>
+                {this.state.switch.length === 0 ? (
+                  <Card.Img
+                    //   variant="top"
+                    src={LogoLarge}
+                    //   className="mb-2"
+                  />
+                ) : (
+                  <Card
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      overflow: "scroll",
+                    }}
+                  >
+                    <Form
+                      onChange={this.handleChange}
+                      onSubmit={this.handleSubmit}
+                    >
+                      <Row md={3} style={{ margin: "0", padding: "1rem" }}>
+                        {this.printInfo(this.state.switch)}
+                      </Row>
+
+                      {this.state.switch.length !== 0 ? (
+                        <>
+                          <Col md={{ offset: "4", span: "3" }}>
+                            <InputGroup
+                              mb={3}
+                              style={{ margin: "0", padding: "1rem" }}
+                            >
+                              <FormControl
+                                name="password"
+                                type="password"
+                                placeholder="to update, please enter password and then press submit"
+                                value={this.state.password}
+                              />
+                              <InputGroup.Append>
+                                <Button type="submit">Submit</Button>
+                              </InputGroup.Append>
+                            </InputGroup>
+                          </Col>
+                        </>
+                      ) : null}
+                    </Form>{" "}
+                  </Card>
+                )}
+              </Card.Body>
             </Card>
           </Col>
         </Row>
-      </>
+      </div>
     );
   }
 }

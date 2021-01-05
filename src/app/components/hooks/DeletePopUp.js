@@ -7,8 +7,8 @@ const DeletePopUp = (props) => {
   const [show, setShow] = useState(true);
 
   const handleClose = () => setShow(false);
-//   const handleShow = () => setShow(true);
-    const token = localStorage.getItem("my_app_token")
+  //   const handleShow = () => setShow(true);
+  const token = localStorage.getItem("my_app_token");
   return (
     <>
       <Modal
@@ -17,38 +17,61 @@ const DeletePopUp = (props) => {
         backdrop="static"
         keyboard={false}
       >
-          {props.message ?
-          <><Modal.Body>{props.message}</Modal.Body>
-          <Modal.Footer>
-          <Button variant="primary" onClick={(handleClose, props.handleBack)}>
-            Go Back
-          </Button>
-        </Modal.Footer></>
+        {props.message ? (
+          <>
+            <Modal.Body>{props.message}</Modal.Body>
+            <Modal.Footer>
+              <Button
+                variant="primary"
+                onClick={(handleClose, props.handleBack)}
+              >
+                Go Back
+              </Button>
+            </Modal.Footer>
+          </>
+        ) : (
+          <>
+            <Modal.Header closeButton>
+              <Modal.Title>Just Double Checking...</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>Delete User? This is permanent.</Modal.Body>
+            <Modal.Footer className="justify-content-between">
+              <Button
+                className="m-3"
+                style={{
+                  backgroundColor: "transparent",
+                  border: "solid",
+                  color: "#1761a0",
+                }}
+                onClick={(handleClose, props.handleBack)}
+              >
+                Go Back
+              </Button>
+              <Button
+                className="m-3"
+                style={{
+                  backgroundColor: "transparent",
+                  border: "solid",
+                  color: "#1761a0",
+                }}
+                onClick={
+                  (handleClose, () => props.deleteEmployee(token, props.itemED))
+                }
+              >
+                Delete
+              </Button>
 
-        :
-        <><Modal.Header closeButton>
-        <Modal.Title>Modal title</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>Delete User? This is permanent.</Modal.Body>
-      <Modal.Footer>
-          <Button variant="secondary" onClick={(handleClose,  ()=>props.deleteEmployee(token, props.itemED))}>
-            Delete
-          </Button>
-          <Button variant="primary" onClick={(handleClose, props.handleBack)}>
-            Go Back
-          </Button>
-        </Modal.Footer>
-
-</>
-        }
+            </Modal.Footer>
+          </>
+        )}
       </Modal>
     </>
   );
 };
 
 const mapStateToProps = (state) => ({
-    id: state.user.id,
-    message: state.employee.message
-  });
+  id: state.user.id,
+  message: state.employee.message,
+});
 
 export default connect(mapStateToProps, { deleteEmployee })(DeletePopUp);
