@@ -15,6 +15,15 @@ export class Login extends Component {
     };
   }
 
+//   componentWillMount(){
+//     if(this.props.createdUser){
+//         this.setState({
+//             username: this.props.createdUser.username
+//         })
+//     }
+
+//   }
+
   handleChange = (event) => {
     this.setState({
       [event.target.name]: event.target.value,
@@ -22,6 +31,7 @@ export class Login extends Component {
   };
 
   handleSubmit = (e) => {
+    //   this.setState({username: username})
     e.preventDefault();
     if (this.state.username && this.state.password) {
       fetch("http://localhost:3001/auth", {
@@ -45,13 +55,13 @@ export class Login extends Component {
     }
   };
 
-// componentDidUpdate(){
-//     if(!this.state.username){
-//         this.setState({
-//             username: this.props.createdUser.username
-//         })
-//     }
-// }
+//   settings = () => {
+//       this.setState({
+//         username: this.props.createdUser.username
+//       })
+//   }
+
+
   render() {
     console.log(this.props);
 

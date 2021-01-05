@@ -4,24 +4,34 @@ import { agreement } from "../../categories/Agreement";
 import LogoNE from "/Users/johnlovitsch/Desktop/mod5 project/IntuitChart/intuit_chart_frontend/src/LogoNE.png";
 import Words from "/Users/johnlovitsch/Desktop/mod5 project/IntuitChart/intuit_chart_frontend/src/Words.png"
 
-
 export function SelfCreateUser(props) {
   const [show, setShow] = useState(false);
+
   const [agree, setAgreement] = useState(false);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [password1, setPassword1] = useState("");
+
+
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(username, password, password1)
     if (agree) {
-      if (e.target[0].value && e.target[1].value && e.target[2].value) {
-        if (e.target[1].value === e.target[2].value) {
+      if (username && password && password1) {
+        if (password1 === password) {
           console.log("MAKING");
           props.handleSubmit({
-            username: e.target[0].value,
-            password: e.target[1].value,
+            username: username,
+            password: password,
           });
+          setUsername("");
+          setPassword("");
+          setPassword1("");
+          handleClose()
         }
       }
     } else {
@@ -31,6 +41,19 @@ export function SelfCreateUser(props) {
   console.log(agree);
 
   const setAgreementState = () => setAgreement(!agree);
+  const setUsernameState = (e) => setUsername(e.target.value);
+  const setPasswordState = (e) => setPassword(e.target.value);
+  const setPassword1State = (e) => setPassword1(e.target.value);
+
+  const handleClosure =()=>{
+
+    setUsername("");
+    setPassword("");
+    setPassword1("");
+
+    handleClose()
+  }
+
 
   return (
     <>
@@ -62,7 +85,7 @@ export function SelfCreateUser(props) {
         </Modal.Title>
         <Modal.Body>
           <Card style={{padding: "1rem", backgroundColor: "#1760a013" }}>{agreement()}</Card>
-          <Form onSubmit={handleSubmit}>
+          <Form>
             <hr />
             <Form.Group>
               <Form.Label>HIPPA Electronic Records Agreement</Form.Label>
@@ -73,29 +96,31 @@ export function SelfCreateUser(props) {
               />
             </Form.Group>
             <hr />
-            <Row md="3" style={{ overflow: "hidden" }}>
-              <Card.Img src={LogoNE} />
+            <Row md="3"   style={{ overflow: "hidden" }}>
+                <Col className="justify-contents-center">
+              <Card.Img src={LogoNE} style={{marginLeft: "130px"}} /></Col>
               <Col md={{ offset: "2" }}>
                 <Form.Group>
                   <Form.Label>Username</Form.Label>
-                  <Form.Control />
+                  <Form.Control value={username} onChange={setUsernameState}/>
                 </Form.Group>
 
                 <Form.Group>
                   <Form.Label>Password</Form.Label>
-                  <Form.Control type="password" />
+                  <Form.Control type="password"  value={password} onChange={setPasswordState}/>
                 </Form.Group>
 
                 <Form.Group>
                   <Form.Label>Confirm Password</Form.Label>
-                  <Form.Control type="password" />
+                  <Form.Control type="password" value={password1} onChange={setPassword1State}/>
                 </Form.Group>
                 <Row style={{ margin: "0" }} className="justify-content-end">
                   <Button
+                  onClick={handleSubmit}
                     type="submit"
                     style={{
                       backgroundColor: "transparent",
-                      border: "none",
+                      border: "solid",
                       color: "#1761a0",
                     }}
                   >
@@ -110,10 +135,10 @@ export function SelfCreateUser(props) {
           <Button
             style={{
               backgroundColor: "transparent",
-              border: "none",
+              border: "solid",
               color: "#1761a0",
             }}
-            onClick={handleClose}
+            onClick={handleClosure}
           >
             Back
           </Button>

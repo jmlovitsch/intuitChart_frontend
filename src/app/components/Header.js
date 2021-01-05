@@ -206,11 +206,12 @@ class Header extends Component {
         {this.state.logout && this.props.assignments.length === 0
           ? this.handleLogout()
           : null}{" "}
+
         <Row style={{ margin: "0" }} className="justify-content-start">
-          {this.renderwithToken(handleCloseWorkday)}
+        {this.props.user.authorization === "patient" ? <div>Signed in as: {this.props.user.username}</div> : this.renderwithToken(handleCloseWorkday) }
         </Row>
         <Row style={{ margin: "0" }} className="justify-content-end">
-          {this.props.user.employee_id ? (
+          {this.props.user.authorization !== "patient" ? (this.props.user.id ?
             <NavDropdown
               style={{ paddingTop: ".75rem", paddingRight: "1rem" }}
               title="Patients"
@@ -231,7 +232,7 @@ class Header extends Component {
                 Add Patient
               </NavDropdown.Item>
             </NavDropdown>
-          ) : null}
+          : null ) : null}
           <div>
             <Navbar.Brand
               className="logo"

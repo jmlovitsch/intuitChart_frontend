@@ -75,6 +75,7 @@ class CreateUser extends Component {
       [event.target.name]: event.target.value,
     });
   };
+
   generateOptions = (place, [...props]) => {
     return [...props].map((site) => {
       return (
