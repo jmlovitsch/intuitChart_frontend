@@ -2,7 +2,7 @@ import { Button, Form, Col, Modal, Row, Card } from "react-bootstrap";
 import React, { useState } from "react";
 import { agreement } from "../../categories/Agreement";
 import LogoNE from "/Users/johnlovitsch/Desktop/mod5 project/IntuitChart/intuit_chart_frontend/src/LogoNE.png";
-import Words from "/Users/johnlovitsch/Desktop/mod5 project/IntuitChart/intuit_chart_frontend/src/Words.png"
+import Words from "/Users/johnlovitsch/Desktop/mod5 project/IntuitChart/intuit_chart_frontend/src/Words.png";
 
 export function SelfCreateUser(props) {
   const [show, setShow] = useState(false);
@@ -12,14 +12,12 @@ export function SelfCreateUser(props) {
   const [password, setPassword] = useState("");
   const [password1, setPassword1] = useState("");
 
-
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(username, password, password1)
+    console.log(username, password, password1);
     if (agree) {
       if (username && password && password1) {
         if (password1 === password) {
@@ -31,7 +29,7 @@ export function SelfCreateUser(props) {
           setUsername("");
           setPassword("");
           setPassword1("");
-          handleClose()
+          handleClose();
         }
       }
     } else {
@@ -45,15 +43,13 @@ export function SelfCreateUser(props) {
   const setPasswordState = (e) => setPassword(e.target.value);
   const setPassword1State = (e) => setPassword1(e.target.value);
 
-  const handleClosure =()=>{
-
+  const handleClosure = () => {
     setUsername("");
     setPassword("");
     setPassword1("");
 
-    handleClose()
-  }
-
+    handleClose();
+  };
 
   return (
     <>
@@ -74,49 +70,67 @@ export function SelfCreateUser(props) {
         // backdrop="static"
         keyboard={false}
         size="lg"
-
       >
-        <Modal.Header  className="align-self-center">
-        <Modal.Title ><Card.Img src={Words} /></Modal.Title>
+        <Modal.Header className="align-self-center">
+          <Modal.Title>
+            <Card.Img src={Words} />
+          </Modal.Title>
         </Modal.Header>
-        <Modal.Title className="align-self-center">
-          {" "}
-          New Patient HIPPA Agreement
-        </Modal.Title>
         <Modal.Body>
-          <Card style={{padding: "1rem", backgroundColor: "#1760a013" }}>{agreement()}</Card>
+          {" "}
           <Form>
+            <Card
+              style={{
+                padding: "1rem",
+                height: "300px",
+                backgroundColor: "#1760a013",
+                overflow: "scroll",
+              }}
+            >
+              {agreement()}{" "}
+              <hr />
+              <Form.Group>
+                <Form.Label>HIPPA Electronic Records Agreement</Form.Label>
+                <Form.Check
+                  type="checkbox"
+                  label="I Agree"
+                  onChange={setAgreementState}
+                />
+              </Form.Group>
+            </Card>
+
+
             <hr />
-            <Form.Group>
-              <Form.Label>HIPPA Electronic Records Agreement</Form.Label>
-              <Form.Check
-                type="checkbox"
-                label="I Agree"
-                onChange={setAgreementState}
-              />
-            </Form.Group>
-            <hr />
-            <Row md="3"   style={{ overflow: "hidden" }}>
-                <Col className="justify-contents-center">
-              <Card.Img src={LogoNE} style={{marginLeft: "130px"}} /></Col>
+            <Row md="3" style={{ overflow: "hidden" }}>
+              <Col className="justify-contents-center">
+                <Card.Img src={LogoNE} style={{ marginLeft: "130px" }} />
+              </Col>
               <Col md={{ offset: "2" }}>
                 <Form.Group>
                   <Form.Label>Username</Form.Label>
-                  <Form.Control value={username} onChange={setUsernameState}/>
+                  <Form.Control value={username} onChange={setUsernameState} />
                 </Form.Group>
 
                 <Form.Group>
                   <Form.Label>Password</Form.Label>
-                  <Form.Control type="password"  value={password} onChange={setPasswordState}/>
+                  <Form.Control
+                    type="password"
+                    value={password}
+                    onChange={setPasswordState}
+                  />
                 </Form.Group>
 
                 <Form.Group>
                   <Form.Label>Confirm Password</Form.Label>
-                  <Form.Control type="password" value={password1} onChange={setPassword1State}/>
+                  <Form.Control
+                    type="password"
+                    value={password1}
+                    onChange={setPassword1State}
+                  />
                 </Form.Group>
                 <Row style={{ margin: "0" }} className="justify-content-end">
                   <Button
-                  onClick={handleSubmit}
+                    onClick={handleSubmit}
                     type="submit"
                     style={{
                       backgroundColor: "transparent",

@@ -211,9 +211,12 @@ class BrainPage extends Component {
     });
   };
 
-  renderPatientChart = (assignment) => {
-    this.props.setCurrentAdmission(assignment.admission);
-    this.props.setCurrentPatient(assignment.patient);
+  renderPatientChart = (assignment, admission) => {
+    let currentAdmission = this.props.admissions.find(ad => ad.patient.id === admission.patient.id)
+    console.log("CLICKEDDDDDDDDD", currentAdmission)
+
+    this.props.setCurrentAdmission(currentAdmission);
+    this.props.setCurrentPatient(currentAdmission.patient);
     this.props.history.push(
       `/dashboard/${this.props.user.id}/admissions/${assignment.admission.id}`
     );
@@ -318,7 +321,7 @@ class BrainPage extends Component {
                 <tbody>
                   {/* {this.renderAssignmentAdmissionInformation( )} */}
                   {this.props.assignments.map((assignment) => {
-                      const historyInfo = this.props.admissions.filter(admission=>{
+                      const historyInfo = this.props.admissions.find(admission=>{
                           return admission.id === assignment.admission.id
                       })
 
@@ -328,7 +331,7 @@ class BrainPage extends Component {
                           <Button
                             id={assignment.id}
                             name="viewReportPages"
-                            onClick={() => this.renderPatientChart(assignment)}
+                            onClick={() => this.renderPatientChart(assignment, historyInfo)}
                           >
                             Go
                           </Button>

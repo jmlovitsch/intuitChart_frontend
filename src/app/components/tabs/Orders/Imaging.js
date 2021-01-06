@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Col, Form, Row, Button } from "react-bootstrap";
 import { connect } from "react-redux";
+import { fetchCreateOrder } from "../../../actions/orders";
 
 class Imaging extends Component {
   state = {
@@ -34,6 +35,8 @@ class Imaging extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     console.log(this.state);
+    const token = localStorage.getItem("my_app_token");
+    this.props.fetchCreateOrder(token, "imagings", { imaging: this.state });
   };
 
   render() {
@@ -110,8 +113,10 @@ class Imaging extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({    user: state.user,
+    admission: state.admissions.currentAdmission
+});
 
 const mapDispatchToProps = {};
 
-export default connect(mapStateToProps, mapDispatchToProps)(Imaging);
+export default connect(mapStateToProps, {fetchCreateOrder})(Imaging);

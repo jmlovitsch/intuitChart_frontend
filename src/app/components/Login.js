@@ -5,6 +5,7 @@ import { withRouter } from "react-router-dom";
 import { Row, Col, Container } from "react-bootstrap";
 import { loginSuccess } from "../actions/auth";
 import LogoLarge from "../../LogoLarge.png";
+import Invalid from "./hooks/Invalid";
 
 export class Login extends Component {
   constructor(props) {
@@ -12,6 +13,7 @@ export class Login extends Component {
     this.state = {
       username: "",
       password: "",
+      message: ""
     };
   }
 
@@ -24,6 +26,13 @@ export class Login extends Component {
 
 //   }
 
+clearState = () => {
+    this.setState({
+        username: "",
+        password: "",
+        message: ""
+    })
+}
   handleChange = (event) => {
     this.setState({
       [event.target.name]: event.target.value,
@@ -47,10 +56,15 @@ export class Login extends Component {
         })
         .then((data) => {
           console.log(data);
-
-          this.props.loginSuccess(data);
-          localStorage.setItem("my_app_token", data.jwt);
-          this.props.history.push(`/dashboard/${data.user.id}`);
+            if(!!data.message){
+                return this.setState({
+                    message: data.message
+                })
+            } else {
+                this.props.loginSuccess(data);
+                localStorage.setItem("my_app_token", data.jwt);
+                this.props.history.push(`/dashboard/${data.user.id}`);
+            }
         });
     }
   };
@@ -67,6 +81,7 @@ export class Login extends Component {
 
     return (
       <div className="login">
+           { !!this.state.message ? <Invalid clearState={this.clearState} message={this.state.message} /> : null}
         {this.props.setting ? this.setting : null}
         <Container fluid>
           <Col md={{ span: 6, offset: 3 }}>
@@ -107,6 +122,8 @@ export class Login extends Component {
                           type="password"
                           placeholder="enter password"
                           name="password"
+                          value={this.state.password}
+
                         />
                       </Form.Group>
                       <Row className="justify-content-end">

@@ -105,7 +105,6 @@ class Header extends Component {
 
   renderPatientChart = (assignment, admission) => {
       let currentAdmission = this.props.admissions.find(ad => ad.patient.id === admission.patient.id)
-      console.log("CLICKEDDDDDDDDD", currentAdmission)
     this.props.setCurrentAdmission(currentAdmission);
     this.props.setCurrentPatient(currentAdmission.patient);
     this.props.history.push(
@@ -211,7 +210,7 @@ class Header extends Component {
         {this.props.user.authorization === "patient" ? <div>Signed in as: {this.props.user.username}</div> : this.renderwithToken(handleCloseWorkday) }
         </Row>
         <Row style={{ margin: "0" }} className="justify-content-end">
-          {this.props.user.authorization !== "patient" ? (this.props.user.id ?
+          {this.props.user.authorization === "employee" ? (this.props.user.id ?
             <NavDropdown
               style={{ paddingTop: ".75rem", paddingRight: "1rem"}}
               title="Patients"

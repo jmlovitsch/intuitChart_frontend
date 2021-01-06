@@ -53,6 +53,10 @@ da{
   width: inherit;
 }
 
+/* * {
+    padding: 0;
+    margin: 0;
+} */
 .parent {
   overflow: scroll;
   height: inherit;

@@ -1,9 +1,10 @@
 import React, { Component } from "react";
-import { Form, Button, Container, Row, Card, Table } from "react-bootstrap";
+import { Form, Button, Container, Card, Table } from "react-bootstrap";
 import { connect } from "react-redux";
 import { createPrescription, fetchAllDrugs } from "../../../actions/drugs";
 import LoadingCard from "../../hooks/LoadingCard";
 import PrescribeRx from "../../hooks/PrescripeRx";
+import { fetchCreateOrder } from "../../../actions/orders";
 
 class Medication extends Component {
   state = {
@@ -233,6 +234,7 @@ const mapStateToProps = (state) => ({
   loading: state.drugs.loading,
   drugs: state.drugs,
   user: state.user,
+  admission: state.admissions.currentAdmission
 });
 
-export default connect(mapStateToProps, { fetchAllDrugs, createPrescription })(Medication);
+export default connect(mapStateToProps, { fetchAllDrugs, createPrescription, fetchCreateOrder })(Medication);

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Col, Form, Row, Button } from "react-bootstrap";
+import { fetchCreateOrder } from "../../../actions/orders";
 
 class Nursing extends Component {
   state = {
@@ -33,6 +34,8 @@ class Nursing extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     console.log(this.state);
+    const token = localStorage.getItem("my_app_token");
+    this.props.fetchCreateOrder(token, "nursings", { nursing: this.state });
   };
 
   render() {
@@ -122,8 +125,12 @@ class Nursing extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+    user: state.user,
+    admission: state.admissions.currentAdmission
+
+});
 
 const mapDispatchToProps = {};
 
-export default connect(mapStateToProps, mapDispatchToProps)(Nursing);
+export default connect(mapStateToProps, {fetchCreateOrder})(Nursing);

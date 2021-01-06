@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Button, Col, Row, Table } from "react-bootstrap";
+import { Button, Col, Row, Table, Card, Container } from "react-bootstrap";
+import { Switch } from "react-router-dom";
 
 class Summary extends Component {
   charts = [
@@ -20,42 +21,89 @@ class Summary extends Component {
     "vitals",
   ];
 
-  renderCharts = () => {
+  renderChartHeader = () => {
     return this.charts.map((chart) => {
+      const uppercasedd = chart.replace(chart[0], chart[0].toUpperCase());
+      const spaced = uppercasedd.replaceAll("_", " ");
+
       //char => name of chart from array
-        console.log("CHART", this.props.admission.[chart]) // the arrays associated with the chart name
-      if (this.props.admission.[chart]) {
-        //   return this.props.admission.[chart][0].map
-        //   console.log(Object.keys(this.props.admission.[chart])) // an array of the cooresponding key names
-        //   return (<Table>
-        //       <thead>
-        //           <tr>
-        //           {Object.keys(this.props.admission.[chart][0]).map(title=>{
-        //             return <th>{title}</th>})}
+      // console.log("CHART", this.props.admission.[chart]) // the arrays associated with the chart name
+      if (this.props.admission[chart]) {
+        // console.log("ZEROTH PLACE", this.props.admission.[chart][0])
+        if (this.props.admission[chart][0]) {
+          // console.log("2 PLACE", this.props.admission.[chart][0])
 
-        //           </tr>
-        //       </thead>
-        //          </Table>)
+          return (
+            <div >
+              <strong>{spaced}</strong>
+              <Table
+                striped
+                bordered
+                hover
+                style={{ border: "5px solid #1761a0", width: "inherit" }}
+              >
+                <thead>
+                  <tr>
+                    {Object.keys(this.props.admission[chart][0]).map((c) => {
+                      const uppercased = c.replace(c[0], c[0].toUpperCase());
+                      const spaces = uppercased.replaceAll("_", " ");
+
+                      return <th>{spaces}</th>;
+                    })}
+                  </tr>
+                </thead>
+
+                <tbody>
+                  {this.props.admission[chart].map((c) => {
+                    // console.log(Object.keys(c)); array of cooresponding keys
+                    return (
+                      <tr>
+                        {Object.keys(c).map((key) => {
+                          //   console.log(c.key);
+
+                          return <td>{c[key]}</td>; ///returns the values in cooresponding rows
+                        })}
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </Table>
+            </div>
+          );
+
+          //   return (
+          //     <Table>
+          //       <thead>
+          //         <tr>
+          //           {Object.keys(this.props.admission[chart][0]).map((c) => {
+          //             return <th>{c}</th>
+          //           })}
+          //         </tr>
+          //       </thead>
+          //       <tbody>
+          //           <tr>
+          //           {(this.props.admission[chart]).map((c) => {
+          //               console.log(c)
+          //           })}
+
+          //           </tr>
+          //       </tbody>
+          //     </Table>
+          //   );
         }
-
-
-
-
-
-
-
-
-
-})
-  }
+      }
+    });
+  };
 
   render() {
     return (
-      <div>
-        <div>{this.renderCharts()}</div>
-        <div>{this.props.admission.admitting_diagnosis}</div>
-        <Button>View Complete History</Button>
-      </div>
+      <Card style={{ height: "100%", overflow: "scroll" }}>
+        <Card.Body>
+          <Container style={{ margin: "0", padding: "0" }}>
+            {this.renderChartHeader()}
+          </Container>
+        </Card.Body>
+      </Card>
     );
   }
 }

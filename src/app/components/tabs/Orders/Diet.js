@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Col, Form, Button, Row } from "react-bootstrap";
 import { connect } from "react-redux";
 import DateTime from "../../hooks/DateTime";
+import { fetchCreateOrder } from "../../../actions/orders";
 
 class Diet extends Component {
   state = {
@@ -17,6 +18,8 @@ class Diet extends Component {
     straw: "yes",
     comment: "",
     submitted_at: "",
+    admission_id: this.props.admission.id,
+    author: this.props.user.id
   };
 
   componentDidMount() {
@@ -56,6 +59,8 @@ class Diet extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     console.log(this.state);
+    const token = localStorage.getItem("my_app_token");
+    this.props.fetchCreateOrder(token, "diets", { diet: this.state });
   };
 
   handleDateChange = (event) => {
@@ -252,8 +257,11 @@ class Diet extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+    user: state.user,
+    admission: state.admissions.currentAdmission
+});
 
 const mapDispatchToProps = {};
 
-export default connect(mapStateToProps, mapDispatchToProps)(Diet);
+export default connect(mapStateToProps, {fetchCreateOrder})(Diet);

@@ -128,7 +128,8 @@ class CreateUser extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.createUserSuccess(this.state);
-  };
+    this.props.handleBack()
+};
 
   render() {
     return (
