@@ -34,7 +34,6 @@ class Header extends Component {
     this.setState({
       logout: false,
     });
-    console.log(promise);
     localStorage.removeItem("my_app_token");
     this.props.history.push("/login");
     this.props.logoutUser();
@@ -47,12 +46,10 @@ class Header extends Component {
   };
 
   handleClick = () => {
-    console.log("Clicked");
-    this.props.history.push(`/dashboard/${this.props.user.id}/profile`);
+     this.props.history.push(`/dashboard/${this.props.user.id}/profile`);
   };
 
   handleSubmit = (props) => {
-    console.log(props)
     let newPatient = {
         username: props.username,
         password: props.password,
@@ -75,19 +72,19 @@ class Header extends Component {
                 // title={`Signed in as: ${this.props.user.username}`}
                 id="basic-nav-dropdown"
               >
-                <NavDropdown.Item name="profile" onClick={this.handleClick}>
+                {this.props.user.authorization === "employee" ? <NavDropdown.Item name="profile" onClick={this.handleClick}>
                   Profile
-                </NavDropdown.Item>
+                </NavDropdown.Item> : null}
                 <NavDropdown.Item onClick={this.handleLogout}>
                   Lock
                   <KeyIcon />
                 </NavDropdown.Item>
-
+                {this.props.user.authorization === "employee" ? <>
                 <NavDropdown.Divider />
-                <NavDropdown.Item onClick={() => handleCloseWorkday()}>
+                 <NavDropdown.Item onClick={() => handleCloseWorkday()}>
                   Close Workday
                   <SignOutIcon />
-                </NavDropdown.Item>
+                </NavDropdown.Item> </> : null}
               </NavDropdown>
             </Row>
           </Navbar.Text>
@@ -106,9 +103,11 @@ class Header extends Component {
     }
   };
 
-  renderPatientChart = (assignment) => {
-    this.props.setCurrentAdmission(assignment.admission);
-    this.props.setCurrentPatient(assignment.patient);
+  renderPatientChart = (assignment, admission) => {
+      let currentAdmission = this.props.admissions.find(ad => ad.patient.id === admission.patient.id)
+      console.log("CLICKEDDDDDDDDD", currentAdmission)
+    this.props.setCurrentAdmission(currentAdmission);
+    this.props.setCurrentPatient(currentAdmission.patient);
     this.props.history.push(
       `/dashboard/${this.props.user.id}/admissions/${assignment.admission.id}`
     );
@@ -129,7 +128,7 @@ class Header extends Component {
           <Row className="justify-content-between">
             <Button
               style={{ padding: ".5", margin: "0" }}
-              onClick={() => this.renderPatientChart(assignment)}
+              onClick={() => this.renderPatientChart(assignment, admission)}
             >
               {admission.patient.first_name} {admission.patient.last_name}
             </Button>
@@ -169,6 +168,7 @@ class Header extends Component {
 
   render() {
 
+
     const id = this.props.user.id;
     const pushing = () =>
       this.props.history.push(`/dashboard/${id}/admissions/brainpage`);
@@ -194,7 +194,7 @@ class Header extends Component {
     }
 
     async function handleCloseWorkday() {
-      console.log("HANDLE");
+
       await clearTheCache().then(setState());
     }
 
@@ -213,7 +213,7 @@ class Header extends Component {
         <Row style={{ margin: "0" }} className="justify-content-end">
           {this.props.user.authorization !== "patient" ? (this.props.user.id ?
             <NavDropdown
-              style={{ paddingTop: ".75rem", paddingRight: "1rem" }}
+              style={{ paddingTop: ".75rem", paddingRight: "1rem"}}
               title="Patients"
               id="basic-nav-dropdown"
             >
@@ -231,8 +231,10 @@ class Header extends Component {
               >
                 Add Patient
               </NavDropdown.Item>
+
             </NavDropdown>
           : null ) : null}
+
           <div>
             <Navbar.Brand
               className="logo"

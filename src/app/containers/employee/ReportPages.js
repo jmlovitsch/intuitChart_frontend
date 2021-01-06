@@ -28,8 +28,6 @@ class ReportPages extends Component {
   //   }
 
   render() {
-    console.log(this.props.location.state);
-    console.log(this.props);
     return (
       <Row style={{ margin: "1rem" }}>
         {this.props.currentAdmission && this.props.currentPatient ? (

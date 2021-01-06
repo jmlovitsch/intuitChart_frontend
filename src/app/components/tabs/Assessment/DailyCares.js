@@ -49,7 +49,6 @@ import PatientCarePlan from "../../forms/PatientCarePlan";
 
       handleSubmit = (event) => {
         event.preventDefault();
-        console.log(this.state)
         const token = localStorage.getItem("my_app_token")
         this.props.fetchCreateAssessment(token, "dailycares", {dailycare: this.state})
       };
@@ -100,7 +99,6 @@ import PatientCarePlan from "../../forms/PatientCarePlan";
             </OverlayTrigger>
           );
         };
-console.log(this.state.notes)
         return (
           <div>
               {this.props.patientCareplan ? <PatientCarePlan /> : null}

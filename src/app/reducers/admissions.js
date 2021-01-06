@@ -16,10 +16,16 @@ export const admissions = (
       console.log("ADMISSIONS", action);
       return state;
     case "SET_CURRENT_ADMISSION":
+        console.log(action)
       return {
         ...state,
         currentAdmission: action.admission,
       };
+      case "UPDATE_CURRENT_ADMISSION":
+          return {
+              ...state,
+              currentAdmission: action.updatedAdmission.admission
+          }
     case "LOGOUT_USER":
       return {
         array: [],

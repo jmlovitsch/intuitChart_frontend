@@ -6,7 +6,6 @@ class Navigator extends Component {
 
 
   render() {
-    console.log(this.props.currentAdmission, this.props.currentPatient)
     return (
       <div className="nav nav-tabs">
         <NavLink

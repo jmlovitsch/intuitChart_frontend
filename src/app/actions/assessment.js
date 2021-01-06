@@ -1,5 +1,6 @@
+
+
 export const fetchCreateAssessment = (token, urlname, bodyObj) => {
-console.log(token, urlname, bodyObj)
   return (dispatch) => {
     dispatch({ type: "FETCHING_CREATE_ASSESSMENT" });
     fetch(`http://localhost:3001/${urlname}`, {
@@ -9,11 +10,15 @@ console.log(token, urlname, bodyObj)
         "Content-type": "application/json",
         Accept: "application/json",
       },
-      body: JSON.stringify( bodyObj ),
+      body: JSON.stringify(bodyObj),
     })
-      .then((response) => {
+    .then((response) => {
         return response.json();
       })
-      .then(console.log)
+      .then((updatedAdmission) => {
+        console.log(updatedAdmission)
+        return dispatch({ type: "UPDATE_CURRENT_ADMISSION", updatedAdmission })
+      });
   };
 };
+

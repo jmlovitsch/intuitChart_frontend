@@ -119,16 +119,19 @@ class IO extends Component {
 
     const generateForm = () => {
       return Object.keys(this.values).map((k, index) => {
+        const uppercased = k.replace(k[0], k[0].toUpperCase());
+        const spaces = uppercased.replaceAll("_", " ");
+
         return (
           <Form.Group style={{padding: "10px"}}>
-            {formLabel(k)}
+            {formLabel(spaces)}
             <Form.Control
               as="select"
               value={this.state.k}
               className="mb-3"
-              name={k}
+              name={spaces}
             >
-              {this.generateOptions(k, this.values[k])}
+              {this.generateOptions(spaces, this.values[k])}
             </Form.Control>
           </Form.Group>
         );
