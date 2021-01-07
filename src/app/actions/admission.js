@@ -27,3 +27,18 @@ export const fetchAllAdmissions = () => {
       admission
     }
   }
+
+  export const fetchAllOnAdmission = (id) => {
+    return (dispatch) => {
+      dispatch({ type: "FETCHING_ALL_ADMISSIONS" });
+      fetch(`http://localhost:3001/admissions/${id}`, {
+        method: "GET"
+      })
+        .then((response) => {
+          return response.json();
+        })
+        .then((admission) => {
+          dispatch({ type: "SET_CURRENT_ADMISSION", admission });
+        });
+    };
+  };

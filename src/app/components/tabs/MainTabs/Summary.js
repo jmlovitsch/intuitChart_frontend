@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Button, Col, Row, Table, Card, Container } from "react-bootstrap";
 import { Switch } from "react-router-dom";
+import { fetchAllOnAdmission } from "../../../actions/admission";
 
 class Summary extends Component {
   charts = [
@@ -19,8 +20,12 @@ class Summary extends Component {
     "shift_notes",
     "transfers",
     "vitals",
+    "pains"
   ];
-
+  componentDidMount(){
+      console.log(this.props.currentAdmission)
+      this.props.fetchAllOnAdmission(this.props.admission.id)
+  }
   renderChartHeader = () => {
     return this.charts.map((chart) => {
       const uppercasedd = chart.replace(chart[0], chart[0].toUpperCase());
@@ -114,4 +119,4 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {};
 
-export default connect(mapStateToProps, mapDispatchToProps)(Summary);
+export default connect(mapStateToProps, {fetchAllOnAdmission})(Summary);

@@ -128,7 +128,7 @@ class Header extends Component {
     this.props.fetchRemoveAssignment(token, assignment, admission);
   };
   renderPatientsToDropdown = () => {
-    return this.props.user.assignments.map((assignment) => {
+    return this.props.assignments.map((assignment) => {
       const admission = this.props.admissions.find((admission) => {
         return admission.id === assignment.admission.id;
       });
