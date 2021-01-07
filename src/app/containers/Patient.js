@@ -24,7 +24,8 @@ import {
 } from "/Users/johnlovitsch/Desktop/mod5 project/IntuitChart/intuit_chart_frontend/src/app/categories/UserCategories.js";
 import LogoLarge from "/Users/johnlovitsch/Desktop/mod5 project/IntuitChart/intuit_chart_frontend/src/LogoLarge.png";
 import Words from "/Users/johnlovitsch/Desktop/mod5 project/IntuitChart/intuit_chart_frontend/src/Words.png";
-import { Records } from "../components/forms/Records";
+import  Records  from "../components/forms/Records";
+import { setRecords } from "../actions/patients";
 
 class Patient extends Component {
   state = {
@@ -61,6 +62,20 @@ class Patient extends Component {
   };
 
   componentDidMount() {
+      const token = localStorage.getItem("my_app_token")
+    fetch(`http://localhost:3001/users/${this.props.user.id}/records`, {
+        method: "GET",
+        headers: {
+            Authoization: `Bearer ${token}`,
+          "Content-type": "application/json",
+          Accept: "application/json",
+        }
+      })
+        .then((response) => {
+          return response.json();
+        })
+        .then((records) => this.props.setRecords(records));
+
     Object.keys(this.state).map((s) => {
       console.log(this.props.user[s]);
       this.setState({
@@ -228,7 +243,7 @@ class Patient extends Component {
                 <Card.Body style={{ padding: "5px" }}>
                   {this.state.switch.length <= 1 ? (
                     this.state.switch.length === 1 ? (
-                      <Records />
+                      <Records admissions={this.props.myAdmissions.records}/>
                     ) : (
                       <Card.Img src={LogoLarge} />
                     )
@@ -350,7 +365,7 @@ class Patient extends Component {
 
 const mapStateToProps = (state) => ({
   user: state.user,
-  myAdmissions: state.user.admissions,
+  myAdmissions: state.admissions.array,
 });
 
-export default connect(mapStateToProps, { logoutUser })(withRouter(Patient));
+export default connect(mapStateToProps, { logoutUser, setRecords })(withRouter(Patient));

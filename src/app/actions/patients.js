@@ -4,6 +4,11 @@
 //   };
 // };
 
+export const setRecords = (records) => {
+    return {
+        type: "RECORDS", records
+    }
+}
 export const handleBackfromAddPatient = () => {
   return {
     type: "ClOSE_ADD_PATIENT",

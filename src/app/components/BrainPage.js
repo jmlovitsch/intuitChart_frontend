@@ -214,7 +214,7 @@ class BrainPage extends Component {
   renderPatientChart = (assignment, admission) => {
     let currentAdmission = this.props.admissions.find(ad => ad.patient.id === admission.patient.id)
     console.log("CLICKEDDDDDDDDD", currentAdmission)
-
+    
     this.props.setCurrentAdmission(currentAdmission);
     this.props.setCurrentPatient(currentAdmission.patient);
     this.props.history.push(

@@ -55,7 +55,7 @@ clearState = () => {
           return response.json();
         })
         .then((data) => {
-          console.log(data);
+          console.log("CONSOLE LOGIN",data);
             if(!!data.message){
                 return this.setState({
                     message: data.message

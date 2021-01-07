@@ -14,6 +14,8 @@ class CreateAdmission extends Component {
     code_status: "",
     who_authorized_share: "",
     religion_and_parish: "",
+    healthcare_provider: this.props.user.medical_group,
+    location: "",
   };
 
   componentDidMount() {
@@ -112,8 +114,16 @@ class CreateAdmission extends Component {
           </Form.Group>
         );
       }
+      if (k === "healthcare_provider") {
+        return (
+          <Form.Group key={this.state[k].id} style={{ padding: "20px" }}>
+            <Form.Label>{spaces}</Form.Label>
+            <Form.Control disabled name={k} value={this.state[k]} />
+          </Form.Group>
+        );
+      }
 
-      if (k !== "patient_id" && k !== "admission_date") {
+      if (k !== "patient_id" && k !== "admission_date" && k !== "healthcare_provider") {
         return (
           <Form.Group key={this.state[k].id} style={{ padding: "20px" }}>
             <Form.Label>{spaces}</Form.Label>
@@ -125,7 +135,7 @@ class CreateAdmission extends Component {
         return (
           <Form.Group key={this.state[k].id} style={{ padding: "20px" }}>
             <Form.Label>{spaces}</Form.Label>
-            <Form.Control disabled name={k} value={this.state[k]} />
+            <Form.Control disabled name={k} value={parseInt(this.state[k],10)} />
           </Form.Group>
         );
       }
@@ -133,7 +143,6 @@ class CreateAdmission extends Component {
   };
 
   render() {
-    //   const {patient_id, admitting_diagnosis, admission_date, current_room, expected_discharge, code_status, who_authorized_share, religion_and_parish} = this.state
 
     return (
       <div style={{ padding: "5px" }}>
@@ -225,6 +234,7 @@ class CreateAdmission extends Component {
 
 const mapStateToProps = (state) => ({
   patients: state.patients.patients,
+  user: state.user
 });
 
 const mapDispatchToProps = {};

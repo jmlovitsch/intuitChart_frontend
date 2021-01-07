@@ -103,14 +103,24 @@ class Header extends Component {
     }
   };
 
+//   renderPatientChart = (assignment, admission) => {
+//       let currentAdmission = this.props.admissions.find(ad => ad.patient.id === admission.patient.id)
+//     this.props.setCurrentAdmission(currentAdmission);
+//     this.props.setCurrentPatient(currentAdmission.patient);
+//     this.props.history.push(
+//       `/dashboard/${this.props.user.id}/admissions/${assignment.admission.id}`
+//     );
+//   };
+
+
   renderPatientChart = (assignment, admission) => {
-      let currentAdmission = this.props.admissions.find(ad => ad.patient.id === admission.patient.id)
-    this.props.setCurrentAdmission(currentAdmission);
-    this.props.setCurrentPatient(currentAdmission.patient);
-    this.props.history.push(
-      `/dashboard/${this.props.user.id}/admissions/${assignment.admission.id}`
-    );
-  };
+  this.props.setCurrentAdmission(admission);
+  this.props.setCurrentPatient(admission.patient);
+  this.props.history.push(
+    `/dashboard/${this.props.user.id}/admissions/${assignment.admission.id}`
+  );
+};
+
 
   removeAssignmentfromEmployee = (e, assignment, admission) => {
     e.preventDefault();
@@ -118,7 +128,7 @@ class Header extends Component {
     this.props.fetchRemoveAssignment(token, assignment, admission);
   };
   renderPatientsToDropdown = () => {
-    return this.props.assignments.map((assignment) => {
+    return this.props.user.assignments.map((assignment) => {
       const admission = this.props.admissions.find((admission) => {
         return admission.id === assignment.admission.id;
       });
@@ -129,14 +139,14 @@ class Header extends Component {
               style={{ padding: ".5", margin: "0" }}
               onClick={() => this.renderPatientChart(assignment, admission)}
             >
-              {admission.patient.first_name} {admission.patient.last_name}
+              {assignment.patient.first_name} {assignment.patient.last_name}
             </Button>
             <Button md="1" style={{ backgroundColor: "red" }}>
               {" "}
               <img
                 type="button"
                 onClick={(e) =>
-                  this.removeAssignmentfromEmployee(e, assignment, admission)
+                  this.removeAssignmentfromEmployee(e, assignment, assignment.admission)
                 }
                 src="https://upload.wikimedia.org/wikipedia/commons/7/7d/Trash_font_awesome.svg"
                 style={{ width: "auto", height: "25px" }}
@@ -166,7 +176,7 @@ class Header extends Component {
   };
 
   render() {
-
+    console.log(this.props)
 
     const id = this.props.user.id;
     const pushing = () =>
@@ -216,7 +226,7 @@ class Header extends Component {
               title="Patients"
               id="basic-nav-dropdown"
             >
-              {this.props.admissions.length > 0
+              {this.props.assignments.length > 0
                 ? this.renderPatientsToDropdown()
                 : null}
               <NavDropdown.Divider />

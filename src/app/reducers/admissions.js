@@ -10,6 +10,7 @@ export const admissions = (
     case "ADD_ALL_ADMISSIONS":
       console.log(action.admissions);
       return {
+          ...state,
         array: action.admissions,
       };
     case "OPEN_ADD_PATIENT":
@@ -26,6 +27,12 @@ export const admissions = (
               ...state,
               currentAdmission: action.updatedAdmission.admission
           }
+          case "RECORDS":
+              console.log(action)
+              return {
+                  ...state,
+                  array: action.records
+              }
     case "LOGOUT_USER":
       return {
         array: [],
