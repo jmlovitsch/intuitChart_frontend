@@ -19,7 +19,7 @@ export const fetchAllDrugs = (params) => {
       console.log(bodyObj)
     return (dispatch) => {
       dispatch({ type: "FETCHING_CREATE_PRESCRIPTION" });
-      fetch("http://localhost:3001/orders", {
+      fetch("http://localhost:3001/rxes", {
         method: "POST",
         headers: {
             Authoization: `Bearer ${token}`,
@@ -31,6 +31,9 @@ export const fetchAllDrugs = (params) => {
         .then((response) => {
           return response.json();
         })
-        .then(prescription => console.log(prescription));
-    };
+        .then((updatedAdmission) => {
+            console.log(updatedAdmission)
+            return dispatch({ type: "UPDATE_CURRENT_ADMISSION", updatedAdmission })
+          });
+        };
   };

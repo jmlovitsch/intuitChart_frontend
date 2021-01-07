@@ -29,6 +29,11 @@ class ShiftNotes extends Component {
       console.log(this.state)
       return (
         <div style={{ height: "100%", overflow: "scroll" }}>
+            <Card>
+                {/* {this.props.admission.dailycares.map(note=>{
+                    return <div>{note.evaluation}</div>
+                })} */}
+            </Card>
         <Form style={{ padding: "0", margin: "50px" }} onChange={this.handleChange} onSubmit={this.handleSubmit}>
           <Form.Group style={{ padding: "0", margin: "0" }}>
 

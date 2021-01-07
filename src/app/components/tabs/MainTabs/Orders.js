@@ -21,7 +21,7 @@ class Orders extends Component {
             <Card.Body>
               <Switch>
                 <Medications
-              path={`/dashboard/${this.props.user.id}/admissions/${this.props.currentAdmission.id}/orders/vitals*`}
+              path={`/dashboard/${this.props.user.id}/admissions/${this.props.currentAdmission.id}/orders/medications*`}
               />
                 <Labs
                   exact

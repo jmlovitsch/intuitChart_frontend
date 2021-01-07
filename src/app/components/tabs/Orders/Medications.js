@@ -15,7 +15,7 @@ class Medication extends Component {
     rxToPrescribe: "",
 
       provider: this.props.user.id,
-      admission_id: 1,
+      admission_id: this.props.admission.id,
       written_requested_by: this.props.user.id,
 
         route: "",
@@ -32,11 +32,11 @@ class Medication extends Component {
 
   createPrescription = () => {
     const bodyObj = {
-        order: {
+        rx: {
             provider: this.state.provider,
             admission_id: this.state.admission_id,
             written_requested_by: this.state.written_requested_by,
-
+            acknowledged_by: "",
                   medication: this.state.rxToPrescribe,
                   route: this.state.route,
                   iv_rate: this.state.iv_rate,
@@ -61,9 +61,9 @@ class Medication extends Component {
 
   componentDidMount() {
     //   if (this.props.user.employee_type === ('doctor' || 'nurse')){
-    if (!this.props.drugs.length) {
-      this.props.fetchAllDrugs();
-    }
+    if(this.props.drugs.length !== 21428){
+      this.props.fetchAllDrugs();}
+
     //   }
     this.setState({
       drugs: this.props.drugs,
@@ -114,15 +114,15 @@ class Medication extends Component {
 
   generateRows = () => {
     return (
-      <Container>
-        <Table striped bordered hover size="sm">
+      <Container style={{padding: "0", margin: "0"}}>
+        <Table striped bordered hover >
           <thead>
             <tr>
               <th>Brand</th>
               <th>Generic</th>
               <th>Route</th>
               <th>Active Ingredients</th>
-              <th>Substance</th>
+              <th>Dosage</th>
             </tr>
           </thead>
           <tbody>{this.renderMeds()}</tbody>
@@ -133,6 +133,8 @@ class Medication extends Component {
 
   renderMeds = () => {
     return this.state.results.map((d) => {
+
+        console.log(    d.active_ingredients.split('"')[3]      )
       return (
         <tr key={d.id}>
           <td>
@@ -140,6 +142,12 @@ class Medication extends Component {
             <br />
             <Button
               id={d.id}
+              style={{
+                backgroundColor: "transparent",
+                border: "solid",
+                color: "#1761a0",
+              }}
+
               name="selectDrug"
               onClick={(e) => {
                 this.handleClick(e);
@@ -148,10 +156,10 @@ class Medication extends Component {
               Select
             </Button>
           </td>
-          <td>{d.generic_name}</td>
-          <td>{d.route}</td>
-          <td>{d.substance_name}</td>
-          <td>{d.active_ingredients}</td>
+          <td>{d.generic_name.split('"')[1]}</td>
+          <td>{d.route.split('"')[1]}</td>
+          <td>{d.substance_name.split('"')[1]}</td>
+          <td>{d.active_ingredients.split('"')[3]}</td>
         </tr>
       );
     });
@@ -170,6 +178,7 @@ this.setState({
 })  };
 
   render() {
+      console.log("DRUGS", this.props.drugs)
     const { results } = this.state;
     return (
       <div className="scroll-page">
