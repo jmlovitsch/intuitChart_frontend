@@ -1,6 +1,6 @@
-export const fetchCreateEducation = (token, urlname, bodyObj) => {
+export const fetchCreateMain = (token, urlname, bodyObj) => {
     return (dispatch) => {
-      dispatch({ type: "FETCHING_CREATE_EDUCATION" });
+      dispatch({ type: "FETCHING_CREATE_MAIN" });
       fetch(`http://localhost:3001/${urlname}`, {
         method: "POST",
         headers: {

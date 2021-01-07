@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Card, Form, Row, Button } from "react-bootstrap";
 import { connect } from "react-redux";
-import { fetchCreateEducation} from "../../../actions/education"
+import { fetchCreateMain} from "../../../actions/main"
 class Education extends Component {
     state = {
         content: "",
@@ -20,7 +20,7 @@ class Education extends Component {
         event.preventDefault();
         console.log(this.state);
         const token = localStorage.getItem("my_app_token");
-        this.props.fetchCreateEducation(token, "educations", { education: this.state });
+        this.props.fetchCreateMain(token, "educations", { education: this.state });
       };
 
 
@@ -70,4 +70,4 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {};
 
-export default connect(mapStateToProps, {fetchCreateEducation})(Education);
+export default connect(mapStateToProps, {fetchCreateMain})(Education);

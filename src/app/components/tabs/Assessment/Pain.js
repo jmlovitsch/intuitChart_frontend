@@ -18,7 +18,7 @@ class Pain extends Component {
     admission_id: this.props.admission.id,
     assume_pain: "",
     asleep: "",
-    sscale_type: "",
+    scale_type: "",
     scale_value: "N/A",
     orientation: "",
     location: "",
@@ -93,7 +93,7 @@ class Pain extends Component {
   };
 
   generateValueOptions = () => {
-    switch (this.state.sscale_type) {
+    switch (this.state.scale_type) {
       case "0-10":
         return this.generateOptions("scale_value", [
           "",
@@ -140,19 +140,28 @@ class Pain extends Component {
   render() {
     const renderTooltip = (props) => (
       <Tooltip id="button-tooltip" {...props}>
-        {props}
+         <strong>Last Four Entries:</strong>
+          {props.map(p=>{
+              return <><hr style={{borderColor: "white"}} /><p>{p}</p></>
+          })}
       </Tooltip>
     );
 
-    const formLabel = (props) => {
+    const formLabel = (named, status) => {
+        const lastFour = this.props.admission.pains.map(pain => {
+            return pain.[status]
+        })
+
+        const trueFour = lastFour.slice(-4)
+
       return (
         <OverlayTrigger
           placement="left"
           delay={{ show: 250, hide: 400 }}
-          overlay={renderTooltip(props)}
+          overlay={renderTooltip(trueFour)}
         >
           <Form.Label as={Row} className="justify-content-center">
-            {props}
+            {named}
           </Form.Label>
         </OverlayTrigger>
       );
@@ -184,14 +193,14 @@ class Pain extends Component {
                   {this.generateOptions("asleep", ["yes", "no"])}
                 </Form.Control> */}
 
-                {formLabel("Scale Type")}
+                {formLabel("Scale Type", "scale_type")}
                 <Form.Control
                   as="select"
-                  value={this.state.sscale_type}
+                  value={this.state.scale_type}
                   className="mb-3"
-                  name="sscale_type"
+                  name="scale_type"
                 >
-                  {this.generateOptions("sscale_type", [
+                  {this.generateOptions("scale_type", [
                     "0-10",
                     "CPOT",
                     "Wong-Baker",
@@ -200,7 +209,7 @@ class Pain extends Component {
                   ])}
                 </Form.Control>
 
-                {formLabel("Scale Value")}
+                {formLabel("Scale Value", "scale_value")}
                 <Form.Control
                   as="select"
                   className="mb-3"
@@ -214,7 +223,7 @@ class Pain extends Component {
 
             <Col>
               <Form.Group>
-                {formLabel("Orientation")}
+                {formLabel("Orientation", "orientation")}
                 <Form.Control
                   as="select"
                   className="mb-3"
@@ -232,7 +241,7 @@ class Pain extends Component {
                   ])}
                 </Form.Control>
 
-                {formLabel("Location")}
+                {formLabel("Location", "location")}
                 <Form.Control
                   as="select"
                   className="mb-3"
@@ -250,8 +259,7 @@ class Pain extends Component {
 
             <Col>
               <Form.Group>
-                {formLabel("Treatment")}
-                {formLabel("Type")}
+                {formLabel("Treatment", "treatment")}
                 <Form.Control
                   as="select"
                   value={this.state.treatment}
@@ -264,7 +272,7 @@ class Pain extends Component {
                     "Non-Pharm",
                   ])}
                 </Form.Control>
-                {formLabel("Pasero Sedation")}{" "}
+                {formLabel("Pasero Sedation", "pasero_sedation")}{" "}
                 <Form.Control
                   as="select"
                   value={this.state.pasero_sedation}

@@ -70,22 +70,32 @@ class Vitals extends Component {
   };
 
   render() {
-    console.log(this.props);
+
     const renderTooltip = (props) => (
       <Tooltip id="button-tooltip" {...props}>
-        {props}
+          Last Four Entries:
+          {props.map(p=>{
+              return <p>{p}</p>
+          })}
+
       </Tooltip>
     );
 
-    const formLabel = (props) => {
+    const formLabel = (named, status) => {
+        const lastFour = this.props.admission.vitals.map(vital => {
+            return vital.[status]
+        })
+
+        const trueFour = lastFour.slice(-4)
+
       return (
         <OverlayTrigger
           placement="left"
           delay={{ show: 250, hide: 400 }}
-          overlay={renderTooltip(props)}
+          overlay={renderTooltip(trueFour)}
         >
           <Form.Label as={Row} className="justify-content-center">
-            {props}
+            {named}
           </Form.Label>
         </OverlayTrigger>
       );
@@ -97,19 +107,19 @@ class Vitals extends Component {
           <Row>
             <Col>
               <Form.Group>
-                {formLabel("Blood Pressure")}
-                {formLabel("Systolic/Diastolic")}
+                {formLabel("Systolic", "bp_systolic" )}
+                {formLabel("Diastolic", "bp_diastolic" )}
                 <InputGroup>
-                  <Form.Control type="number" value={this.state.systolic} />
+                  <Form.Control type="number" name="bp_systolic" value={this.state.systolic} />
                   <InputGroup.Append>
                     <InputGroup.Text className="mb-3">/</InputGroup.Text>
                   </InputGroup.Append>
-                  <Form.Control type="number" value={this.state.diastolic} />
+                  <Form.Control type="number" name="bp_diastolic" value={this.state.diastolic} />
                   <InputGroup.Append>
                     <InputGroup.Text className="mb-3">mm/Hg</InputGroup.Text>
                   </InputGroup.Append>
                 </InputGroup>
-                {formLabel("BP Site")}
+                {formLabel("BP Site", "bp_site")}
                 <Form.Control
                   as="select"
                   value={this.state.bp_site}
@@ -123,7 +133,7 @@ class Vitals extends Component {
                     "Lower Left Arm",
                   ])}
                 </Form.Control>
-                {formLabel("BP Position")}
+                {formLabel("BP Position", "bp_position")}
                 <Form.Control
                   as="select"
                   value={this.state.bp_position}
@@ -136,7 +146,7 @@ class Vitals extends Component {
                     "Standing Up",
                   ])}
                 </Form.Control>
-                {formLabel("BP type")}{" "}
+                {formLabel("BP type", "bp_type")}{" "}
                 <Form.Control
                   as="select"
                   value={this.state.bp_type}
@@ -154,8 +164,8 @@ class Vitals extends Component {
 
             <Col>
               <Form.Group>
-                {formLabel("Heart Rate")}
-                {formLabel("HR Type")}
+                {formLabel("Heart Rate" )}
+                {formLabel("HR Type", "hr_type")}
                 <Form.Control
                   as="select"
                   value={this.state.hr_type}
@@ -164,14 +174,14 @@ class Vitals extends Component {
                 >
                   {this.generateOptions("hr_type", ["Monitor", "Manual"])}
                 </Form.Control>
-                {formLabel("HR BPM")}{" "}
+                {formLabel("HR BPM", "hr_bpm")}{" "}
                 <InputGroup>
                   <Form.Control type="number" placeholder="HR" />
                   <InputGroup.Append>
                     <InputGroup.Text className="mb-3">bpm</InputGroup.Text>
                   </InputGroup.Append>
                 </InputGroup>
-                {formLabel("HR Quality")}
+                {formLabel("HR Quality", "hr_quality")}
                 <Form.Control
                   as="select"
                   value={this.state.hr_quality}
@@ -186,7 +196,7 @@ class Vitals extends Component {
             <Col>
               <Form.Group>
                 {formLabel("Temperature")}
-                {formLabel("Temp. Site")}{" "}
+                {formLabel("Temp. Site", "temp_site")}{" "}
                 <Form.Control
                   as="select"
                   value={this.state.temp_site}
@@ -195,14 +205,14 @@ class Vitals extends Component {
                 >
                   {this.generateOptions("temp_site", ["Under Arm", "Mouth"])}
                 </Form.Control>
-                {formLabel("Temperature Degrees")}
+                {formLabel("Temperature Degrees", "temp_degree")}
                 <Form.Control
                   type="number"
                   value={this.state.temp_degree}
                   className="mb-3"
                   name="temp_degree"
                 />
-                {formLabel("Respiration Rate")}
+                {formLabel("Respiration Rate", "rr_hr")}
                 {formLabel("RR-HR")}{" "}
                 <Form.Control
                   as="select"
@@ -217,7 +227,7 @@ class Vitals extends Component {
                     "Irregular",
                   ])}
                 </Form.Control>
-                {formLabel("RR/min")}{" "}
+                {formLabel("RR/min", "rr_rrmin")}{" "}
                 <InputGroup>
                   <Form.Control
                     type="number"
@@ -229,7 +239,7 @@ class Vitals extends Component {
                     <InputGroup.Text className="mb-3">RR/min</InputGroup.Text>
                   </InputGroup.Append>
                 </InputGroup>
-                {formLabel("RR Quality")}{" "}
+                {formLabel("RR Quality", "rr_quality")}{" "}
                 <Form.Control
                   as="select"
                   value={this.state.rr_quality}
@@ -243,7 +253,7 @@ class Vitals extends Component {
             <Col>
               <Form.Group>
                 {formLabel("Oxygen")}
-                {formLabel("O2 Saturation")}
+                {formLabel("O2 Saturation", "o2_saturation")}
                 <InputGroup>
                   <Form.Control
                     type="number"
@@ -255,7 +265,7 @@ class Vitals extends Component {
                   </InputGroup.Append>
                 </InputGroup>
 
-                {formLabel("O2 Source")}
+                {formLabel("O2 Source", "o2_source")}
                 <Form.Control
                   as="select"
                   value={this.state.o2_source}
@@ -268,7 +278,7 @@ class Vitals extends Component {
                   ])}
                 </Form.Control>
 
-                {formLabel("O2 Site")}
+                {formLabel("O2 Site", "o2_site")}
                 <Form.Control
                   as="select"
                   value={this.state.o2_site}

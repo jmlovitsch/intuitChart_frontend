@@ -39,13 +39,13 @@ class Summary extends Component {
           // console.log("2 PLACE", this.props.admission.[chart][0])
 
           return (
-            <div >
+            <div style={{overflow: "scroll", width: "75vw"}} >
               <strong>{spaced}</strong>
               <Table
                 striped
                 bordered
                 hover
-                style={{ border: "5px solid #1761a0", width: "inherit" }}
+                style={{ border: "5px solid #1761a0", width: "inherit"}}
               >
                 <thead>
                   <tr>
