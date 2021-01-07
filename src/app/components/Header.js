@@ -23,7 +23,7 @@ import { setCurrentAdmission } from "../actions/admission";
 import { fetchRemoveAssignment } from "../actions/assignments";
 import { SelfCreateUser } from "./hooks/SelfCreateUser";
 import { createUserSuccess } from "../actions/auth";
-import {Login} from "./Login";
+import { Login } from "./Login";
 
 class Header extends Component {
   state = {
@@ -46,16 +46,16 @@ class Header extends Component {
   };
 
   handleClick = () => {
-     this.props.history.push(`/dashboard/${this.props.user.id}/profile`);
+    this.props.history.push(`/dashboard/${this.props.user.id}/profile`);
   };
 
   handleSubmit = (props) => {
     let newPatient = {
-        username: props.username,
-        password: props.password,
-        authorization: "patient",
-    }
-    this.props.createUserSuccess(newPatient)
+      username: props.username,
+      password: props.password,
+      authorization: "patient",
+    };
+    this.props.createUserSuccess(newPatient);
   };
 
   renderwithToken = (handleCloseWorkday) => {
@@ -72,19 +72,24 @@ class Header extends Component {
                 // title={`Signed in as: ${this.props.user.username}`}
                 id="basic-nav-dropdown"
               >
-                {this.props.user.authorization === "employee" ? <NavDropdown.Item name="profile" onClick={this.handleClick}>
-                  Profile
-                </NavDropdown.Item> : null}
+                {this.props.user.authorization === "employee" ? (
+                  <NavDropdown.Item name="profile" onClick={this.handleClick}>
+                    Profile
+                  </NavDropdown.Item>
+                ) : null}
                 <NavDropdown.Item onClick={this.handleLogout}>
                   Lock
                   <KeyIcon />
                 </NavDropdown.Item>
-                {this.props.user.authorization === "employee" ? <>
-                <NavDropdown.Divider />
-                 <NavDropdown.Item onClick={() => handleCloseWorkday()}>
-                  Close Workday
-                  <SignOutIcon />
-                </NavDropdown.Item> </> : null}
+                {this.props.user.authorization === "employee" ? (
+                  <>
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item onClick={() => handleCloseWorkday()}>
+                      Close Workday
+                      <SignOutIcon />
+                    </NavDropdown.Item>{" "}
+                  </>
+                ) : null}
               </NavDropdown>
             </Row>
           </Navbar.Text>
@@ -96,31 +101,28 @@ class Header extends Component {
           <SelfCreateUser
             handleSubmit={this.handleSubmit}
             createUserSuccess={this.props.createUserSuccess}
-
           />
         </>
       );
     }
   };
 
-//   renderPatientChart = (assignment, admission) => {
-//       let currentAdmission = this.props.admissions.find(ad => ad.patient.id === admission.patient.id)
-//     this.props.setCurrentAdmission(currentAdmission);
-//     this.props.setCurrentPatient(currentAdmission.patient);
-//     this.props.history.push(
-//       `/dashboard/${this.props.user.id}/admissions/${assignment.admission.id}`
-//     );
-//   };
-
+  //   renderPatientChart = (assignment, admission) => {
+  //       let currentAdmission = this.props.admissions.find(ad => ad.patient.id === admission.patient.id)
+  //     this.props.setCurrentAdmission(currentAdmission);
+  //     this.props.setCurrentPatient(currentAdmission.patient);
+  //     this.props.history.push(
+  //       `/dashboard/${this.props.user.id}/admissions/${assignment.admission.id}`
+  //     );
+  //   };
 
   renderPatientChart = (assignment, admission) => {
-  this.props.setCurrentAdmission(admission);
-  this.props.setCurrentPatient(admission.patient);
-  this.props.history.push(
-    `/dashboard/${this.props.user.id}/admissions/${assignment.admission.id}`
-  );
-};
-
+    this.props.setCurrentAdmission(admission);
+    this.props.setCurrentPatient(admission.patient);
+    this.props.history.push(
+      `/dashboard/${this.props.user.id}/admissions/${assignment.admission.id}`
+    );
+  };
 
   removeAssignmentfromEmployee = (e, assignment, admission) => {
     e.preventDefault();
@@ -137,16 +139,31 @@ class Header extends Component {
           <Row className="justify-content-between">
             <Button
               style={{ padding: ".5", margin: "0" }}
+              style={{
+                backgroundColor: "transparent",
+                border: "solid",
+                color: "#1761a0",
+              }}
               onClick={() => this.renderPatientChart(assignment, admission)}
             >
               {assignment.patient.first_name} {assignment.patient.last_name}
             </Button>
-            <Button md="1" style={{ backgroundColor: "red" }}>
+            <Button
+              md="1"
+              style={{
+                backgroundColor: "#238a91",
+                border: "none",
+              }}
+            >
               {" "}
               <img
                 type="button"
                 onClick={(e) =>
-                  this.removeAssignmentfromEmployee(e, assignment, assignment.admission)
+                  this.removeAssignmentfromEmployee(
+                    e,
+                    assignment,
+                    assignment.admission
+                  )
                 }
                 src="https://upload.wikimedia.org/wikipedia/commons/7/7d/Trash_font_awesome.svg"
                 style={{ width: "auto", height: "25px" }}
@@ -176,7 +193,7 @@ class Header extends Component {
   };
 
   render() {
-    console.log(this.props)
+    console.log(this.props);
 
     const id = this.props.user.id;
     const pushing = () =>
@@ -203,7 +220,6 @@ class Header extends Component {
     }
 
     async function handleCloseWorkday() {
-
       await clearTheCache().then(setState());
     }
 
@@ -215,34 +231,38 @@ class Header extends Component {
         {this.state.logout && this.props.assignments.length === 0
           ? this.handleLogout()
           : null}{" "}
-
         <Row style={{ margin: "0" }} className="justify-content-start">
-        {this.props.user.authorization === "patient" ? <div>Signed in as: {this.props.user.username}</div> : this.renderwithToken(handleCloseWorkday) }
+          {this.props.user.authorization === "patient" ? (
+            <div>Signed in as: {this.props.user.username}</div>
+          ) : (
+            this.renderwithToken(handleCloseWorkday)
+          )}
         </Row>
         <Row style={{ margin: "0" }} className="justify-content-end">
-          {this.props.user.authorization === "employee" ? (this.props.user.id ?
-            <NavDropdown
-              style={{ paddingTop: ".75rem", paddingRight: "1rem"}}
-              title="Patients"
-              id="basic-nav-dropdown"
-            >
-              {this.props.assignments.length > 0
-                ? this.renderPatientsToDropdown()
-                : null}
-              <NavDropdown.Divider />
-              <NavDropdown.Item
-                onClick={() =>
-                  // this.props.openAddPatient()
-                  this.props.history.push(
-                    `/dashboard/${this.props.user.id}/admissions`
-                  )
-                }
+          {this.props.user.authorization === "employee" ? (
+            this.props.user.id ? (
+              <NavDropdown
+                style={{ paddingTop: ".75rem", paddingRight: "1rem" }}
+                title="Patients"
+                id="basic-nav-dropdown"
               >
-                Add Patient
-              </NavDropdown.Item>
-
-            </NavDropdown>
-          : null ) : null}
+                {this.props.assignments.length > 0
+                  ? this.renderPatientsToDropdown()
+                  : null}
+                <NavDropdown.Divider />
+                <NavDropdown.Item
+                  onClick={() =>
+                    // this.props.openAddPatient()
+                    this.props.history.push(
+                      `/dashboard/${this.props.user.id}/admissions`
+                    )
+                  }
+                >
+                  Add Patient
+                </NavDropdown.Item>
+              </NavDropdown>
+            ) : null
+          ) : null}
 
           <div>
             <Navbar.Brand

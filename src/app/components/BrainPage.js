@@ -7,7 +7,6 @@ import { setCurrentPatient } from "../actions/patients";
 import { setCurrentAdmission } from "../actions/admission";
 import { HistoryChart } from "./hooks/History";
 
-
 class BrainPage extends Component {
   state = {
     reminderTime: "",
@@ -35,7 +34,9 @@ class BrainPage extends Component {
   };
 
   renderPatientChart = (assignment, admission) => {
-    let currentAdmission = this.props.admissions.find(ad => ad.patient.id === admission.patient.id)
+    let currentAdmission = this.props.admissions.find(
+      (ad) => ad.patient.id === admission.patient.id
+    );
     this.props.setCurrentAdmission(currentAdmission);
     this.props.setCurrentPatient(currentAdmission.patient);
     this.props.history.push(
@@ -141,9 +142,11 @@ class BrainPage extends Component {
                 <tbody>
                   {/* {this.renderAssignmentAdmissionInformation( )} */}
                   {this.props.assignments.map((assignment) => {
-                      const historyInfo = this.props.admissions.find(admission=>{
-                          return admission.id === assignment.admission.id
-                      })
+                    const historyInfo = this.props.admissions.find(
+                      (admission) => {
+                        return admission.id === assignment.admission.id;
+                      }
+                    );
 
                     return (
                       <tr key={assignment.id}>
@@ -151,7 +154,14 @@ class BrainPage extends Component {
                           <Button
                             id={assignment.id}
                             name="viewReportPages"
-                            onClick={() => this.renderPatientChart(assignment, historyInfo)}
+                            onClick={() =>
+                              this.renderPatientChart(assignment, historyInfo)
+                            }
+                            style={{
+                              backgroundColor: "transparent",
+                              border: "solid",
+                              color: "#1761a0",
+                            }}
                           >
                             Go
                           </Button>
@@ -167,7 +177,16 @@ class BrainPage extends Component {
                         <td>{assignment.admission.admitting_diagnosis}</td>
                         <td>{assignment.admission.admission_date}</td>
                         <td>
-                          <Button onClick={this.handleShowState}>Note</Button>
+                          <Button
+                            onClick={this.handleShowState}
+                            style={{
+                              backgroundColor: "transparent",
+                              border: "solid",
+                              color: "#1761a0",
+                            }}
+                          >
+                            Note
+                          </Button>
                           <MyVerticallyCenteredModal
                             show={this.state.show}
                             title={this.state.title}
@@ -198,7 +217,6 @@ const mapStateToProps = (state) => ({
   admissions: state.admissions.array,
   currentAdmission: state.admissions.currentAdmission,
   currentPatient: state.patients.currentPatient,
-
 });
 
 export default connect(mapStateToProps, {
