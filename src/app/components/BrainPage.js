@@ -2,11 +2,10 @@ import React, { Component, useState } from "react";
 import { Card, Col, Table, Button, Modal, Form } from "react-bootstrap";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import LogoLarge from "/Users/johnlovitsch/Desktop/mod5 project/IntuitChart/intuit_chart_frontend/src/LogoLarge.png";
 import { setCurrentPatient } from "../actions/patients";
 import { setCurrentAdmission } from "../actions/admission";
 import { HistoryChart } from "./hooks/History";
-
+import LogoLarge from '../images/LogoLarge.png'
 class BrainPage extends Component {
   state = {
     reminderTime: "",

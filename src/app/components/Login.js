@@ -4,8 +4,8 @@ import { Form, Button, Card } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
 import { Row, Col, Container } from "react-bootstrap";
 import { loginSuccess } from "../actions/auth";
-import LogoLarge from "../../LogoLarge.png";
 import Invalid from "./hooks/Invalid";
+import LogoLarge from '../images/LogoLarge.png'
 
 export class Login extends Component {
   constructor(props) {

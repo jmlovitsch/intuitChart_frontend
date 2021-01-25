@@ -1,8 +1,6 @@
 import { Button, Form, Col, Modal, Row, Card } from "react-bootstrap";
 import React, { useState } from "react";
 import { agreement } from "../../categories/Agreement";
-import LogoNE from "/Users/johnlovitsch/Desktop/mod5 project/IntuitChart/intuit_chart_frontend/src/LogoNE.png";
-import Words from "/Users/johnlovitsch/Desktop/mod5 project/IntuitChart/intuit_chart_frontend/src/Words.png";
 
 export function SelfCreateUser(props) {
   const [show, setShow] = useState(false);
@@ -73,7 +71,7 @@ export function SelfCreateUser(props) {
       >
         <Modal.Header className="align-self-center">
           <Modal.Title>
-            <Card.Img src={Words} />
+            <Card.Img src="../images/Words.png" />
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -103,7 +101,7 @@ export function SelfCreateUser(props) {
             <hr />
             <Row md="3" style={{ overflow: "hidden" }}>
               <Col className="justify-contents-center">
-                <Card.Img src={LogoNE} style={{ marginLeft: "130px" }} />
+                <Card.Img src="../images/LogoNE.png" style={{ marginLeft: "130px" }} />
               </Col>
               <Col md={{ offset: "2" }}>
                 <Form.Group>

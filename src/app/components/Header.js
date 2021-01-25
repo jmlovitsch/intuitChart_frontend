@@ -2,7 +2,7 @@ import React, { Component, render } from "react";
 import { connect } from "react-redux";
 import { SignOutIcon, KeyIcon } from "@primer/octicons-react";
 import { NavLink, withRouter } from "react-router-dom";
-import { logoutUser } from "/Users/johnlovitsch/Desktop/mod5 project/IntuitChart/intuit_chart_frontend/src/app/actions/users.js";
+import {logoutUser} from "../actions/users.js"
 import {
   Card,
   Col,
@@ -16,15 +16,14 @@ import {
   Nav,
   NavbarBrand,
 } from "react-bootstrap";
-import LogoNE from "../../LogoNE.png";
-import Words2 from "../../Words2.png";
 import { openAddPatient, setCurrentPatient } from "../actions/patients";
 import { setCurrentAdmission } from "../actions/admission";
 import { fetchRemoveAssignment } from "../actions/assignments";
 import { SelfCreateUser } from "./hooks/SelfCreateUser";
 import { createUserSuccess } from "../actions/auth";
 import { Login } from "./Login";
-
+import Head from '../images/Head.png'
+import Words2 from '../images/Words2.png'
 class Header extends Component {
   state = {
     logout: false,
@@ -280,7 +279,7 @@ class Header extends Component {
 
               <img
                 alt=""
-                src={LogoNE}
+                src={Head}
                 width="auto"
                 height="65"
                 style={{ margin: "0px" }}

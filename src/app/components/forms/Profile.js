@@ -18,8 +18,7 @@ import {
   personalInfo,
   securityInfo,
 } from "../../categories/UserCategories";
-import LogoLarge from "/Users/johnlovitsch/Desktop/mod5 project/IntuitChart/intuit_chart_frontend/src/LogoLarge.png";
-
+import LogoLarge from "../../images/LogoLarge.png"
 class Profile extends Component {
   state = {
     username: "",

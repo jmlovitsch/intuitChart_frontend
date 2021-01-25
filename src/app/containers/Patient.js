@@ -21,11 +21,12 @@ import {
   healthInsInfo,
   personalInfo,
   securityInfo,
-} from "/Users/johnlovitsch/Desktop/mod5 project/IntuitChart/intuit_chart_frontend/src/app/categories/UserCategories.js";
-import LogoLarge from "/Users/johnlovitsch/Desktop/mod5 project/IntuitChart/intuit_chart_frontend/src/LogoLarge.png";
-import Words from "/Users/johnlovitsch/Desktop/mod5 project/IntuitChart/intuit_chart_frontend/src/Words.png";
+} from "../categories/UserCategories.js";
 import  Records  from "../components/forms/Records";
 import { setRecords } from "../actions/patients";
+import LogoLarge from '../images/LogoLarge.png'
+
+
 
 class Patient extends Component {
   state = {
