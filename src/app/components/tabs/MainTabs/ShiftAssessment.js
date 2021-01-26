@@ -76,21 +76,23 @@ class ShiftAssessment extends Component {
           onChange={this.handleChange}
           onSubmit={this.handleSubmit}
         >
-          <Form.Group style={{ padding: "0", margin: "0" }}>
-            <Form.Label>
+            <Card>
+          <Form.Group >
+            <Form.Label column="lg" style={{textAlign: "center", padding: "15px"}} >
               <strong>Enter Shift Assessment Notes</strong>
             </Form.Label>
             <Form.Control
               value={this.state.content}
               as="textarea"
               name="content"
-              style={{ height: "20vh", width: "100%" }}
+              style={{ height: "20vh"}}
             />
           </Form.Group>
+          </Card>
           <hr />
           <Card style={{ padding: "5px" }}>
-            <Form.Label>
-              <strong>Physical Assessment:</strong>
+            <Form.Label column="lg"  style={{textAlign: "center"}}>
+              <strong>Physical Assessment Form</strong>
             </Form.Label>
 
             <Row  md={1} noGutters className="justify-content-between ">

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Button, Col, Row, Table, Card, Container } from "react-bootstrap";
+import { Accordion, Button, Col, Row, Table, Card, Container } from "react-bootstrap";
 import { Switch } from "react-router-dom";
 import { fetchAllOnAdmission } from "../../../actions/admission";
 
@@ -40,7 +40,15 @@ class Summary extends Component {
 
           return (
             <div style={{overflow: "scroll", width: "75vw"}} >
+                <Accordion>
+                <Card>
+    <Card.Header>
+      <Accordion.Toggle as={Button} variant="link" eventKey="0">
               <strong>{spaced}</strong>
+              </Accordion.Toggle>
+    </Card.Header>
+    <Accordion.Collapse eventKey="0">
+      <Card.Body>
               <Table
                 striped
                 bordered
@@ -72,7 +80,10 @@ class Summary extends Component {
                     );
                   })}
                 </tbody>
-              </Table>
+              </Table></Card.Body>
+    </Accordion.Collapse>
+  </Card>
+              </Accordion>
             </div>
           );
 
