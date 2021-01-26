@@ -53,11 +53,11 @@ export class App extends Component {
   render() {
       console.log(this.state)
     return (
-      <div fluid className="site-container">
+      <div className="site-container">
         <div className="app-header">
           <Header renderAdd={this.renderAdd} setUsername={this.setUsername}/>
-        </div>
-          <Switch style={{padding: "0"}}  >
+        </div >
+          <Switch className="bg" style={{padding: "0"}} >
             <Route path={`/dashboard/${this.props.id}*`} component={Dashboard}  className="app-non-header"/>
 
             <Route exact path="/login" component={Login} newUsername={this.state.username} className="app-non-header"/>

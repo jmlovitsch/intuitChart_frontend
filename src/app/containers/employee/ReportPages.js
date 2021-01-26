@@ -15,6 +15,7 @@ import ShiftNotes from "../../components/tabs/MainTabs/ShiftNotes";
 import { setCurrentAdmission } from "../../actions/admission";
 import { setCurrentPatient } from "../../actions/patients";
 import LoadingCard from "../../components/hooks/LoadingCard";
+import LogoLarge from  "../../images/LogoLarge.png"
 
 class ReportPages extends Component {
   //   componentDidMount() {
@@ -101,8 +102,8 @@ class ReportPages extends Component {
                 <Card.Header>
                   <Navigator info={this.props.location.state} />
                 </Card.Header>
-                <Card.Body style={{ padding: "5px" }}>
-                  <Switch>
+                <Card.Body className="bg" style={{padding: "5px"}}>
+                  <Switch style={{opacity: "1"}}>
                     <Assessment
                       exact
                       path={`/dashboard/${this.props.user.id}/admissions/${this.props.currentAdmission.id}/assessment*`}

@@ -102,7 +102,7 @@ class Vitals extends Component {
     };
     console.log(this.state);
     return (
-      <div>
+      <div >
         <Form onChange={this.handleChange} onSubmit={this.handleSubmit}>
           <Row>
             <Col>

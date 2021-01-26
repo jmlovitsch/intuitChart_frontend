@@ -73,7 +73,7 @@ class ClaimAdmissions extends Component {
   render() {
     console.log(this.props);
     return (
-      <div>
+      <div  style={{ height: "90vh", overflow: "scroll" }}>
         <Col
           md={{
             offset: "2",

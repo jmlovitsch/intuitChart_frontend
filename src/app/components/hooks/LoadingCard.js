@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 const LoadingCard = (props) => {
     return (
-        <div>
+        <div className="bg">
             <strong>Loading...</strong>
         </div>
     )

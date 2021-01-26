@@ -42,9 +42,7 @@
   outline: 0.05vh solid;
   outline-color: #1761a0;
 }
-da{
-    color: #1760a013
-}
+
 
 .dashboard {
 
@@ -58,14 +56,19 @@ da{
     margin: 0;
 } */
 .parent {
+
   overflow: scroll;
   height: inherit;
   width: inherit;
+  background-image: url("/src/app/images/LogoDiagonal.png");
+
   /* background-color: blueviolet; */
 }
 .brainpage {
+    overflow: scroll;
   justify-content: center;
   align-items: center;
+
 }
 
 .child {
@@ -239,3 +242,12 @@ my-btn:hover {
     opacity: 1;
   }
 }
+
+.login {
+    height: 94vh;
+
+}
+.bg {
+    background-image: url("/src/app/images/LogoDiagonal.png");
+    background-size: auto;
+  }

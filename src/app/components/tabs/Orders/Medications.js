@@ -181,7 +181,7 @@ this.setState({
       console.log("DRUGS", this.props.drugs)
     const { results } = this.state;
     return (
-      <div className="scroll-page">
+      <div >
         {this.state.prescribe ? (
           <>
             {" "}
@@ -196,7 +196,7 @@ this.setState({
           </>
         ) : (
           <>
-            <Card className="scroll-page-title">
+            <div className="scroll-page-title">
               {this.props.loading ? (
                 <LoadingCard />
               ) : (
@@ -223,15 +223,15 @@ this.setState({
                   </Form.Group>
                 </Form>
               )}
-            </Card>
+            </div>
 
-            <Card className="all-drugs-scroll-page">
+            <div className="all-drugs-scroll-page">
               {Array.isArray(results)
                 ? results.length === 0
                   ? "No Medications Available Under That Search"
                   : this.generateRows()
                 : "Search Results Will Appear Here"}{" "}
-            </Card>
+            </div>
           </>
         )}
       </div>
