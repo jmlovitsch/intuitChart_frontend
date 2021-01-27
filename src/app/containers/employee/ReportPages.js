@@ -102,7 +102,7 @@ class ReportPages extends Component {
                 <Card.Header>
                   <Navigator info={this.props.location.state} />
                 </Card.Header>
-                <Card.Body className="bg" style={{padding: "5px"}}>
+                <Card.Body  style={{padding: "5px"}}>
                   <Switch style={{opacity: "1"}}>
                     <Assessment
                       exact
