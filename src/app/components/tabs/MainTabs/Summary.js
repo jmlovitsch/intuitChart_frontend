@@ -1,6 +1,14 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Accordion, Button, Col, Row, Table, Card, Container } from "react-bootstrap";
+import {
+  Accordion,
+  Button,
+  Col,
+  Row,
+  Table,
+  Card,
+  Container,
+} from "react-bootstrap";
 import { Switch } from "react-router-dom";
 import { fetchAllOnAdmission } from "../../../actions/admission";
 
@@ -20,11 +28,11 @@ class Summary extends Component {
     "shift_notes",
     "transfers",
     "vitals",
-    "pains"
+    "pains",
   ];
-  componentDidMount(){
-      console.log(this.props.currentAdmission)
-      this.props.fetchAllOnAdmission(this.props.admission.id)
+  componentDidMount() {
+    console.log(this.props.currentAdmission);
+    this.props.fetchAllOnAdmission(this.props.admission.id);
   }
   renderChartHeader = () => {
     return this.charts.map((chart) => {
@@ -39,50 +47,63 @@ class Summary extends Component {
           // console.log("2 PLACE", this.props.admission.[chart][0])
 
           return (
-            <div style={{overflow: "scroll", width: "75vw"}} >
-                <Accordion>
+            <div style={{ overflow: "scroll", width: "75vw" }}>
+              <Accordion>
                 <Card>
-    <Card.Header>
-      <Accordion.Toggle as={Button} variant="link" eventKey="0">
-              <strong>{spaced}</strong>
-              </Accordion.Toggle>
-    </Card.Header>
-    <Accordion.Collapse eventKey="0">
-      <Card.Body>
-              <Table
-                striped
-                bordered
-                hover
-                style={{ border: "5px solid #1761a0", width: "inherit"}}
-              >
-                <thead>
-                  <tr>
-                    {Object.keys(this.props.admission[chart][0]).map((c) => {
-                      const uppercased = c.replace(c[0], c[0].toUpperCase());
-                      const spaces = uppercased.replaceAll("_", " ");
+                  <Card.Header>
+                    <Accordion.Toggle
+                      as={Button}
+                      style={{ background: "none", color: "#1760a0", borderColor: "#1760a0" }}
+                      eventKey="0"
+                    >
+                      <strong>{spaced}</strong>
+                    </Accordion.Toggle>
+                  </Card.Header>
+                  <Accordion.Collapse eventKey="0">
+                    <Card.Body>
+                      <Table
+                        striped
+                        bordered
+                        hover
+                        style={{
+                          border: "5px solid #1761a0",
+                          width: "inherit",
+                        }}
+                      >
+                        <thead>
+                          <tr>
+                            {Object.keys(this.props.admission[chart][0]).map(
+                              (c) => {
+                                const uppercased = c.replace(
+                                  c[0],
+                                  c[0].toUpperCase()
+                                );
+                                const spaces = uppercased.replaceAll("_", " ");
 
-                      return <th>{spaces}</th>;
-                    })}
-                  </tr>
-                </thead>
+                                return <th>{spaces}</th>;
+                              }
+                            )}
+                          </tr>
+                        </thead>
 
-                <tbody>
-                  {this.props.admission[chart].map((c) => {
-                    // console.log(Object.keys(c)); array of cooresponding keys
-                    return (
-                      <tr>
-                        {Object.keys(c).map((key) => {
-                          //   console.log(c.key);
+                        <tbody>
+                          {this.props.admission[chart].map((c) => {
+                            // console.log(Object.keys(c)); array of cooresponding keys
+                            return (
+                              <tr>
+                                {Object.keys(c).map((key) => {
+                                  //   console.log(c.key);
 
-                          return <td>{c[key]}</td>; ///returns the values in cooresponding rows
-                        })}
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </Table></Card.Body>
-    </Accordion.Collapse>
-  </Card>
+                                  return <td>{c[key]}</td>; ///returns the values in cooresponding rows
+                                })}
+                              </tr>
+                            );
+                          })}
+                        </tbody>
+                      </Table>
+                    </Card.Body>
+                  </Accordion.Collapse>
+                </Card>
               </Accordion>
             </div>
           );
@@ -130,4 +151,4 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {};
 
-export default connect(mapStateToProps, {fetchAllOnAdmission})(Summary);
+export default connect(mapStateToProps, { fetchAllOnAdmission })(Summary);

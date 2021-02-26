@@ -2,7 +2,7 @@ import React, { Component, render } from "react";
 import { connect } from "react-redux";
 import { SignOutIcon, KeyIcon } from "@primer/octicons-react";
 import { NavLink, withRouter } from "react-router-dom";
-import {logoutUser} from "../actions/users.js"
+import { logoutUser } from "../actions/users.js";
 import {
   Card,
   Col,
@@ -15,6 +15,7 @@ import {
   OverlayTrigger,
   Nav,
   NavbarBrand,
+  ButtonGroup
 } from "react-bootstrap";
 import { openAddPatient, setCurrentPatient } from "../actions/patients";
 import { setCurrentAdmission } from "../actions/admission";
@@ -22,8 +23,9 @@ import { fetchRemoveAssignment } from "../actions/assignments";
 import { SelfCreateUser } from "./hooks/SelfCreateUser";
 import { createUserSuccess } from "../actions/auth";
 import { Login } from "./Login";
-import Head from '../images/Head.png'
-import Words2 from '../images/Words2.png'
+import Head from "../images/Head.png";
+import Words2 from "../images/Words2.png";
+
 class Header extends Component {
   state = {
     logout: false,
@@ -57,33 +59,35 @@ class Header extends Component {
     this.props.createUserSuccess(newPatient);
   };
 
-  renderwithToken = (handleCloseWorkday) => {
+  renderwithToken = (handleCloseWorkday, currentUsername) => {
     const token = localStorage.getItem("my_app_token");
     if (token) {
       return (
         <>
           <Navbar.Text className="justify-content-start">
-            <Row style={{ margin: "0" }}>
+            <Row style={{ margin: "0"}}>
               {" "}
-              <Navbar.Text>Signed in as:</Navbar.Text>{" "}
+              <Navbar.Text style={{ color: "#1760a0" }} >
+                Signed in as:
+              </Navbar.Text>{" "}
               <NavDropdown
-                title={this.props.user.username}
-                // title={`Signed in as: ${this.props.user.username}`}
+                title={currentUsername}
+                style={{children:"#1760a0"}}
                 id="basic-nav-dropdown"
               >
                 {this.props.user.authorization === "employee" ? (
-                  <NavDropdown.Item name="profile" onClick={this.handleClick}>
+                  <NavDropdown.Item style={{ color: "#1760a0" }}  name="profile" onClick={this.handleClick}>
                     Profile
                   </NavDropdown.Item>
                 ) : null}
-                <NavDropdown.Item onClick={this.handleLogout}>
+                <NavDropdown.Item style={{ color: "#1760a0" }}  onClick={this.handleLogout}>
                   Lock
                   <KeyIcon />
                 </NavDropdown.Item>
                 {this.props.user.authorization === "employee" ? (
                   <>
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item onClick={() => handleCloseWorkday()}>
+                    <NavDropdown.Divider style={{ borderColor: "#1760a0" }} />
+                    <NavDropdown.Item style={{ color: "#1760a0" }} onClick={() => handleCloseWorkday()}>
                       Close Workday
                       <SignOutIcon />
                     </NavDropdown.Item>{" "}
@@ -96,7 +100,7 @@ class Header extends Component {
       );
     } else {
       return (
-        <>
+        < >
           <SelfCreateUser
             handleSubmit={this.handleSubmit}
             createUserSuccess={this.props.createUserSuccess}
@@ -105,15 +109,6 @@ class Header extends Component {
       );
     }
   };
-
-  //   renderPatientChart = (assignment, admission) => {
-  //       let currentAdmission = this.props.admissions.find(ad => ad.patient.id === admission.patient.id)
-  //     this.props.setCurrentAdmission(currentAdmission);
-  //     this.props.setCurrentPatient(currentAdmission.patient);
-  //     this.props.history.push(
-  //       `/dashboard/${this.props.user.id}/admissions/${assignment.admission.id}`
-  //     );
-  //   };
 
   renderPatientChart = (assignment, admission) => {
     this.props.setCurrentAdmission(admission);
@@ -129,7 +124,7 @@ class Header extends Component {
     this.props.fetchRemoveAssignment(token, assignment, admission);
   };
   renderPatientsToDropdown = () => {
-    return this.props.assignments.map((assignment) => {
+    return this.props.assignmentsArray.map((assignment) => {
       const admission = this.props.admissions.find((admission) => {
         return admission.id === assignment.admission.id;
       });
@@ -192,8 +187,6 @@ class Header extends Component {
   };
 
   render() {
-    console.log(this.props);
-
     const id = this.props.user.id;
     const pushing = () =>
       this.props.history.push(`/dashboard/${id}/admissions/brainpage`);
@@ -222,33 +215,37 @@ class Header extends Component {
       await clearTheCache().then(setState());
     }
 
+    const navTitle = <strong style={{color: "#1760a0"}}>Patients</strong>
+    const currentUsername = <strong style={{color: "#1760a0"}}>{this.props.user.username}</strong>
     return (
       <Navbar
         fixed="top"
         className="header justify-content-between align-content-center "
       >
-        {this.state.logout && this.props.assignments.length === 0
+        {this.state.logout && this.props.assignmentsArray.length === 0
           ? this.handleLogout()
           : null}{" "}
         <Row style={{ margin: "0" }} className="justify-content-start">
           {this.props.user.authorization === "patient" ? (
-            <div>Signed in as: {this.props.user.username}</div>
+            <div>Signed in as: {currentUsername}</div>
           ) : (
-            this.renderwithToken(handleCloseWorkday)
+            this.renderwithToken(handleCloseWorkday, currentUsername)
           )}
         </Row>
         <Row style={{ margin: "0" }} className="justify-content-end">
           {this.props.user.authorization === "employee" ? (
             this.props.user.id ? (
               <NavDropdown
-                style={{ paddingTop: ".75rem", paddingRight: "1rem" }}
-                title="Patients"
-                id="basic-nav-dropdown"
+            //   as={ButtonGroup}
+                as={Button}
+                style={{ alignSelf: "center"}}
+                title={navTitle}
+                id="basic-nav-dropdown #1760a0"
               >
-                {this.props.assignments.length > 0
+                {this.props.assignmentsArray.length > 0
                   ? this.renderPatientsToDropdown()
                   : null}
-                <NavDropdown.Divider />
+                <NavDropdown.Divider style={{ borderColor: "#1760a0" }}/>
                 <NavDropdown.Item
                   onClick={() =>
                     // this.props.openAddPatient()
@@ -256,6 +253,7 @@ class Header extends Component {
                       `/dashboard/${this.props.user.id}/admissions`
                     )
                   }
+                  style={{ color: "#1760a0" }}
                 >
                   Add Patient
                 </NavDropdown.Item>
@@ -295,7 +293,8 @@ class Header extends Component {
 const mapStateToProps = (state) => ({
   user: state.user,
   admissions: state.admissions.array,
-  assignments: state.assignments.assignmentsArray,
+  assignments: state.user.assignments,
+    assignmentsArray: state.assignments.assignmentsArray,
 });
 
 export default connect(mapStateToProps, {

@@ -11,10 +11,10 @@ export const user = (
         loading: true,
       };
     case "USER_LOGIN":
-      const user = { ...action.data.user };
+      let currentUser = { ...action.data.user };
       return {
+        ...currentUser,
         loading: false,
-        ...user,
       };
     case "USER_CREATED":
       return {
@@ -27,8 +27,9 @@ export const user = (
         loading: true,
       };
     case "CURRENT_USER":
+        let newCurrentUser = { ...action.data.user };
       return {
-        ...action.data.user,
+        ...newCurrentUser,
         loading: false,
       };
     case "FETCH_USER_UPDATE":

@@ -45,8 +45,6 @@ class BrainPage extends Component {
 
   ///////////////////////////////////////////////////
   render() {
-    console.log("ASSIGNMENTS", this.props.assignments);
-    console.log("ADMISSIONS", this.props.admissions);
     const MyVerticallyCenteredModal = (props) => {
       const handleSubmit = (event) => {
         console.log(event);
@@ -107,7 +105,7 @@ class BrainPage extends Component {
           }}
           className="align-items-center"
         >
-          {this.props.assignments.length === 0 ? (
+          {this.props.assignmentsArray.length === 0 ? (
             <Card.Img src={LogoLarge} />
           ) : (
             <Card
@@ -140,7 +138,7 @@ class BrainPage extends Component {
                 </thead>
                 <tbody>
                   {/* {this.renderAssignmentAdmissionInformation( )} */}
-                  {this.props.assignments.map((assignment) => {
+                  {this.props.assignmentsArray.map((assignment) => {
                     const historyInfo = this.props.admissions.find(
                       (admission) => {
                         return admission.id === assignment.admission.id;
@@ -212,7 +210,8 @@ class BrainPage extends Component {
 
 const mapStateToProps = (state) => ({
   user: state.user,
-  assignments: state.assignments.assignmentsArray,
+  assignments: state.user.assignments,
+  assignmentsArray: state.assignments.assignmentsArray,
   admissions: state.admissions.array,
   currentAdmission: state.admissions.currentAdmission,
   currentPatient: state.patients.currentPatient,

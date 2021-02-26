@@ -70,6 +70,7 @@ export function SelfCreateUser(props) {
         // backdrop="static"
         keyboard={false}
         size="lg"
+
       >
         <Modal.Header className="align-self-center">
           <Modal.Title>

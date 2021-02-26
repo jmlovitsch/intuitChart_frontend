@@ -12,8 +12,11 @@ import {
   OverlayTrigger,
   ListGroup,
 } from "react-bootstrap";
-import { fetchAllCareplans, fetchCreateCarePlan } from "../../../actions/careplan";
-import  PatientCarePlan  from "../../forms/PatientCarePlan";
+import {
+  fetchAllCareplans,
+  fetchCreateCarePlan,
+} from "../../../actions/careplan";
+import PatientCarePlan from "../../forms/PatientCarePlan";
 
 class CarePlan extends Component {
   state = {
@@ -61,15 +64,15 @@ class CarePlan extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     const token = localStorage.getItem("my_app_token");
-    this.props.fetchCreateCarePlan(token, {care_plan: this.state} );
+    this.props.fetchCreateCarePlan(token, { care_plan: this.state });
     this.setState({
-        author: this.props.user.id,
-        diagnosis_category: "",
-        nursing_diagnosis: "",
-        ocs: [],
-        acs: [],
-        admission_id: this.props.currentAdmission.id,
-    })
+      author: this.props.user.id,
+      diagnosis_category: "",
+      nursing_diagnosis: "",
+      ocs: [],
+      acs: [],
+      admission_id: this.props.currentAdmission.id,
+    });
   };
 
   generateOptions = (place, [...props]) => {
@@ -204,11 +207,10 @@ class CarePlan extends Component {
         </OverlayTrigger>
       );
     };
-    console.log(this.props)
+    console.log(this.props);
     return (
       <Card style={{ height: "100%", overflow: "scroll" }}>
         <Card.Body>
-            {false ?
           <Form onChange={this.handleChange} onSubmit={this.handleSubmit}>
             <Row>
               <Col>
@@ -260,11 +262,8 @@ class CarePlan extends Component {
                 </Form.Group>
               </Col>
             </Row>
-
-            <hr />
-
             <Form.Group>
-              <Row className="justify-content-end">
+              <Row style={{margin: "0"}} className="justify-content-end">
                 <Button
                   type="submit"
                   style={{
@@ -278,8 +277,17 @@ class CarePlan extends Component {
               </Row>
             </Form.Group>
           </Form>
-          :
-          <PatientCarePlan />}
+          {!!this.props.careplans ? (
+            <>
+              <hr style={{ borderColor: "#1761a0" }} />
+              <Card>
+                <Card.Header>Current Care Plans</Card.Header>
+                <Card.Body>
+                  <PatientCarePlan />
+                </Card.Body>
+              </Card>
+            </>
+          ) : null}
         </Card.Body>
       </Card>
     );
@@ -292,9 +300,12 @@ const mapStateToProps = (state) => ({
   currentAdmission: state.admissions.currentAdmission,
   currentPatient: state.patients.currentPatient,
   careplans: state.careplans.array,
-  patientCareplan: state.careplans.patientCareplan
+  patientCareplan: state.careplans.patientCareplan,
 });
 
 const mapDispatchToProps = {};
 
-export default connect(mapStateToProps, { fetchAllCareplans, fetchCreateCarePlan })(CarePlan);
+export default connect(mapStateToProps, {
+  fetchAllCareplans,
+  fetchCreateCarePlan,
+})(CarePlan);

@@ -7,30 +7,46 @@ class PatientCarePlan extends Component {
     return this.props.currentAdmission.care_plans.map((careplan, index) => {
       return (
         <Accordion>
-            <Card>
-          <Accordion.Toggle as={Button}  eventKey={index}>
-          <Card.Header>{careplan.diagnosis_category}
-            {" | "}
-            {careplan.nursing_diagnosis}</Card.Header>
-          </Accordion.Toggle>
-          <Accordion.Collapse eventKey={index}>
-              <Card>
+          <Card>
             <Card.Header>
-              <strong>Diagnosis Category:</strong> {careplan.diagnosis_category}
+              <Accordion.Toggle
+                as={Button}
+                style={{
+                  background: "none",
+                  color: "#1760a0",
+                  borderColor: "#1760a0",
+                }}
+                eventKey={index}
+              >
+                {careplan.diagnosis_category}
+                {" | "}
+                {careplan.nursing_diagnosis}
+              </Accordion.Toggle>
             </Card.Header>
-            <Card.Header>
-              <strong>Nursing Diagnosis:</strong> {careplan.nursing_diagnosis}
-            </Card.Header>
-            <Card.Header>
-              <strong>Goals/Desired Outcomes</strong>
-            </Card.Header>
-            <ul>{this.printOcs(careplan)}</ul>
-            <Card.Header>
-              <strong>Interventions/Actions</strong>
-            </Card.Header>
-            <ul>{this.printAcs(careplan)}</ul>
-            </Card>
-          </Accordion.Collapse>
+            <Accordion.Collapse eventKey={index}>
+              <Card.Body>
+                <Card.Header>
+                  <strong>Diagnosis Category:</strong>{" "}
+                  {careplan.diagnosis_category}
+                </Card.Header>
+                <Card.Header>
+                  <strong>Nursing Diagnosis:</strong>{" "}
+                  {careplan.nursing_diagnosis}
+                </Card.Header>
+                <Card.Header>
+                  <strong>Goals/Desired Outcomes</strong>
+                </Card.Header>
+                <Card.Body>
+                  <ul>{this.printOcs(careplan)}</ul>
+                </Card.Body>
+                <Card.Header>
+                  <strong>Interventions/Actions</strong>
+                </Card.Header>
+                <Card.Body>
+                  <ul>{this.printAcs(careplan)}</ul>
+                </Card.Body>
+              </Card.Body>
+            </Accordion.Collapse>
           </Card>
         </Accordion>
       );
@@ -40,31 +56,19 @@ class PatientCarePlan extends Component {
   printOcs = (careplan) => {
     if (careplan.ocs) {
       return careplan.ocs.split("-/-").map((a) => {
-        return (
-          <Card.Body>
-            <li>{a}</li>
-          </Card.Body>
-        );
+        return <li>{a}</li>;
       });
     }
   };
   printAcs = (careplan) => {
     if (careplan.acs) {
       return careplan.acs.split("-/-").map((a) => {
-        return (
-          <Card.Body>
-            <li>{a}</li>
-          </Card.Body>
-        );
+        return <li>{a}</li>;
       });
     }
   };
   render() {
-    return (
-      <div>
-        {this.printAllCarePlans()}
-      </div>
-    );
+    return <div>{this.printAllCarePlans()}</div>;
   }
 }
 

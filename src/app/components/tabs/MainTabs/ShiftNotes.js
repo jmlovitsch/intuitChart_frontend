@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Card, Form, Row, Button } from "react-bootstrap";
+import { Image, Spinner, Card, Form, Row, Button } from "react-bootstrap";
 import { connect } from "react-redux";
 import { fetchCreateMain} from "../../../actions/main"
 
@@ -27,13 +27,9 @@ class ShiftNotes extends Component {
 
   render (){
       console.log(this.state)
+
       return (
         <div style={{ height: "100%", overflow: "scroll" }}>
-            <Card>
-                {/* {this.props.admission.dailycares.map(note=>{
-                    return <div>{note.evaluation}</div>
-                })} */}
-            </Card>
         <Form style={{ padding: "0", margin: "50px" }} onChange={this.handleChange} onSubmit={this.handleSubmit}>
           <Form.Group style={{ padding: "0", margin: "0" }}>
 
